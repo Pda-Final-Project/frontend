@@ -34,7 +34,7 @@ export default function ChartTab() {
       </div>
       {/** 주식 차트 */}
       <div>
-        <Chart chartData={chartData} />
+        <Chart />
       </div>
     </div>
   );
