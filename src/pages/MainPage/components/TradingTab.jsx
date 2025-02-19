@@ -34,21 +34,21 @@ export default function TradingTab({ ticker, currentPrice }) {
     );
   };
   return (
-    <div>
+    <div className="w-full bg-gray-200 flex flex-col gap-4">
       {/** 주식 차트 */}
-      <div>
+      <div className="flex-col bg-gray-300">
         <ChartTab ticker={ticker} />
       </div>
       {/** 소수점 매수 & 매도 */}
-      <div>
-        <div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-gray-300">
           <SellBox
             currentPrice={currentPrice}
             maxQuantity={holdingQuantity}
             orderStock={orderStock}
           />
         </div>
-        <div>
+        <div className="bg-gray-300">
           <BuyBox
             currentPrice={currentPrice}
             withHolding={withHolding}
@@ -57,10 +57,9 @@ export default function TradingTab({ ticker, currentPrice }) {
         </div>
       </div>
       {/** 실시간 시세 & 체결 내역 */}
-      <div>
-        <div>
-          <MarketPriceList />
-        </div>
+
+      <div className="bg-gray-300">
+        <MarketPriceList />
       </div>
     </div>
   );

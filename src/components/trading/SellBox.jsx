@@ -27,7 +27,7 @@ export default function SellBox({ currentPrice, maxQuantity, orderStock }) {
   const totalOrderPrice = Math.floor(currentPrice * sellQuantity);
 
   return (
-    <div>
+    <div className="p-4">
       <CheckModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
@@ -61,15 +61,19 @@ export default function SellBox({ currentPrice, maxQuantity, orderStock }) {
           </button>
         ))}
       </div>
-      <div>
+      <div className="flex gap-4">
         <div>판매 가능</div>
         <div>{maxQuantity}주</div>
       </div>
-      <div>
+      <div className="flex gap-4">
         <div>예상 최종 주문 금액</div>
         <div>{totalOrderPrice}원</div>
       </div>
-      <button onClick={() => setIsModalOpen(true)} disabled={sellQuantity <= 0}>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        disabled={sellQuantity <= 0}
+        className="bg-gray-200 w-full"
+      >
         판매하기
       </button>
     </div>

@@ -27,9 +27,9 @@ export default function MarketPriceList() {
     },
   ];
   return (
-    <div>
+    <div className="p-4">
       <div>실시간 시세</div>
-      <div className="flex">
+      <div className="grid grid-cols-4 gap-4">
         <div>체결가</div>
         <div>체결량</div>
         <div>거래량</div>
@@ -37,7 +37,7 @@ export default function MarketPriceList() {
       </div>
       <div>
         {marketPrices.map((el, id) => (
-          <div key={id} className="flex gap-4">
+          <div key={id} className="grid grid-cols-4 gap-4">
             <div>{el.trade_price}</div>
             <div>{el.trade_quantity}</div>
             <div>{el.trade_volume}</div>

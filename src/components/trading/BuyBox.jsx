@@ -25,7 +25,7 @@ export default function BuyBox({ currentPrice, withHolding, orderStock }) {
   const totalOrderQuantity = parseFloat((buyPrice / currentPrice).toFixed(5));
 
   return (
-    <div>
+    <div className="p-4">
       <CheckModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
@@ -52,15 +52,19 @@ export default function BuyBox({ currentPrice, withHolding, orderStock }) {
           </button>
         ))}
       </div>
-      <div>
+      <div className="flex gap-4">
         <div>투자 가능</div>
         <div>{withHolding}원</div>
       </div>
-      <div>
+      <div className="flex gap-4">
         <div>예상 최종 주식 수</div>
         <div>{totalOrderQuantity}주</div>
       </div>
-      <button onClick={() => setIsModalOpen(true)} disabled={buyPrice <= 0}>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        disabled={buyPrice <= 0}
+        className="bg-gray-200 w-full"
+      >
         투자하기
       </button>
     </div>
