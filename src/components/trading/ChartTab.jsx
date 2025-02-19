@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Chart from "./Chart";
+import { chartData } from "./sampleStockData";
 
 const chart_type = [
   { id: "5m", title: "5분" },
@@ -8,9 +9,9 @@ const chart_type = [
   { id: "m", title: "월" },
 ];
 
-export default function ChartTab() {
+export default function ChartTab({ ticker }) {
   const [currentChartType, setCurrentChartType] = useState("5m");
-  const [chartData, setChartData] = useState([]);
+  // const [chartData, setChartData] = useState([]);
 
   const getChartData = (type) => {
     /** To do: 해당 타입에 따른 chartData 요청 */
@@ -34,7 +35,7 @@ export default function ChartTab() {
       </div>
       {/** 주식 차트 */}
       <div>
-        <Chart />
+        <Chart chartData={chartData} />
       </div>
     </div>
   );

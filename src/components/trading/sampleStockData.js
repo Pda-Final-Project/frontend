@@ -1,4 +1,4 @@
-export const stockData = [
+export const chartData = [
   {
     Date: new Date(2020, 2, 3),
     Open: 3235,

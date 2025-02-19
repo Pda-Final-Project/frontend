@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import DisclosureTab from "./components/DisclosureTab";
 import TradingTab from "./components/TradingTab";
 
 export default function index() {
+  const [ticker, setTicker] = useState("000000");
+  const [currentPrice, setCurrentPrice] = useState(30);
   return (
     <div>
       메인페이지
@@ -10,11 +12,11 @@ export default function index() {
       <div></div>
       {/** 공시탭 */}
       <div>
-        <DisclosureTab />
+        <DisclosureTab ticker={ticker} />
       </div>
       {/** 주식탭 */}
       <div>
-        <TradingTab />
+        <TradingTab ticker={ticker} currentPrice={currentPrice} />
       </div>
     </div>
   );
