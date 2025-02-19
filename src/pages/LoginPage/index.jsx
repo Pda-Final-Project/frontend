@@ -10,7 +10,7 @@ export default function Index() {
 
   const handleLogin = () => {
     if (!validatePhoneNumber(phoneNumber)) {
-      setError("전화번호는 10~11자리 숫자로 입력해 주세요.");
+      setError("전화번호는 10~11자리 숫자입니다.");
       return;
     }
     if (!validatePassword(password)) {
