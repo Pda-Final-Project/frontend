@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CheckModal from "../common/CheckModal";
 
 const moneys = [
   { id: 1000, name: "+천원" },
@@ -11,6 +12,7 @@ const moneys = [
 // 가격 기준 주식 구매
 export default function BuyBox({ currentPrice, withHolding, orderStock }) {
   const [buyPrice, setBuyPrice] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const minUnit = 1;
 
   const checkBuyPrice = (tmpPrice) => {
@@ -24,6 +26,13 @@ export default function BuyBox({ currentPrice, withHolding, orderStock }) {
 
   return (
     <div>
+      <CheckModal
+        isOpen={isModalOpen}
+        setOpen={setIsModalOpen}
+        action={() => orderStock("buy", totalOrderQuantity, buyPrice)} // action을 함수로 수정
+        title="투자 확인"
+        message={`총 가격: ${buyPrice} / 수량: ${totalOrderQuantity} 투자하시겠습니까?`}
+      />
       <div>소수점 투자하기</div>
       <div>
         <button onClick={() => checkBuyPrice(buyPrice - minUnit)}>-</button>
@@ -51,10 +60,7 @@ export default function BuyBox({ currentPrice, withHolding, orderStock }) {
         <div>예상 최종 주식 수</div>
         <div>{totalOrderQuantity}주</div>
       </div>
-      <button
-        onClick={() => orderStock("buy", totalOrderQuantity, buyPrice)}
-        disabled={buyPrice <= 0}
-      >
+      <button onClick={() => setIsModalOpen(true)} disabled={buyPrice <= 0}>
         투자하기
       </button>
     </div>
