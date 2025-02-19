@@ -11,7 +11,7 @@ const moneys = [
 // 가격 기준 주식 구매
 export default function BuyBox({ currentPrice, withHolding, orderStock }) {
   const [buyPrice, setBuyPrice] = useState(0);
-  const minUnit = 10;
+  const minUnit = 1;
 
   const checkBuyPrice = (tmpPrice) => {
     let price = parseFloat(tmpPrice) || 0;
