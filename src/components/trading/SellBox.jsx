@@ -9,14 +9,12 @@ const percents = [
 ];
 
 // 소수점 판매하기
-export default function SellBox({ currentPrice, withHolding, orderStock }) {
+export default function SellBox({ currentPrice, maxQuantity, orderStock }) {
   const [sellQuantity, setSellQuantity] = useState(0);
   const minUnit = 1; // 최소 단위 설정
-  const maxQuantity =
-    Math.floor((withHolding / currentPrice) * 10 ** 5) / 10 ** 5;
 
   const checkSellQuantity = (tmpQuantity) => {
-    let quantity = parseFloat(tmpQuantity) || 0; // NaN 방지
+    let quantity = parseFloat(tmpQuantity) || 0;
     quantity = Math.floor(quantity * 10 ** 5) / 10 ** 5; // 소수점 5자리까지 제한
 
     if (quantity >= 0 && quantity <= maxQuantity) {
@@ -24,8 +22,7 @@ export default function SellBox({ currentPrice, withHolding, orderStock }) {
     }
   };
 
-  // 🔥 최종 주문 금액 (소수점 2자리까지 유지)
-  const totalOrderPrice = Math.floor(currentPrice * sellQuantity * 100) / 100;
+  const totalOrderPrice = Math.floor(currentPrice * sellQuantity);
 
   return (
     <div>
@@ -38,7 +35,7 @@ export default function SellBox({ currentPrice, withHolding, orderStock }) {
           type="number"
           onChange={(e) => checkSellQuantity(e.target.value)}
           value={sellQuantity}
-          step={minUnit} // 소수점 5자리 단위로 입력 가능
+          step={minUnit}
         />
         <span>주</span>
         <button onClick={() => checkSellQuantity(sellQuantity + minUnit)}>

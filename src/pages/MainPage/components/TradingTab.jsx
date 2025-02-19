@@ -5,13 +5,19 @@ import BuyBox from "../../../components/trading/BuyBox";
 
 export default function TradingTab({ ticker, currentPrice }) {
   const [withHolding, setWithHolding] = useState(10000);
+  const [holdingQuantity, setHoldingQuantity] = useState(33.3333);
 
   useEffect(() => {
     bringWithHolding();
+    bringHoldingQuantity();
   }, []);
 
   const bringWithHolding = () => {
     // 예수금 가져오기
+  };
+
+  const bringHoldingQuantity = () => {
+    // 보유 주식 수 가져오기
   };
   const orderStock = (orderType, quantity, price) => {
     //매수/매도하기
@@ -37,7 +43,7 @@ export default function TradingTab({ ticker, currentPrice }) {
         <div>
           <SellBox
             currentPrice={currentPrice}
-            withHolding={withHolding}
+            maxQuantity={holdingQuantity}
             orderStock={orderStock}
           />
         </div>
