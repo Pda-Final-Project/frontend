@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ChartTab from "../../../components/trading/ChartTab";
 import SellBox from "../../../components/trading/SellBox";
 import BuyBox from "../../../components/trading/BuyBox";
+import MarketPriceList from "../../../components/trading/MarketPriceList";
 
 export default function TradingTab({ ticker, currentPrice }) {
   const [withHolding, setWithHolding] = useState(10000);
@@ -56,7 +57,11 @@ export default function TradingTab({ ticker, currentPrice }) {
         </div>
       </div>
       {/** 실시간 시세 & 체결 내역 */}
-      <div></div>
+      <div>
+        <div>
+          <MarketPriceList />
+        </div>
+      </div>
     </div>
   );
 }
