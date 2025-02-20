@@ -7,7 +7,7 @@ export default function Layout() {
   return (
     <div className="flex h-screen w-full">
       {/* 사이드바 - 왼쪽에 고정 */}
-      <aside className=" bg-gray-800 text-white h-full sticky top-0">
+      <aside className=" bg-gray- h-full sticky top-0 w-">
         <Sidebar />
       </aside>
 
