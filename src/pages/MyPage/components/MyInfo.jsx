@@ -4,7 +4,7 @@ export default function MyInfo() {
   const [account, setAccount] = useState({
     account_number: "270-74-631000",
     account_name: "CMA 종합 계좌",
-    user_name: "홍길동",
+    user_name: "김동재",
   });
 
   // 간단한 API 호출 함수 (나중에 주석 해제하면 API 연동 가능)

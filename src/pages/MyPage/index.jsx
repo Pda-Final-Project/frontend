@@ -7,11 +7,12 @@ import TradeDetails from "./components/TradeDetails";
 export default function index() {
   return (
     <div>
-      My 계좌
+      
       {/** 계좌 및 기본 정보 */}
-      <div>
+      <div/>
         <MyInfo />
-      </div>
+
+      <div className="mb-4" />
       {/** 해외 주식 잔고 */}
       <div>
         <StockBalance />
