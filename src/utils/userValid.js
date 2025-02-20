@@ -9,12 +9,6 @@ const validatePassword = (password) => {
   return regex.test(password);
 };
 
-const validateAccountNumber = (accountNumber) => {
-  //숫자만 6-14자리 허용
-  const accountRegex = /^[0-9\-]{6,14}$/;
-  return accountRegex.test(accountNumber);
-};
-
 const validateName = (accountName) => {
   //영문, 한글, 숫자 2-10자리 허용
   const nameRegex = /^[a-zA-Z가-힣0-9]{2,10}$/;
@@ -31,6 +25,5 @@ export {
   validatePassword,
   validatePhoneNumber,
   validateName,
-  validateAccountNumber,
   validateAccountPassword,
 };

@@ -5,19 +5,18 @@ import { isRegisterInfoValid } from "./checkRegisterInfo";
 export default function Register() {
   const navigate = useNavigate();
   const [registerInfo, setRegisterInfo] = useState({
-    user: { name: "", phoneNumber: "", password: "" },
-    account: { name: "", number: "", password: "" },
+    name: "",
+    phoneNumber: "",
+    password: "",
+    accountPassword: "",
   });
 
   const [error, setError] = useState("");
 
-  const handleChange = (e, category, field) => {
+  const handleChange = (e, field) => {
     setRegisterInfo((prev) => ({
       ...prev,
-      [category]: {
-        ...prev[category],
-        [field]: e.target.value,
-      },
+      [field]: e.target.value,
     }));
   };
 
@@ -38,8 +37,8 @@ export default function Register() {
           <input
             type="text"
             placeholder="이름"
-            value={registerInfo.user.name}
-            onChange={(e) => handleChange(e, "user", "name")}
+            value={registerInfo.name}
+            onChange={(e) => handleChange(e, "name")}
           />
         </div>
 
@@ -47,8 +46,8 @@ export default function Register() {
           <input
             type="text"
             placeholder="전화번호"
-            value={registerInfo.user.phoneNumber}
-            onChange={(e) => handleChange(e, "user", "phoneNumber")}
+            value={registerInfo.phoneNumber}
+            onChange={(e) => handleChange(e, "phoneNumber")}
           />
         </div>
 
@@ -56,8 +55,8 @@ export default function Register() {
           <input
             type="password"
             placeholder="비밀번호"
-            value={registerInfo.user.password}
-            onChange={(e) => handleChange(e, "user", "password")}
+            value={registerInfo.password}
+            onChange={(e) => handleChange(e, "password")}
           />
         </div>
 
@@ -66,28 +65,10 @@ export default function Register() {
 
         <div>
           <input
-            type="text"
-            placeholder="계좌명"
-            value={registerInfo.account.name}
-            onChange={(e) => handleChange(e, "account", "name")}
-          />
-        </div>
-
-        <div>
-          <input
-            type="text"
-            placeholder="계좌번호"
-            value={registerInfo.account.number}
-            onChange={(e) => handleChange(e, "account", "number")}
-          />
-        </div>
-
-        <div>
-          <input
             type="password"
             placeholder="계좌 비밀번호"
-            value={registerInfo.account.password}
-            onChange={(e) => handleChange(e, "account", "password")}
+            value={registerInfo.accountPassword}
+            onChange={(e) => handleChange(e, "accountPassword")}
           />
         </div>
 

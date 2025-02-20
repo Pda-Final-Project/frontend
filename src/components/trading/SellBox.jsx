@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CheckModal from "../common/CheckModal";
+import PasswordModal from "../common/PasswordModal";
 
 const percents = [
   { id: 0.1, name: "10%" },
@@ -28,7 +28,7 @@ export default function SellBox({ currentPrice, maxQuantity, orderStock }) {
 
   return (
     <div className="p-4">
-      <CheckModal
+      <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
         action={() => orderStock("sell", sellQuantity, totalOrderPrice)} // action을 함수로 수정
