@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DUMMY_NEWS from "./data/dummyNews"; // 더미 데이터 불러오기
+import DUMMY_NEWS from "./data/dummyNews";
 
 const TABS = ["Bloomberg", "Forbes", "Investing.com"];
 
@@ -10,7 +10,7 @@ const NEWS_SITES = {
     "Investing.com": "https://www.investing.com",
 };
 
-// 발행 시간을 "00분 전"으로 변환하는 함수
+// 발행 시간을 "00분 전"으로 변환
 const timeAgo = (dateString) => {
     const now = new Date();
     const past = new Date(dateString);
@@ -30,7 +30,7 @@ export default function News() {
     return (
         <div className="p-4">
             {/* 제목 */}
-            <h1 className="text-2xl font-bold">🌍 글로벌 경제 뉴스</h1>
+            <h1 className="text-2xl font-bold">글로벌 경제 뉴스</h1>
 
             {/* 탭 메뉴 */}
             <div className="flex space-x-4 my-4 border-b">
@@ -47,7 +47,7 @@ export default function News() {
                 ))}
             </div>
 
-            {/* 가로 스크롤 컨테이너 */}
+            {/* 컨테이너 */}
             <div className="overflow-x-auto mt-4">
                 <div className="flex space-x-4 p-4 rounded-lg min-w-max">
                     {DUMMY_NEWS[activeTab].slice(0, 10).map((article, index) => (

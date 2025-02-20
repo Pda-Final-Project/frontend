@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import DUMMY_STOCKS from "./data/dummyStocks"; // 더미 데이터 불러오기
+import DUMMY_STOCKS from "./data/dummyStocks";
 
 export default function Stocks() {
   const navigate = useNavigate();
@@ -13,14 +13,14 @@ export default function Stocks() {
       {/* 컨테이너 */}
       <div className="mt-4 p-4 rounded-lg">
         
-        {/* 테이블 헤더 */}
+        {/* 헤더 */}
         <div className="flex justify-between bg-gray-100 text-black font-bold p-4 rounded-lg mb-2">
           <p className="w-1/3 text-lg text-center">종목명 / 종목코드</p>
           <p className="w-1/3 text-lg text-center">현재가</p>
           <p className="w-1/3 text-lg text-center">등락률</p>
         </div>
 
-        {/* 데이터 목록 */}
+        {/* 데이터 */}
         {DUMMY_STOCKS.slice(0, 5).map((stock, index) => (
           <div
             key={index}
@@ -35,13 +35,14 @@ export default function Stocks() {
             {/* 현재가 */}
             <p className="w-1/3 text-center text-lg font-semibold">{stock.price.toFixed(2)}</p>
 
-            {/* 등락률 (양수/음수 색상 처리) */}
+            {/* 등락률 (양:빨강, 음:파랑) */}
             <p
               className={`w-1/3 text-center text-lg font-bold ${
                 stock.changePercent < 0 ? "text-blue-500" : "text-red-500"
               }`}
             >
               {stock.changePercent < 0 ? "🔻" : "🔺"} {stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
+              {/* 역세모 빨강말고 파랑은 없어서 임시로 지정함 나중에 바꿔야 함 */}
             </p>
           </div>
         ))}
