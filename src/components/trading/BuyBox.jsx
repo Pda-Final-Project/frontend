@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import CheckModal from "../common/CheckModal";
+import React, { useEffect, useState } from "react";
+import PasswordModal from "../common/PasswordModal";
 
 const moneys = [
   { id: 1000, name: "+천원" },
@@ -13,6 +13,11 @@ const moneys = [
 export default function BuyBox({ currentPrice, withHolding, orderStock }) {
   const [buyPrice, setBuyPrice] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState({
+    price: "",
+    quantity: "",
+    type: "투자",
+  });
   const minUnit = 1;
 
   const checkBuyPrice = (tmpPrice) => {
@@ -24,14 +29,20 @@ export default function BuyBox({ currentPrice, withHolding, orderStock }) {
 
   const totalOrderQuantity = parseFloat((buyPrice / currentPrice).toFixed(5));
 
+  const openModal = () => {
+    modalMessage.price = buyPrice;
+    modalMessage.quantity = totalOrderQuantity;
+    setModalMessage(modalMessage);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="p-4">
-      <CheckModal
+      <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
         action={() => orderStock("buy", totalOrderQuantity, buyPrice)} // action을 함수로 수정
-        title="투자 확인"
-        message={`총 가격: ${buyPrice} / 수량: ${totalOrderQuantity} 투자하시겠습니까?`}
+        message={modalMessage}
       />
       <div>소수점 투자하기</div>
       <div>
@@ -61,7 +72,7 @@ export default function BuyBox({ currentPrice, withHolding, orderStock }) {
         <div>{totalOrderQuantity}주</div>
       </div>
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => openModal()}
         disabled={buyPrice <= 0}
         className="bg-gray-200 w-full"
       >

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CheckModal from "../common/CheckModal";
+import PasswordModal from "../common/PasswordModal";
 
 const percents = [
   { id: 0.1, name: "10%" },
@@ -13,6 +13,11 @@ const percents = [
 export default function SellBox({ currentPrice, maxQuantity, orderStock }) {
   const [sellQuantity, setSellQuantity] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState({
+    price: "",
+    quantity: "",
+    type: "판매",
+  });
   const minUnit = 1;
 
   const checkSellQuantity = (tmpQuantity) => {
@@ -26,14 +31,20 @@ export default function SellBox({ currentPrice, maxQuantity, orderStock }) {
 
   const totalOrderPrice = Math.floor(currentPrice * sellQuantity);
 
+  const openModal = () => {
+    modalMessage.price = totalOrderPrice;
+    modalMessage.quantity = sellQuantity;
+    setModalMessage(modalMessage);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="p-4">
-      <CheckModal
+      <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
         action={() => orderStock("sell", sellQuantity, totalOrderPrice)} // action을 함수로 수정
-        title="판매 확인"
-        message={`총 가격: ${totalOrderPrice} / 수량: ${sellQuantity} 판매하시겠습니까?`}
+        message={modalMessage}
       />
       <div>소수점 판매하기</div>
       <div>
@@ -70,7 +81,7 @@ export default function SellBox({ currentPrice, maxQuantity, orderStock }) {
         <div>{totalOrderPrice}원</div>
       </div>
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => openModal()}
         disabled={sellQuantity <= 0}
         className="bg-gray-200 w-full"
       >
