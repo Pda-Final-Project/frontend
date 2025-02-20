@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validatePassword, validatePhoneNumber } from "../../utils/userValid";
+import { login } from "../../api/authApi";
 
 export default function Index() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -9,18 +10,40 @@ export default function Index() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (!validatePhoneNumber(phoneNumber)) {
-      setError("전화번호는 10~11자리 숫자입니다.");
+    // 유효성 검사
+    const validationError = checkLogin();
+    if (validationError) {
+      setError(validationError);
       return;
+    }
+
+    setError("");
+    // tryLogin();
+  };
+
+  const checkLogin = () => {
+    if (!validatePhoneNumber(phoneNumber)) {
+      return "전화번호는 10~11자리 숫자입니다.";
     }
     if (!validatePassword(password)) {
-      setError("비밀번호는 6자 이상의 영문, 숫자 조합이어야 합니다.");
-      return;
+      return "비밀번호는 6자 이상의 영문, 숫자 조합이어야 합니다.";
     }
-    setError("");
+    return null; // 유효성 통과
+  };
 
-    // 로그인 처리
-    console.log("로그인 시도", phoneNumber, password);
+  //login api 호출
+  const tryLogin = async () => {
+    try {
+      const response = await login(phoneNumber, password);
+      if (response.data.status === "success") {
+        sessionStorage.setItem("accessToken", response.data.data.accessToken);
+        navigate("../");
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
