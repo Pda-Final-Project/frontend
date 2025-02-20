@@ -34,7 +34,7 @@ export default function ChartTab({ ticker }) {
         ))}
       </div>
       {/** 주식 차트 */}
-      <div>
+      <div className="z-0">
         <Chart chartData={chartData} />
       </div>
     </div>

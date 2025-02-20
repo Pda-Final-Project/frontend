@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function InterestStockTab() {
   const [stocks, setStocks] = useState([
@@ -12,6 +13,7 @@ export default function InterestStockTab() {
   ]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     //api 연결 후 적용
@@ -39,7 +41,7 @@ export default function InterestStockTab() {
   useEffect(() => {}, []);
 
   return (
-    <div className="h-full w-80 bg-white z-50">
+    <div className="h-full w-80 bg-white z- 50">
       {/* 내부 사이드바 헤더 */}
       <div className="p-4 flex justify-between">
         <h2 className="text-lg font-semibold">My 관심종목</h2>
@@ -48,7 +50,13 @@ export default function InterestStockTab() {
       {/* 내부 콘텐츠 */}
       <div className="p-4">
         {stocks.map((el) => (
-          <div key={el.stock_ticker} className="flex  justify-between">
+          <div
+            key={el.stock_ticker}
+            className="flex  justify-between"
+            onClick={() => {
+              navigate(`/main/${el.stock_ticker}`);
+            }}
+          >
             <div className="flex items-center">
               <img
                 src={`${import.meta.env.VITE_STOCK_LOGO_URL}${

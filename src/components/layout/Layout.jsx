@@ -7,12 +7,12 @@ export default function Layout() {
   return (
     <div className="flex h-screen w-full">
       {/* 사이드바 - 왼쪽에 고정 */}
-      <aside className=" bg-gray- h-full sticky top-0 w-">
+      <aside className="h-full top-0">
         <Sidebar />
       </aside>
 
       {/* 메인 컨텐츠 영역 */}
-      <div className="flex flex-col flex-grow">
+      <div className="relative left-20 flex flex-col flex-grow">
         {/* 헤더 */}
         <header className="bg-gray-200">
           <Header />

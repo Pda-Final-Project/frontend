@@ -6,7 +6,7 @@ IgrFinancialChartModule.register();
 
 const Chart = ({ chartData }) => {
   return (
-    <div className="container sample">
+    <div className="z-0">
       <div className="container">
         <IgrFinancialChart
           width="100%"

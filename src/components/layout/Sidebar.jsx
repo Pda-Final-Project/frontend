@@ -22,7 +22,7 @@ export default function Sidebar() {
   return (
     <>
       {/* 바깥 사이드바 */}
-      <div className="fixed left-0 top-0 h-full w-20 bg-gray-300  z-50 p-4">
+      <div className="fixed left-0 top-0 h-full w-20 bg-gray-300 p-4">
         <div className="space-y-4">
           <div
             onClick={() => handleSidebar("interest")}
