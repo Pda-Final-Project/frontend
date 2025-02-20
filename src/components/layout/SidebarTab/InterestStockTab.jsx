@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 export default function InterestStockTab() {
   const [stocks, setStocks] = useState([
     {
-      stock_ticker: "NVDA",
-      stock_name: "엔비디아",
-      current_price: 1000,
+      ticker: "NVDA",
+      name: "엔비디아",
+      price: 1000,
       change_rate: 1.23,
       pinned: true,
     },
@@ -38,38 +38,36 @@ export default function InterestStockTab() {
     // fetchStocks();
   }, []);
 
-  useEffect(() => {}, []);
-
   return (
     <div className="h-full w-80 bg-white z- 50">
       {/* 내부 사이드바 헤더 */}
       <div className="p-4 flex justify-between">
-        <h2 className="text-lg font-semibold">My 관심종목</h2>
+        <h2 className="text-lg font-semibold">My 관심</h2>
       </div>
 
       {/* 내부 콘텐츠 */}
       <div className="p-4">
-        {stocks.map((el) => (
+        {stocks.map((stock) => (
           <div
-            key={el.stock_ticker}
+            key={stock.ticker}
             className="flex  justify-between"
             onClick={() => {
-              navigate(`/main/${el.stock_ticker}`);
+              navigate(`/main/${stock.ticker}`);
             }}
           >
             <div className="flex items-center">
               <img
                 src={`${import.meta.env.VITE_STOCK_LOGO_URL}${
-                  el.stock_ticker
+                  stock.ticker
                 }.png`}
                 className="w-12 h-12 rounded-full"
               />
-              <div>{el.stock_name}</div>
+              <div>{stock.name}</div>
             </div>
 
             <div>
-              <div>{el.current_price}</div>
-              <div>{el.change_rate}</div>
+              <div>{stock.price}원</div>
+              <div>{stock.change_rate}</div>
             </div>
           </div>
         ))}
