@@ -3,7 +3,7 @@ import api from "./axiosInstance";
 const login = (phoneNumber, password) =>
   api.post("/auth/login", { phoneNumber, password }, { isAuthRequired: false });
 const register = (userData) =>
-  api.post("auth/signup", userData, { isAuthRequired: false });
+  api.post("/auth/signup", userData, { isAuthRequired: false });
 const logout = () => {
   sessionStorage.removeItem("accessToken");
   console.log("로그아웃 완료!");
