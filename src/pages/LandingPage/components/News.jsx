@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DUMMY_NEWS from "./data/dummyNews";
+import { timeAgo } from "../../../utils/timeAgo";
 
 const TABS = ["Bloomberg", "Forbes", "Investing.com"];
 
@@ -8,20 +9,6 @@ const NEWS_SITES = {
     Bloomberg: "https://www.bloomberg.com",
     Forbes: "https://www.forbes.com",
     "Investing.com": "https://www.investing.com",
-};
-
-// 발행 시간을 "00분 전"으로 변환
-const timeAgo = (dateString) => {
-    const now = new Date();
-    const past = new Date(dateString);
-    const diff = Math.floor((now - past) / (1000 * 60)); // 분 단위 차이 계산
-
-    if (diff < 1) return "방금 전";
-    if (diff < 60) return `${diff}분 전`;
-    const hours = Math.floor(diff / 60);
-    if (hours < 24) return `${hours}시간 전`;
-    const days = Math.floor(hours / 24);
-    return `${days}일 전`;
 };
 
 export default function News() {
@@ -63,7 +50,7 @@ export default function News() {
                                 <h2 className="mt-2 font-bold text-lg">{article.news_title}</h2>
                                 {/* 출처 및 시간 ("00분 전" 표시) */}
                                 <p className="text-sm text-gray-600">
-                                    {article.news_company} • {timeAgo(article.news_date)}
+                                    {article.news_company} • {timeAgo(article.news_date)}  {/* ✅ timeAgo 함수 사용 */}
                                 </p>
                             </div>
                         </a>
