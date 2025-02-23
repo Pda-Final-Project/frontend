@@ -51,7 +51,11 @@ export default function Index() {
   return (
     <div className="grid grid-cols-2 w-full h-screen">
       <div className="bg-white flex flex-col">
-        <img src="../../../public/images/logo.png" className="w-48" />
+        <img
+          src="../../../public/images/logo.png"
+          className="w-48 cursor-pointer"
+          onClick={() => navigate("../")}
+        />
         <img
           src="../../../public/images/login.jpg"
           className="h-auto w-2xl absolute left-0 bottom-0"
