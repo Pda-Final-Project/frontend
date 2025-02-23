@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ChartTab from "../../../components/trading/ChartTab";
 import SellBox from "../../../components/trading/SellBox";
-import BuyBox from "../../../components/trading/BuyBox2";
+import BuyBox from "../../../components/trading/BuyBox";
 import MarketPriceList from "../../../components/trading/MarketPriceList";
 
 export default function TradingTab({ ticker, currentPrice }) {
@@ -42,11 +42,7 @@ export default function TradingTab({ ticker, currentPrice }) {
       {/** 매수 & 매도 */}
       <div className="grid grid-cols-2 gap-4 w-full h-full">
         <div>
-          <BuyBox
-            currentPrice={currentPrice}
-            withHolding={withHolding}
-            orderStock={orderStock}
-          />
+          <BuyBox withHolding={withHolding} orderStock={orderStock} />
         </div>
         <div>
           <SellBox maxQuantity={holdingQuantity} orderStock={orderStock} />

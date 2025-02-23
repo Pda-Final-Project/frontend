@@ -10,8 +10,8 @@ const percents = [
 ];
 
 export default function SellBox({ maxQuantity, orderStock }) {
-  const [sellQuantity, setSellQuantity] = useState();
-  const [sellPrice, setSellPrice] = useState();
+  const [sellQuantity, setSellQuantity] = useState(0);
+  const [sellPrice, setSellPrice] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     price: "",
