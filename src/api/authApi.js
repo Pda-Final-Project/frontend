@@ -1,7 +1,7 @@
 //로그인, 회원가입
 import api from "./axiosInstance";
-const login = (phoneNumber, password) =>
-  api.post("/auth/login", { phoneNumber, password }, { isAuthRequired: false });
+const login = (userData) =>
+  api.post("/auth/login", userData, { isAuthRequired: false });
 const register = (userData) =>
   api.post("/auth/join", userData, { isAuthRequired: false });
 const logout = () => {

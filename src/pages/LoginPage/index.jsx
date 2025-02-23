@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validatePassword, validatePhoneNumber } from "../../utils/userValid";
 import { login } from "../../api/authApi";
 
 export default function Index() {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginData, setLoginData] = useState({
+    userPhone: "",
+    userPassword: "",
+  });
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -18,15 +21,15 @@ export default function Index() {
     }
 
     setError("");
-    // tryLogin();
+    tryLogin();
   };
 
   const checkLogin = () => {
-    if (!validatePhoneNumber(phoneNumber)) {
+    if (!validatePhoneNumber(loginData.userPhone)) {
       return "전화번호는 10~11자리 숫자입니다.";
     }
-    if (!validatePassword(password)) {
-      return "비밀번호는 6자 이상의 영문, 숫자 조합이어야 합니다.";
+    if (!validatePassword(loginData.userPassword)) {
+      return "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자를 포함해야 합니다.";
     }
     return null; // 유효성 통과
   };
@@ -34,15 +37,14 @@ export default function Index() {
   //login api 호출
   const tryLogin = async () => {
     try {
-      const response = await login(phoneNumber, password);
-      if (response.data.status === "success") {
-        sessionStorage.setItem("accessToken", response.data.data.accessToken);
+      const response = await login(loginData);
+      if (response.data.status === "OK") {
+        sessionStorage.setItem("accessToken", response.data.data);
+        alert(response.data.message);
         navigate("../");
-      } else {
-        console.log(response.data.message);
       }
     } catch (error) {
-      console.error(error);
+      alert("로그인에 실패했습니다...");
     }
   };
 
@@ -54,16 +56,20 @@ export default function Index() {
         {/* 전화번호 입력 */}
         <input
           placeholder="전화번호"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          value={loginData.userPhone}
+          onChange={(e) =>
+            setLoginData((prev) => ({ ...prev, userPhone: e.target.value }))
+          }
         />
 
         {/* 비밀번호 입력 */}
         <input
           type="password"
           placeholder="비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={loginData.userPassword}
+          onChange={(e) =>
+            setLoginData((prev) => ({ ...prev, userPassword: e.target.value }))
+          }
         />
 
         {/* 에러 메시지 */}
