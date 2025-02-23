@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isRegisterInfoValid } from "./checkRegisterInfo";
+import { register } from "../../api/authApi";
 
 export default function Register() {
   const navigate = useNavigate();
   const [registerInfo, setRegisterInfo] = useState({
-    name: "",
-    phoneNumber: "",
-    password: "",
+    userName: "",
+    userPhone: "",
+    userPassword: "",
     accountPassword: "",
   });
 
@@ -22,7 +23,21 @@ export default function Register() {
 
   const handleRegister = () => {
     if (isRegisterInfoValid(registerInfo, setError)) {
-      console.log(registerInfo);
+      tryRegister(registerInfo);
+      setError("");
+    }
+  };
+
+  const tryRegister = async (registerInfo) => {
+    try {
+      const response = await register(registerInfo);
+      if (response.data.status === "CREATED") {
+        alert(response.data.data);
+        navigate("../login");
+      }
+    } catch (error) {
+      alert("회원가입에 실패했습니다...");
+      console.log(error);
     }
   };
 
@@ -37,8 +52,8 @@ export default function Register() {
           <input
             type="text"
             placeholder="이름"
-            value={registerInfo.name}
-            onChange={(e) => handleChange(e, "name")}
+            value={registerInfo.userName}
+            onChange={(e) => handleChange(e, "userName")}
           />
         </div>
 
@@ -46,8 +61,8 @@ export default function Register() {
           <input
             type="text"
             placeholder="전화번호"
-            value={registerInfo.phoneNumber}
-            onChange={(e) => handleChange(e, "phoneNumber")}
+            value={registerInfo.userPhone}
+            onChange={(e) => handleChange(e, "userPhone")}
           />
         </div>
 
@@ -55,8 +70,8 @@ export default function Register() {
           <input
             type="password"
             placeholder="비밀번호"
-            value={registerInfo.password}
-            onChange={(e) => handleChange(e, "password")}
+            value={registerInfo.userPassword}
+            onChange={(e) => handleChange(e, "userPassword")}
           />
         </div>
 
