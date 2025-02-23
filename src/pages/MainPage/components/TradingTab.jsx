@@ -34,7 +34,7 @@ export default function TradingTab({ ticker, currentPrice }) {
     );
   };
   return (
-    <div className="w-full bg-gray-100 h-full grid grid-rows-3 gap-4">
+    <div className="w-full h-full flex flex-col space-y-4">
       {/** 주식 차트 */}
       <div className="flex-col w-full h-full">
         <ChartTab ticker={ticker} />
@@ -50,7 +50,7 @@ export default function TradingTab({ ticker, currentPrice }) {
       </div>
       {/** 실시간 시세 & 체결 내역 */}
 
-      <div className="bg-gray-300 w-full h-full">
+      <div className="w-full h-full">
         <MarketPriceList />
       </div>
     </div>

@@ -50,7 +50,7 @@ export default function BuyBox({ withHolding, orderStock }) {
   };
 
   return (
-    <div className="bg-white p-4 flex flex-col rounded-lg">
+    <div className="bg-white p-4 flex flex-col rounded-lg text-sm">
       <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
@@ -60,7 +60,7 @@ export default function BuyBox({ withHolding, orderStock }) {
       {/** 제목 */}
       <div className="font-semibold text-lg">주문하기</div>
       {/** 판매 입력 */}
-      <div className="flex flex-col space-y-4 py-4 border-b-1 border-gray-md">
+      <div className="flex flex-col space-y-2 py-2 border-b-1 border-gray-md">
         <div className="flex items-center">
           <div className="font-semibold w-32">주문가격</div>
           <input
@@ -94,7 +94,7 @@ export default function BuyBox({ withHolding, orderStock }) {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between py-4">
+      <div className="flex items-center justify-between py-2">
         <div className="font-semibold">총 주문 금액</div>
         <div className="font-semibold">{totalOrderPrice}원</div>
       </div>
