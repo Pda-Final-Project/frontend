@@ -16,9 +16,6 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <LandingPage /> },
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
-      { path: "/login", element: <LoginPage /> },
       { path: "/my_page", element: <MyPage /> },
       { path: "/stocks", element: <StockListPage /> },
       { path: "/disclosures", element: <DisclosureListPage /> },
@@ -29,6 +26,8 @@ const router = createBrowserRouter([
       { path: "/main/:stock_ticker", element: <MainPage /> },
     ],
   },
+  { path: "/login", element: <LoginPage /> },
+  { path: "/register", element: <RegisterPage /> },
 ]);
 
 export default router;

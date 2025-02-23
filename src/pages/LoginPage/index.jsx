@@ -49,39 +49,60 @@ export default function Index() {
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="bg-gray-200 flex flex-col items-center p-4 w-full max-w-md">
-        <h1>Finpago 시작하기</h1>
-
-        {/* 전화번호 입력 */}
-        <input
-          placeholder="전화번호"
-          value={loginData.userPhone}
-          onChange={(e) =>
-            setLoginData((prev) => ({ ...prev, userPhone: e.target.value }))
-          }
+    <div className="grid grid-cols-2 w-full h-screen">
+      <div className="bg-white flex flex-col">
+        <img src="../../../public/images/logo.png" className="w-48" />
+        <img
+          src="../../../public/images/login.jpg"
+          className="h-auto w-2xl absolute left-0 bottom-0"
         />
+      </div>
+      <div className="bg-blue-md h-screen flex items-center justify-center">
+        <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
+          <h1 className="font-bold text-3xl">FinPago 시작하기</h1>
+          <div className="flex flex-col space-y-4 w-full">
+            {/* 전화번호 입력 */}
+            <input
+              placeholder="전화번호"
+              value={loginData.userPhone}
+              onChange={(e) =>
+                setLoginData((prev) => ({ ...prev, userPhone: e.target.value }))
+              }
+              className="input-style"
+            />
 
-        {/* 비밀번호 입력 */}
-        <input
-          type="password"
-          placeholder="비밀번호"
-          value={loginData.userPassword}
-          onChange={(e) =>
-            setLoginData((prev) => ({ ...prev, userPassword: e.target.value }))
-          }
-        />
+            {/* 비밀번호 입력 */}
+            <input
+              type="password"
+              placeholder="비밀번호"
+              value={loginData.userPassword}
+              onChange={(e) =>
+                setLoginData((prev) => ({
+                  ...prev,
+                  userPassword: e.target.value,
+                }))
+              }
+              className="input-style"
+            />
+            {/* 에러 메시지 */}
+            {error && (
+              <div className="text-red-500 text-center text-sm">{error}</div>
+            )}
+          </div>
 
-        {/* 에러 메시지 */}
-        {error && <div className="text-red-500">{error}</div>}
+          {/* 로그인 버튼 */}
+          <button onClick={handleLogin} className="button-style">
+            로그인
+          </button>
 
-        {/* 로그인 버튼 */}
-        <button onClick={handleLogin} className=" w-full">
-          로그인
-        </button>
-
-        {/* 회원가입 버튼 */}
-        <div onClick={() => navigate("../register")}>회원가입하러 가기</div>
+          {/* 회원가입 버튼 */}
+          <div
+            onClick={() => navigate("../register")}
+            className="text-sm hover:underline cursor-pointer"
+          >
+            회원가입하러 가기
+          </div>
+        </div>
       </div>
     </div>
   );
