@@ -5,7 +5,7 @@ import Stocks from "./components/Stocks";
 
 export default function index() {
   return (
-    <div>
+    <div className="flex flex-col w-full">
       {/** 실시간 공시 정보 */}
       <div>
         <Disclosures />

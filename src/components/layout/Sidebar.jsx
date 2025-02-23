@@ -25,29 +25,29 @@ export default function Sidebar() {
   return (
     <>
       {/* 바깥 사이드바 */}
-      <div className="fixed left-0 top-0 h-full w-20 bg-white p-4 px-2 border-r-1 border-gray-md text-gray-md">
+      <div className="fixed left-0 top-0 h-full w-20 bg-gray-light p-4 px-2 border-r-1 border-gray-md text-gray-md">
         <div className="space-y-4">
           <div
             onClick={() => handleSidebar("interest")}
-            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-gray-light rounded-md font-semibold space-y-2 ${
+            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-blue-light rounded-lg font-semibold space-y-2 ${
               currentSidebar == "interest" && isOpen
-                ? "text-blue-md bg-gray-light"
+                ? "text-blue-md bg-blue-light"
                 : ""
             }`}
           >
             <FaHeart />
-            <div className="text-sm">관심종목</div>
+            <div className="text-sm">관심주식</div>
           </div>
           <div
             onClick={() => handleSidebar("holding")}
-            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-gray-light rounded-md font-semibold space-y-2 ${
+            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-blue-light rounded-lg font-semibold space-y-2 ${
               currentSidebar == "holding" && isOpen
-                ? "text-blue-md bg-gray-light"
+                ? "text-blue-md bg-blue-light"
                 : ""
             }`}
           >
             <GoGraph />
-            <div className="text-sm">보유종목</div>
+            <div className="text-sm">보유주식</div>
           </div>
         </div>
       </div>
@@ -56,7 +56,8 @@ export default function Sidebar() {
       {isOpen && (
         <>
           <div
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-50"
+            a
             onClick={() => setIsOpen(false)}
           ></div>
           <div className="fixed left-20 top-0 h-full w-80 bg-white z-50">

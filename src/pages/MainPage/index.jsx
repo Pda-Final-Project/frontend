@@ -8,7 +8,7 @@ export default function index() {
   return (
     <div className="flex flex-col w-full">
       {/** 종목 기본 정보(로고, 종목명, 종목 코드, 현재가, 변동률) */}
-      <div className="bg-gray-200">
+      <div className="bg-gray-400">
         <div>로고</div>
       </div>
       <div className="w-full grid grid-cols-2">
