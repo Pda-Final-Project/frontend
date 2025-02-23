@@ -20,10 +20,10 @@ const router = createBrowserRouter([
       { path: "/stocks", element: <StockListPage /> },
       { path: "/disclosures", element: <DisclosureListPage /> },
       {
-        path: "/disclosures/:disclosure_id",
+        path: "/disclosures/:filling_id",
         element: <DisclosureDetailPage />,
       },
-      { path: "/main/:stock_ticker", element: <MainPage /> },
+      { path: "/main/:stock_ticker/:filling_id", element: <MainPage /> },
     ],
   },
   { path: "/login", element: <LoginPage /> },

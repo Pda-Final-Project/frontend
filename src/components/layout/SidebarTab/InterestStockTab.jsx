@@ -76,7 +76,7 @@ export default function InterestStockTab() {
             key={stock.ticker}
             className="flex justify-between p-2 hover:bg-blue-light duration-300 rounded-lg cursor-pointer"
             onClick={() => {
-              navigate(`/main/${stock.ticker}`);
+              navigate(`/main/${stock.ticker}/all`);
             }}
           >
             <div className="flex items-center space-x-2">
