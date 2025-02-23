@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PasswordModal from "../common/PasswordModal";
 
 const percents = [
@@ -9,30 +9,41 @@ const percents = [
   { id: 1, name: "전량" },
 ];
 
-export default function SellBox2({ maxQuantity, orderStock }) {
-  const [sellQuantity, setSellQuantity] = useState(0);
-  const [sellPrice, setSellPrice] = useState(0);
+export default function BuyBox({ withHolding, orderStock }) {
+  const [buyQuantity, setBuyQuantity] = useState();
+  const [buyPrice, setBuyPrice] = useState();
+  const [maxQuantity, setMaxQuantity] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     price: "",
     quantity: "",
-    type: "판매",
+    type: "주문",
   });
 
-  const checkSellQuantity = (tmpQuantity) => {
+  //지정가에 대해 구매 가능한 최대 주수
+  useEffect(() => {
+    if (buyPrice > 0) {
+      setMaxQuantity(Math.floor(withHolding / buyPrice));
+    } else {
+      setMaxQuantity(0);
+    }
+    setBuyQuantity(maxQuantity);
+  }, [buyPrice, withHolding]);
+
+  const checkBuyQuantity = (tmpQuantity) => {
     let quantity = parseFloat(tmpQuantity) || 0;
     quantity = Math.floor(quantity);
 
     if (quantity >= 0 && quantity <= maxQuantity) {
-      setSellQuantity(quantity);
+      setBuyQuantity(quantity);
     }
   };
 
-  const totalOrderPrice = Math.floor(sellPrice * sellQuantity);
+  const totalOrderPrice = Math.floor(buyPrice * buyQuantity);
 
   const openModal = () => {
     modalMessage.price = totalOrderPrice;
-    modalMessage.quantity = sellQuantity;
+    modalMessage.quantity = buyQuantity;
     setModalMessage(modalMessage);
     setIsModalOpen(true);
   };
@@ -42,37 +53,38 @@ export default function SellBox2({ maxQuantity, orderStock }) {
       <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
-        action={() => orderStock("sell", sellQuantity, totalOrderPrice)} // action을 함수로 수정
+        action={() => orderStock("sell", buyQuantity, totalOrderPrice)} // action을 함수로 수정
         message={modalMessage}
       />
       {/** 제목 */}
-      <div className="font-semibold text-lg">판매하기</div>
+      <div className="font-semibold text-lg">주문하기</div>
       {/** 판매 입력 */}
       <div className="flex flex-col space-y-4 py-4 border-b-1 border-gray-md">
         <div className="flex items-center">
-          <div className="font-semibold w-32">판매가격</div>
+          <div className="font-semibold w-32">주문가격</div>
           <input
             type="number"
             className="input-style text-sm"
-            onChange={(e) => setSellPrice(e.target.value)}
-            value={sellPrice}
+            onChange={(e) => setBuyPrice(e.target.value)}
+            value={buyPrice}
           />
         </div>
         <div className="flex items-start">
-          <div className="font-semibold w-32 py-2">판매수량</div>
+          <div className="font-semibold w-32 py-2">주문수량</div>
           <div className="w-full flex flex-col space-y-2">
             <input
               type="number"
               className="input-style text-sm"
               placeholder={`최대 ${maxQuantity}주 가능`}
-              value={sellQuantity}
+              value={buyQuantity}
+              onChange={(e) => setBuyQuantity(e.target.value)}
             />
             <div className="flex gap-2">
               {percents.map((percent) => (
                 <button
                   key={percent.id}
                   className="white-button-style"
-                  onClick={() => checkSellQuantity(maxQuantity * percent.id)}
+                  onClick={() => checkBuyQuantity(maxQuantity * percent.id)}
                 >
                   {percent.name}
                 </button>
@@ -82,15 +94,17 @@ export default function SellBox2({ maxQuantity, orderStock }) {
         </div>
       </div>
       <div className="flex items-center justify-between py-4">
-        <div className="font-semibold">총 판매 금액</div>
+        <div className="font-semibold">총 주문 금액</div>
         <div className="font-semibold">{totalOrderPrice}원</div>
       </div>
       <button
         className="button-style"
         onClick={() => openModal()}
-        disabled={sellQuantity <= 0}
+        disabled={
+          buyQuantity <= 0 || buyQuantity > maxQuantity || totalOrderPrice <= 0
+        }
       >
-        판매하기
+        구매하기
       </button>
     </div>
   );
