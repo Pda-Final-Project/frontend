@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ChartTab from "../../../components/trading/ChartTab";
-import SellBox from "../../../components/trading/SellBox";
+import SellBox2 from "../../../components/trading/SellBox2";
 import BuyBox from "../../../components/trading/BuyBox";
 import MarketPriceList from "../../../components/trading/MarketPriceList";
 
 export default function TradingTab({ ticker, currentPrice }) {
   const [withHolding, setWithHolding] = useState(10000);
-  const [holdingQuantity, setHoldingQuantity] = useState(33.3333);
+  const [holdingQuantity, setHoldingQuantity] = useState(50);
 
   useEffect(() => {
     bringWithHolding();
@@ -34,19 +34,15 @@ export default function TradingTab({ ticker, currentPrice }) {
     );
   };
   return (
-    <div className="w-full bg-gray-200 flex flex-col gap-4">
+    <div className="w-full bg-gray-100 flex flex-col items-center justify-center h-full space-y-4">
       {/** 주식 차트 */}
-      <div className="flex-col bg-gray-300">
+      <div className="flex-col bg-gray-300 w-full h-full">
         <ChartTab ticker={ticker} />
       </div>
-      {/** 소수점 매수 & 매도 */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-gray-300">
-          <SellBox
-            currentPrice={currentPrice}
-            maxQuantity={holdingQuantity}
-            orderStock={orderStock}
-          />
+      {/** 매수 & 매도 */}
+      <div className="grid grid-cols-2 gap-4 w-full h-full">
+        <div>
+          <SellBox2 maxQuantity={holdingQuantity} orderStock={orderStock} />
         </div>
         <div className="bg-gray-300">
           <BuyBox
@@ -58,7 +54,7 @@ export default function TradingTab({ ticker, currentPrice }) {
       </div>
       {/** 실시간 시세 & 체결 내역 */}
 
-      <div className="bg-gray-300">
+      <div className="bg-gray-300 w-full h-full">
         <MarketPriceList />
       </div>
     </div>

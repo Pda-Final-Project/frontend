@@ -8,8 +8,11 @@
   --color-blue-light: #e5f3ff;
 }
 .input-style {
-  @apply border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full;
+  @apply border border-gray-md px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full;
 }
 .button-style {
   @apply bg-blue-md px-8 py-2 rounded-lg w-full text-white hover:bg-blue-light hover:text-black cursor-pointer duration-300;
+}
+.white-button-style {
+  @apply bg-white px-2 py-1 border-1 border-gray-md font-semibold rounded-lg w-full hover:bg-blue-md duration-300;
 }

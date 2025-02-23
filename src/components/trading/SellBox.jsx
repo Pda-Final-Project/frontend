@@ -46,21 +46,15 @@ export default function SellBox({ currentPrice, maxQuantity, orderStock }) {
         action={() => orderStock("sell", sellQuantity, totalOrderPrice)} // action을 함수로 수정
         message={modalMessage}
       />
-      <div>소수점 판매하기</div>
+      <div>판매하기</div>
       <div>
-        <button onClick={() => checkSellQuantity(sellQuantity - minUnit)}>
-          -
-        </button>
+        <div>판매가격</div>
         <input
           type="number"
           onChange={(e) => checkSellQuantity(e.target.value)}
           value={sellQuantity}
           step={minUnit}
         />
-        <span>주</span>
-        <button onClick={() => checkSellQuantity(sellQuantity + minUnit)}>
-          +
-        </button>
       </div>
       <div>
         {percents.map((el) => (
