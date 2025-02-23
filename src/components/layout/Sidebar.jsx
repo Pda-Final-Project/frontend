@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import HoldingSidebar from "./SidebarTab/HoldingStockTab";
 import InterestStockTab from "./SidebarTab/InterestStockTab";
+import { FaRegHeart } from "react-icons/fa";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,12 +23,13 @@ export default function Sidebar() {
   return (
     <>
       {/* 바깥 사이드바 */}
-      <div className="fixed left-0 top-0 h-full w-20 bg-gray-300 p-4">
+      <div className="fixed left-0 top-0 h-full w-20 bg-white p-4 border-r-1 border-gray-md">
         <div className="space-y-4">
           <div
             onClick={() => handleSidebar("interest")}
             className="cursor-pointer"
           >
+            <FaRegHeart />
             관심종목
           </div>
           <div

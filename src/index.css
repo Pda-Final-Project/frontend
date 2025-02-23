@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "sans-serif";
+  --color-gray-light: #f6f7f9;
+  --color-gray-md: #aab2bd;
+  --color-blue-md: #54b0fe;
+  --color-blud-light: #e5f3ff;
+}
