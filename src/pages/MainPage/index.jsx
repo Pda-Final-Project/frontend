@@ -17,7 +17,7 @@ export default function index() {
           <DisclosureTab ticker={ticker} />
         </div>
         {/** 주식탭 */}
-        <div>
+        <div className="overflow-y-scroll">
           <TradingTab ticker={ticker} currentPrice={currentPrice} />
         </div>
       </div>
