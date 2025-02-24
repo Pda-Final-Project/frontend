@@ -6,17 +6,20 @@ export default function index() {
   const [ticker, setTicker] = useState("000000");
   const [currentPrice, setCurrentPrice] = useState(30);
   return (
-    <div>
-      메인페이지
+    <div className="flex flex-col w-full h-full bg-gray-light p-8 ">
       {/** 종목 기본 정보(로고, 종목명, 종목 코드, 현재가, 변동률) */}
-      <div></div>
-      {/** 공시탭 */}
-      <div>
-        <DisclosureTab ticker={ticker} />
+      <div className="bg-gray-400">
+        <div>로고</div>
       </div>
-      {/** 주식탭 */}
-      <div>
-        <TradingTab ticker={ticker} currentPrice={currentPrice} />
+      <div className="w-full grid grid-cols-2 h-full gap-4">
+        {/** 공시탭 */}
+        <div className="">
+          <DisclosureTab ticker={ticker} />
+        </div>
+        {/** 주식탭 */}
+        <div className="">
+          <TradingTab ticker={ticker} currentPrice={currentPrice} />
+        </div>
       </div>
     </div>
   );

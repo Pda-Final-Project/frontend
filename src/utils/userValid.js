@@ -4,8 +4,8 @@ const validatePhoneNumber = (phone) => {
   return regex.test(phone);
 };
 const validatePassword = (password) => {
-  // 영문자와 숫자가 1개 이상 포함되어야 하고, 길이는 6자 이상 허용용
-  const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  // 최소 8자, 하나 이상의 문자, 숫자, 특수문자를 포함해야 함
+  const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return regex.test(password);
 };
 

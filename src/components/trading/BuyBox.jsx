@@ -1,82 +1,111 @@
 import React, { useEffect, useState } from "react";
 import PasswordModal from "../common/PasswordModal";
 
-const moneys = [
-  { id: 1000, name: "+천원" },
-  { id: 10000, name: "+1만원" },
-  { id: 50000, name: "+5만원" },
-  { id: 100000, name: "+10만원" },
-  { id: 1000000, name: "+100만원" },
+const percents = [
+  { id: 0.1, name: "10%" },
+  { id: 0.25, name: "25%" },
+  { id: 0.5, name: "50%" },
+  { id: 0.75, name: "75%" },
+  { id: 1, name: "전량" },
 ];
 
-// 가격 기준 주식 구매
-export default function BuyBox({ currentPrice, withHolding, orderStock }) {
+export default function BuyBox({ withHolding, orderStock }) {
+  const [buyQuantity, setBuyQuantity] = useState(0);
   const [buyPrice, setBuyPrice] = useState(0);
+  const [maxQuantity, setMaxQuantity] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     price: "",
     quantity: "",
-    type: "투자",
+    type: "주문",
   });
-  const minUnit = 1;
 
-  const checkBuyPrice = (tmpPrice) => {
-    let price = parseFloat(tmpPrice) || 0;
-    price = Math.floor(price);
-    price = Math.min(Math.max(price, 0), withHolding);
-    setBuyPrice(price);
+  //지정가에 대해 구매 가능한 최대 주수
+  useEffect(() => {
+    if (buyPrice > 0) {
+      const calculatedMaxQuantity = Math.floor(withHolding / buyPrice);
+      setMaxQuantity(calculatedMaxQuantity);
+    } else {
+      setMaxQuantity(0);
+    }
+    setBuyQuantity(maxQuantity); // maxQuantity가 업데이트될 때마다 buyQuantity 업데이트
+  }, [buyPrice, withHolding, maxQuantity]);
+
+  const checkBuyQuantity = (tmpQuantity) => {
+    let quantity = Math.floor(parseFloat(tmpQuantity)) || 0;
+    if (quantity >= 0 && quantity <= maxQuantity) {
+      setBuyQuantity(quantity);
+    }
   };
 
-  const totalOrderQuantity = parseFloat((buyPrice / currentPrice).toFixed(5));
+  const totalOrderPrice = Math.floor(buyPrice * buyQuantity);
 
   const openModal = () => {
-    modalMessage.price = buyPrice;
-    modalMessage.quantity = totalOrderQuantity;
-    setModalMessage(modalMessage);
+    setModalMessage({
+      price: totalOrderPrice,
+      quantity: buyQuantity,
+      type: "주문",
+    });
     setIsModalOpen(true);
   };
 
   return (
-    <div className="p-4">
+    <div className="bg-white p-4 flex flex-col rounded-lg text-sm">
       <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
-        action={() => orderStock("buy", totalOrderQuantity, buyPrice)} // action을 함수로 수정
+        action={() => orderStock("sell", buyQuantity, totalOrderPrice)} // action을 함수로 수정
         message={modalMessage}
       />
-      <div>소수점 투자하기</div>
-      <div>
-        <button onClick={() => checkBuyPrice(buyPrice - minUnit)}>-</button>
-        <input
-          type="number"
-          onChange={(e) => checkBuyPrice(e.target.value)}
-          value={buyPrice}
-          step={minUnit}
-        />
-        <span>원</span>
-        <button onClick={() => checkBuyPrice(buyPrice + minUnit)}>+</button>
+      {/** 제목 */}
+      <div className="font-semibold text-lg">주문하기</div>
+      {/** 판매 입력 */}
+      <div className="flex flex-col space-y-2 py-2 border-b-1 border-gray-md">
+        <div className="flex items-center">
+          <div className="font-semibold w-32">주문가격</div>
+          <input
+            type="number"
+            className="input-style text-sm"
+            onChange={(e) => setBuyPrice(e.target.value)}
+            value={buyPrice}
+          />
+        </div>
+        <div className="flex items-start">
+          <div className="font-semibold w-32 py-2">주문수량</div>
+          <div className="w-full flex flex-col space-y-2">
+            <input
+              type="number"
+              className="input-style text-sm"
+              placeholder={`최대 ${maxQuantity}주 가능`}
+              value={buyQuantity}
+              onChange={(e) => setBuyQuantity(e.target.value)}
+            />
+            <div className="flex gap-2">
+              {percents.map((percent) => (
+                <button
+                  key={percent.id}
+                  className="white-button-style"
+                  onClick={() => checkBuyQuantity(maxQuantity * percent.id)}
+                >
+                  {percent.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        {moneys.map((el) => (
-          <button key={el.id} onClick={() => checkBuyPrice(buyPrice + el.id)}>
-            {el.name}
-          </button>
-        ))}
-      </div>
-      <div className="flex gap-4">
-        <div>투자 가능</div>
-        <div>{withHolding}원</div>
-      </div>
-      <div className="flex gap-4">
-        <div>예상 최종 주식 수</div>
-        <div>{totalOrderQuantity}주</div>
+      <div className="flex items-center justify-between py-2">
+        <div className="font-semibold">총 주문 금액</div>
+        <div className="font-semibold">{totalOrderPrice}원</div>
       </div>
       <button
+        className="button-style"
         onClick={() => openModal()}
-        disabled={buyPrice <= 0}
-        className="bg-gray-200 w-full"
+        disabled={
+          buyQuantity <= 0 || buyQuantity > maxQuantity || totalOrderPrice <= 0
+        }
       >
-        투자하기
+        구매하기
       </button>
     </div>
   );
