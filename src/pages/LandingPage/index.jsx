@@ -10,6 +10,7 @@ export default function Index() {
   const [alarms, setAlarms] = useState([]); // 기본 알람 상태 추가
 
   return (
+    <div className="flex flex-col w-full">
     <div>
       <button 
         onClick={() => setShowModal(true)}
@@ -24,6 +25,7 @@ export default function Index() {
           {/* alarms prop 전달 */}
         </div>
       )}
+      </div>
 
       {/** 실시간 공시 정보 */}
       <div>

@@ -1,58 +1,112 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validatePassword, validatePhoneNumber } from "../../utils/userValid";
+import { login } from "../../api/authApi";
 
 export default function Index() {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginData, setLoginData] = useState({
+    userPhone: "",
+    userPassword: "",
+  });
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (!validatePhoneNumber(phoneNumber)) {
-      setError("전화번호는 10~11자리 숫자입니다.");
+    // 유효성 검사
+    const validationError = checkLogin();
+    if (validationError) {
+      setError(validationError);
       return;
     }
-    if (!validatePassword(password)) {
-      setError("비밀번호는 6자 이상의 영문, 숫자 조합이어야 합니다.");
-      return;
-    }
-    setError("");
 
-    // 로그인 처리
-    console.log("로그인 시도", phoneNumber, password);
+    setError("");
+    tryLogin();
+  };
+
+  const checkLogin = () => {
+    if (!validatePhoneNumber(loginData.userPhone)) {
+      return "전화번호는 10~11자리 숫자입니다.";
+    }
+    if (!validatePassword(loginData.userPassword)) {
+      return "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자를 포함해야 합니다.";
+    }
+    return null; // 유효성 통과
+  };
+
+  //login api 호출
+  const tryLogin = async () => {
+    try {
+      const response = await login(loginData);
+      if (response.data.status === "OK") {
+        sessionStorage.setItem("accessToken", response.data.data);
+        alert(response.data.message);
+        navigate("../");
+      }
+    } catch (error) {
+      alert("로그인에 실패했습니다...");
+    }
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="bg-gray-200 flex flex-col items-center p-4 w-full max-w-md">
-        <h1>Finpago 시작하기</h1>
-
-        {/* 전화번호 입력 */}
-        <input
-          placeholder="전화번호"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+    <div className="grid grid-cols-2 w-full h-screen">
+      <div className="bg-white flex flex-col">
+        <img
+          src="../../../public/images/logo.png"
+          className="w-48 cursor-pointer"
+          onClick={() => navigate("../")}
         />
-
-        {/* 비밀번호 입력 */}
-        <input
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+        <img
+          src="../../../public/images/login.jpg"
+          className="h-auto w-2xl absolute left-0 bottom-0"
         />
+      </div>
+      <div className="bg-blue-md h-screen flex items-center justify-center">
+        <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
+          <h1 className="font-bold text-3xl">FinPago 시작하기</h1>
+          <div className="flex flex-col space-y-4 w-full">
+            {/* 전화번호 입력 */}
+            <input
+              placeholder="전화번호"
+              value={loginData.userPhone}
+              onChange={(e) =>
+                setLoginData((prev) => ({ ...prev, userPhone: e.target.value }))
+              }
+              className="input-style"
+            />
 
-        {/* 에러 메시지 */}
-        {error && <div className="text-red-500">{error}</div>}
+            {/* 비밀번호 입력 */}
+            <input
+              type="password"
+              placeholder="비밀번호"
+              value={loginData.userPassword}
+              onChange={(e) =>
+                setLoginData((prev) => ({
+                  ...prev,
+                  userPassword: e.target.value,
+                }))
+              }
+              className="input-style"
+            />
+            {/* 에러 메시지 */}
+            {error && (
+              <div className="text-red-500 text-center text-sm">{error}</div>
+            )}
+          </div>
 
-        {/* 로그인 버튼 */}
-        <button onClick={handleLogin} className=" w-full">
-          로그인
-        </button>
+          {/* 로그인 버튼 */}
+          <button onClick={handleLogin} className="button-style">
+            로그인
+          </button>
 
-        {/* 회원가입 버튼 */}
-        <div onClick={() => navigate("../register")}>회원가입하러 가기</div>
+          {/* 회원가입 버튼 */}
+          <div
+            onClick={() => navigate("../register")}
+            className="text-sm hover:underline cursor-pointer"
+          >
+            회원가입하러 가기
+          </div>
+        </div>
       </div>
     </div>
   );

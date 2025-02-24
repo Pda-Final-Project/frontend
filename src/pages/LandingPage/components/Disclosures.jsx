@@ -17,13 +17,17 @@ export default function Disclosures() {
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="p-4 flex flex-col">
       {/* 제목 클릭 시 disclosures 페이지 이동 */}
-      <h1 
+      <h1
         className="text-2xl font-bold cursor-pointer hover:underline"
         onClick={() => navigate("/disclosures")}
       >
-        실시간 <span className={isYellow ? "text-yellow-500" : "text-blue-500"}>NEW</span> 해외공시
+        실시간{" "}
+        <span className={isYellow ? "text-yellow-500" : "text-blue-500"}>
+          NEW
+        </span>{" "}
+        해외공시
       </h1>
 
       {/* 가로 스크롤 + 컨테이너 */}
@@ -33,17 +37,23 @@ export default function Disclosures() {
             <div
               key={item.filling_id}
               className="bg-gray-50 p-4 rounded-lg shadow-md transition-all min-w-[220px] sm:min-w-[280px] md:min-w-[320px] lg:min-w-[350px] max-w-[400px] flex flex-col cursor-pointer hover:bg-gray-100"
-              onClick={() => navigate(`/main/${item.filling_ticker}`)} // 종목코드(티커) 클릭 시 이동
+              onClick={() =>
+                navigate(`/main/${item.filling_ticker}/${item.filling_id}`)
+              } // 종목코드(티커) 클릭 시 이동
             >
               {/* 제목 */}
-              <p className="font-bold text-lg sm:text-xl">{item.filling_title}</p>
+              <p className="font-bold text-lg sm:text-xl">
+                {item.filling_title}
+              </p>
 
               {/* 공시 ID */}
-              <p className="text-sm sm:text-base text-gray-600 mt-1">{item.filling_id}</p>
+              <p className="text-sm sm:text-base text-gray-600 mt-1">
+                {item.filling_id}
+              </p>
 
               {/* 공시 타입 & 종목 코드 (클릭 가능하게) */}
               <p className="text-sm sm:text-base mt-1 font-medium">
-                {item.filling_type} • 
+                {item.filling_type} •
                 <span className="text-blue-500 font-bold cursor-pointer hover:underline">
                   {item.filling_ticker}
                 </span>

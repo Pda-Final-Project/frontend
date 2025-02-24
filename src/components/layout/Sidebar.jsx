@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import HoldingSidebar from "./SidebarTab/HoldingStockTab";
 import InterestStockTab from "./SidebarTab/InterestStockTab";
+import { FaHeart } from "react-icons/fa";
+import { GoGraph } from "react-icons/go";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +13,7 @@ export default function Sidebar() {
   }, [isOpen, currentSidebar]);
 
   const handleSidebar = (sidebarType) => {
+    console.log(sidebarType, isOpen);
     if (currentSidebar === sidebarType && isOpen) {
       setIsOpen(false);
     } else {
@@ -22,19 +25,29 @@ export default function Sidebar() {
   return (
     <>
       {/* 바깥 사이드바 */}
-      <div className="fixed left-0 top-0 h-full w-20 bg-gray-300 p-4">
+      <div className="fixed left-0 top-0 h-full w-20 bg-gray-light p-4 px-2 border-r-1 border-gray-md text-gray-md">
         <div className="space-y-4">
           <div
             onClick={() => handleSidebar("interest")}
-            className="cursor-pointer"
+            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-blue-light rounded-lg font-semibold space-y-2 ${
+              currentSidebar == "interest" && isOpen
+                ? "text-blue-md bg-blue-light"
+                : ""
+            }`}
           >
-            관심종목
+            <FaHeart />
+            <div className="text-sm">관심주식</div>
           </div>
           <div
             onClick={() => handleSidebar("holding")}
-            className="cursor-pointer"
+            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-blue-light rounded-lg font-semibold space-y-2 ${
+              currentSidebar == "holding" && isOpen
+                ? "text-blue-md bg-blue-light"
+                : ""
+            }`}
           >
-            보유종목
+            <GoGraph />
+            <div className="text-sm">보유주식</div>
           </div>
         </div>
       </div>
@@ -43,7 +56,8 @@ export default function Sidebar() {
       {isOpen && (
         <>
           <div
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-50"
+            a
             onClick={() => setIsOpen(false)}
           ></div>
           <div className="fixed left-20 top-0 h-full w-80 bg-white z-50">

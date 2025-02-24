@@ -41,7 +41,6 @@ export default function PasswordModal({ message, action, isOpen, setOpen }) {
     //   setError(error.message);
     //   return false;
     // }
-    console.log(password);
     return true;
   };
 
@@ -50,40 +49,49 @@ export default function PasswordModal({ message, action, isOpen, setOpen }) {
       isOpen={isOpen}
       contentLabel="주문 확인"
       onRequestClose={() => setOpen(false)} // 함수로 수정
+      className="fixed inset-0 flex items-center justify-center z-50"
+      overlayClassName="fixed inset-0 backdrop-blur-md"
     >
-      <div>
-        <h2>주문 확인</h2>
-        <div>
-          <div className="flex">
-            <div>주문 수량</div>
+      <div className="bg-white p-6 rounded-lg max-w-sm w-full space-y-12 flex flex-col">
+        <h2 className="text-xl font-semibold">주문 확인</h2>
+        <div className="">
+          <div className="flex justify-between mb-2">
+            <div className="font-semibold">주문 수량</div>
             <div>{message.quantity}</div>
           </div>
-          <div className="flex">
-            <div>총 주문 금액</div>
+          <div className="flex justify-between mb-2">
+            <div className="font-semibold">총 주문 금액</div>
             <div>{message.price}</div>
           </div>
-          <div>{message.type}하시겠습니까?</div>
+          <div className="text-center font-semibold text-blue-md mt-4">
+            {message.type}하시겠습니까?
+          </div>
         </div>
 
-        <div>
-          <div>간편 비밀번호</div>
-          <div>
-            <input
-              type="password"
-              placeholder="계좌 비밀번호"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+        <div className="mb-4">
+          <label className="block font-semibold mb-2">간편 비밀번호</label>
+          <input
+            type="password"
+            placeholder="계좌 비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="input-style"
+          />
           {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <button onClick={() => setOpen(false)}>취소</button>
+        <div className="flex justify-between mt-4 gap-40">
+          <button
+            onClick={() => setOpen(false)}
+            className="white-button-style w-full"
+          >
+            취소
+          </button>
           <button
             onClick={() => {
               submitPassword(password);
             }}
+            className="button-style w-full"
           >
             확인
           </button>
