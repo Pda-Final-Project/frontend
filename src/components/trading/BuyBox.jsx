@@ -50,7 +50,7 @@ export default function BuyBox({ withHolding, orderStock }) {
   };
 
   return (
-    <div className="bg-white p-4 flex flex-col rounded-lg text-sm">
+    <div className="bg-white p-4 flex flex-col rounded-lg text-xs">
       <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
@@ -58,11 +58,11 @@ export default function BuyBox({ withHolding, orderStock }) {
         message={modalMessage}
       />
       {/** 제목 */}
-      <div className="font-semibold text-lg">주문하기</div>
+      <div className="font-semibold text-[16px]">주문하기</div>
       {/** 판매 입력 */}
       <div className="flex flex-col space-y-2 py-2 border-b-1 border-gray-md">
         <div className="flex items-center">
-          <div className="font-semibold w-32">주문가격</div>
+          <div className="font-semibold w-1/5">주문가격</div>
           <input
             type="number"
             className="input-style text-sm"
@@ -71,7 +71,8 @@ export default function BuyBox({ withHolding, orderStock }) {
           />
         </div>
         <div className="flex items-start">
-          <div className="font-semibold w-32 py-2">주문수량</div>
+          
+          <div className="font-semibold w-1/5 mt-3">주문수량</div>
           <div className="w-full flex flex-col space-y-2">
             <input
               type="number"
@@ -80,7 +81,7 @@ export default function BuyBox({ withHolding, orderStock }) {
               value={buyQuantity}
               onChange={(e) => setBuyQuantity(e.target.value)}
             />
-            <div className="flex gap-2">
+            <div className="flex gap-2 mt-2">
               {percents.map((percent) => (
                 <button
                   key={percent.id}

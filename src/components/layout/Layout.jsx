@@ -5,11 +5,11 @@ import Footer from "./Footer";
 
 export default function Layout() {
   return (
-    <div className="flex min-h-screen w-full overflow-x-hidden">
+    <div className="flex min-h-screen w-full overflow-x-hidden text-xs">
       {/* 메인 컨텐츠 영역 */}
-      <div className="flex flex-col flex-grow ml-20 relative">
+      <div className="flex flex-col flex-grow ml-16 relative">
         {/* 헤더 */}
-        <header className="bg-gray-200 fixed top-0 left-20 right-0 z-1 h-20">
+        <header className=" fixed top-0 left-16 right-0 z-1 shadow-md">
           <Header />
         </header>
 
@@ -24,7 +24,7 @@ export default function Layout() {
         </footer>
       </div>
       {/* 사이드바 - 왼쪽에 고정 */}
-      <aside className="h-screen w-20 fixed left-0 top-0 bg-gray-800 z-10">
+      <aside className="h-screen w-16 fixed left-0 top-0 z-10">
         <Sidebar />
       </aside>
     </div>

@@ -3,10 +3,10 @@ import { timeAgo } from "../../utils/timeAgo";
 
 const AlarmModal = ({ alarms = [], onClose }) => { // 기본값 추가
   return (
-    <div className="fixed top-0 right-0 m-4 w-96 bg-white shadow-lg rounded-lg border p-4">
-      <div className="flex justify-between items-center border-b pb-2 mb-2">
-        <h2 className="text-lg font-semibold">알림</h2>
-        <button onClick={onClose} className="text-gray-500 hover:text-black">✕</button>
+    <div className="fixed top-12 right-0 m-4 w-92 bg-white shadow-lg rounded-lg p-3">
+      <div className="flex justify-between items-center pb-2 mb-2">
+        <h2 className="text-lg font-semibold p-3">알림</h2>
+        <button onClick={onClose} className="text-sm font-bold text-blue-md hover:text-gray-500 duration-300 p-3">✕</button>
       </div>
       <div className="space-y-4">
         {alarms.length > 0 ? (
@@ -32,7 +32,7 @@ const AlarmModal = ({ alarms = [], onClose }) => { // 기본값 추가
             </div>
           ))
         ) : (
-          <p className="text-gray-500">알림이 없습니다.</p>
+          <p className="text-gray-600 p-3">새로운 알림이 없습니다</p>
         )}
       </div>
     </div>
