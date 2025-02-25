@@ -9,6 +9,7 @@ import StockListPage from "../pages/StockListPage";
 import DisclosureListPage from "../pages/StockListPage";
 import DisclosureDetailPage from "../pages/DisclosureDetailPage";
 import MainPage from "../pages/MainPage";
+import IntroduceDisclosurePage from "../pages/IntroduceDisclosurePage";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
         element: <DisclosureDetailPage />,
       },
       { path: "/main/:stock_ticker/:filling_id", element: <MainPage /> },
+      { path: "/introduce_disclosures", element: <IntroduceDisclosurePage /> },
     ],
   },
   { path: "/login", element: <LoginPage /> },
