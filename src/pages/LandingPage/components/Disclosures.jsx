@@ -20,15 +20,15 @@ export default function Disclosures() {
     <div className="p-4">
       {/* 제목 클릭 시 disclosures 페이지 이동 */}
       <h1
-        className="text-[18px] font-bold cursor-pointer hover:text-blue-md"
+        className="text-[18px] font-bold cursor-pointer p-3 hover:text-blue-md"
         onClick={() => navigate("/disclosures")}
       >
         실시간 <span className={isYellow ? "text-yellow-500" : "text-blue-md"}>NEW</span> 해외공시
       </h1>
 
       {/* 가로 스크롤 컨테이너 */}
-      <div className="w-full overflow-x-auto mt-4">
-        <div className="flex space-x-4 p-4 rounded-lg min-w-max whitespace-nowrap">
+      <div className="w-full overflow-x-auto">
+        <div className="flex space-x-4 p-3 rounded-lg min-w-max whitespace-nowrap">
           {DUMMY_DISCLOSURES.slice(0, 10).map((item) => (
             <div
               key={item.filling_id}

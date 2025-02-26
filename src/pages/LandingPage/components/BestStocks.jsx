@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DUMMY_STOCKS from "./data/dummyStocks";
 
-export default function Stocks() {
+export default function BestStocks() {
   const navigate = useNavigate();
   return (
     <div className="w-full sm:w-1/2 max-w-xl p-4">
@@ -10,7 +10,7 @@ export default function Stocks() {
         className="text-[18px] font-bold cursor-pointer hover:text-blue-md p-4"
         onClick={() => navigate("/stocks")}
       >
-        해외 실시간 <span className="font-bold text-blue-md">등락률</span> 순위
+        해외 실시간 <span className="font-bold text-blue-md">Best</span> 순위
       </h1>
 
       {/* 컨테이너 */}

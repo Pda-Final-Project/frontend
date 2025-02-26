@@ -24,11 +24,11 @@ export default function News() {
     return (
         <div className="p-4">
             {/* 제목 */}
-            <h1 className="text-[18px] font-bold">글로벌 경제 뉴스</h1>
+            <h1 className="text-[18px] font-bold p-3">글로벌 경제 뉴스</h1>
 
             {/* 컨테이너 */}
             <div className="w-full overflow-x-auto "> {/* ✅ 가로 스크롤 적용 */}
-                <div className="flex space-x-4 p-4 rounded-lg min-w-max">
+                <div className="flex space-x-4 p-3 rounded-lg min-w-max">
                     {DUMMY_NEWS["Bloomberg"].slice(0, 10).map((article) => (
                         <a key={article.news_id} href={article.news_url} target="_blank" rel="noopener noreferrer">
                             <div className="bg-gray-50 p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow min-w-[180px] sm:min-w-[220px] md:min-w-[260px] lg:min-w-[280px] max-w-[320px] flex flex-col duration-300">
