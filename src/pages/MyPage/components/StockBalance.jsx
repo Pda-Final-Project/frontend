@@ -4,7 +4,7 @@ export default function StockBalance() {
   const [currency, setCurrency] = useState("원화"); // 환율 단위 상태 (기본 원화)
 
   return (
-    <div className="bg-gray-200 p-5 rounded-lg">
+    <div className="bg-gray-light p-4 rounded-lg">
       {/* 제목 */}
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold">해외주식 잔고</h1>

@@ -10,7 +10,7 @@ export default function Index() {
     <div className="w-full overflow-hidden px-4">  {/* 좌우 여백 추가 */}
 
       {/** 실시간 공시 정보 */}
-      <div className="w-full">
+      <div className="w-full mt-4">
         <Disclosures />
       </div>
 

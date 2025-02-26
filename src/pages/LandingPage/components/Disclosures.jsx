@@ -27,8 +27,8 @@ export default function Disclosures() {
       </h1>
 
       {/* 가로 스크롤 컨테이너 */}
-      <div className="overflow-x-auto mt-4">
-        <div className="flex space-x-4 rounded-lg min-w-max whitespace-nowrap">
+      <div className="w-full overflow-x-auto mt-4">
+        <div className="flex space-x-4 p-4 rounded-lg min-w-max whitespace-nowrap">
           {DUMMY_DISCLOSURES.slice(0, 10).map((item) => (
             <div
               key={item.filling_id}

@@ -4,7 +4,7 @@ export default function MyInfo() {
   const [account, setAccount] = useState({
     account_number: "270-74-631000",
     account_name: "CMA 종합 계좌",
-    user_name: "김동재",
+    user_name: "홍길동",
   });
 
   // 간단한 API 호출 함수 (나중에 주석 해제하면 API 연동 가능)
@@ -29,12 +29,12 @@ export default function MyInfo() {
   */
 
   return (
-    <div className="flex justify-between items-center bg-gray-300 p-3 rounded-lg text-black font-semibold">
+    <div className="flex justify-between items-center bg-gray-light p-3 rounded-lg text-black font-semibold">
       {/* 계좌번호 */}
-      <span className="text-lg">{account.account_number}</span>
+      <span className="text-[16px]">{account.account_number}</span>
 
       {/* 계좌 타입 & 사용자 이름 */}
-      <div className="text-lg flex space-x-2">
+      <div className="text-[16px] flex space-x-2">
         <span>{account.account_name}</span>
         <span>{account.user_name}</span>
       </div>
