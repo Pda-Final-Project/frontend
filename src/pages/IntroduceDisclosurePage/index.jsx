@@ -22,9 +22,9 @@ export default function Index() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center  mx-24">
-      <div className="flex items-center mb-8 border-b-1 border-gray-md w-full justify-center pb-4">
-        <div className="text-4xl font-bold">공시 가이드 with</div>
+    <div className="flex flex-col items-center justify-center mx-24">
+      <div className="flex items-center mb-2 border-b-1 border-gray-md w-full justify-center pb-4">
+        <div className="text-3xl font-bold">공시 가이드 with</div>
         <img src="../../../public/images/logo.png" className="h-16" />
       </div>
 
@@ -39,7 +39,7 @@ export default function Index() {
                 <div className="flex justify-between items-center">
                   <div>
                     <div className="mb-2">{fil.type}</div>
-                    <div className="text-2xl font-semibold mb-1">
+                    <div className="text-2xl font-semibold mb-2">
                       {fil.title}
                     </div>
                     <div className="text-blue-md">{fil.subtitle}</div>
