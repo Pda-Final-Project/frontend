@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState }  from "react";
 import DUMMY_NEWS from "./data/dummyNews";
 import { timeAgo } from "../../../utils/timeAgo";
+import { news } from "../../../api/newsApi"
 
 const NEWS_SITE_URL = "https://www.bloomberg.com";
 
 export default function News() {
+    const [newsData, setNewsData] = useState([]);
+
+    useEffect(() => {
+        const fetchNews = async () => {
+            try {
+                const response = await news(); // API 호출
+                setNewsData(response.data.data); // AIP 명세 형식 데이터 저장함
+            } catch (error) {
+                console.error("뉴스 데이터를 가져오는 중 오류 발생:", error);
+            }
+        };
+
+        fetchNews();
+    }, []);
+
     return (
         <div className="p-4">
             {/* 제목 */}
