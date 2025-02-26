@@ -33,7 +33,7 @@ export default function Disclosures() {
             <div
               key={item.filling_id}
               className="bg-gray-50 p-4 rounded-lg shadow-light transition-all min-w-[220px] sm:min-w-[240px] md:min-w-[220px] lg:min-w-[220px] max-w-[220px] flex flex-col cursor-pointer hover:bg-gray-100 duration-300"
-              onClick={() => navigate(`/main/${item.filling_ticker}`)} // 종목코드(티커) 클릭 시 이동
+              onClick={() => navigate(`/main/${item.filling_ticker}/${item.filling_id}`)} // 종목코드(티커) 클릭 시 이동
             >
               {/* 제목 */}
               <p className="font-bold text-lg sm:text-[16px]">{item.filling_title}</p>
