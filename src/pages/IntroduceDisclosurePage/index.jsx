@@ -22,7 +22,7 @@ export default function Index() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center  mx-24">
+    <div className="flex flex-col items-center justify-center mx-24">
       <div className="flex items-center mb-2 border-b-1 border-gray-md w-full justify-center pb-4">
         <div className="text-3xl font-bold">공시 가이드 with</div>
         <img src="../../../public/images/logo.png" className="h-16" />

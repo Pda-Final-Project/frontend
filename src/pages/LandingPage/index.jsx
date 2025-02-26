@@ -21,7 +21,7 @@ export default function Index() {
       </div>
 
       {/** 해외 종목 순위 */}
-      <div className="flex flex-wrap justify-start gap-4 w-full mt-4">
+      <div className="flex flex-wrap justify-center gap-4 mt-4">
         <BestStocks />
         <Stocks />
       </div>
