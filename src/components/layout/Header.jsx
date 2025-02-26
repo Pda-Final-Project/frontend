@@ -1,14 +1,17 @@
 import React, {useState} from "react";
 import { FaRegBell } from "react-icons/fa";
 import AlarmModal from "../common/AlarmModal";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [showAlarm, setShowAlarm] = useState(false);
+  const navigate = useNavigate();
   return (
     <header className="flex items-center justify-between px-4 py-2 bg-white">
       {/* 로고 */}
       <div className="flex items-center space-x-2">
-        <img src="../../../public/images/logo.png" alt="FinPago Logo" className="w-36 cursor-pointer" />
+        <img src="../../../public/images/logo.png" alt="FinPago Logo" className="w-36 cursor-pointer" 
+        onClick={() => navigate("/")}/>
         {/* <h1 className="text-xl font-bold">FinPago</h1> */}
       </div>
 
