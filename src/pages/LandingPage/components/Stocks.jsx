@@ -5,44 +5,45 @@ import DUMMY_STOCKS from "./data/dummyStocks";
 export default function Stocks() {
   const navigate = useNavigate();
   return (
-    <div className="p-4">
+    <div className="w-full sm:w-1/2 max-w-xl p-4">
       <h1
-        className="text-2xl font-bold cursor-pointer hover:underline"
+        className="text-[18px] font-bold cursor-pointer hover:text-blue-md"
         onClick={() => navigate("/stocks")}
       >
-        해외 실시간 <span className="font-bold text-blue-500">Best</span> 순위
+        해외 실시간 <span className="font-bold text-blue-md">Best</span> 순위
       </h1>
 
       {/* 컨테이너 */}
-      <div className="mt-4 p-4 rounded-lg">
+      <div className="w-full max-w-3xl mt-4 p-3 rounded-2xl">
+
         {/* 헤더 */}
-        <div className="flex justify-between bg-gray-100 text-black font-bold p-4 rounded-lg mb-2">
-          <p className="w-1/3 text-lg text-center">종목명 / 종목코드</p>
-          <p className="w-1/3 text-lg text-center">현재가</p>
-          <p className="w-1/3 text-lg text-center">등락률</p>
+        <div className="flex justify-between bg-gray-100 text-black font-bold p-4 rounded-2xl shadow-md mb-2">
+          <p className="w-1/3 text-[16px] text-center">종목명</p>
+          <p className="w-1/3 text-[16px] text-center">현재가</p>
+          <p className="w-1/3 text-[16px] text-center">등락률</p>
         </div>
 
         {/* 데이터 */}
         {DUMMY_STOCKS.slice(0, 5).map((stock, index) => (
           <div
             key={index}
-            className="flex justify-between items-center p-4 rounded-lg shadow-md hover:shadow-lg transition-all mb-3"
+            className="flex justify-between items-center p-4 rounded-2xl shadow-md hover:shadow-lg transition-all mb-3"
             onClick={() => navigate(`./main/${stock.ticker}/all`)}
           >
             {/* 종목명 & 종목 코드 */}
             <div className="w-1/3 text-center">
-              <p className="text-lg font-bold">{stock.name}</p>
+              <p className="text-sm font-bold">{stock.name}</p>
               <p className="text-gray-500">{stock.ticker}</p>
             </div>
 
             {/* 현재가 */}
-            <p className="w-1/3 text-center text-lg font-semibold">
+            <p className="w-1/3 text-center text-sm font-semibold">
               {stock.price.toFixed(2)}
             </p>
 
             {/* 등락률 (양:빨강, 음:파랑) */}
             <p
-              className={`w-1/3 text-center text-lg font-bold ${
+              className={`w-1/3 text-center text-sm font-bold ${
                 stock.changePercent < 0 ? "text-blue-500" : "text-red-500"
               }`}
             >
