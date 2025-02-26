@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import { FaRegBell } from "react-icons/fa";
 import AlarmModal from "../common/AlarmModal";
 import { useNavigate } from "react-router-dom";
+import { HiLightBulb } from "react-icons/hi";
+
 
 const Header = () => {
   const [showAlarm, setShowAlarm] = useState(false);
@@ -16,9 +18,9 @@ const Header = () => {
       </div>
 
       {/* 네비게이션 */}
-      <nav className="flex space-x-6 text-[14px] font-semibold items-center">
-        <a href="#" className="px-4 py-2 hover:text-blue-md duration-300">해외공시</a>
-        <a href="#" className="px-4 py-2 hover:text-blue-md duration-300">해외주식</a>
+      <nav className="flex space-x-3 text-[14px] font-semibold items-center">
+        <a className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/disclosures")}>해외공시</a>
+        <a className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/stocks")}>해외주식</a>
         {/* 검색창 */}
         <div className="flex-grow max-w-lg">
         <input 
@@ -27,9 +29,11 @@ const Header = () => {
           className="w-full min-w-[300px] rounded-xl px-3 py-2 bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-md duration-300"
         />
         </div>
-        <a href="#" className="px-5 py-2 hover:text-blue-md duration-300">My계좌</a>
+        {/* 가이드 & My계좌 */}
+        <a className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/introduce_disclosures")} >공시 가이드</a>
+        <a className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/my_page")} >My계좌</a>
       </nav>
-  {/* 로그인 & 알림 */}
+        {/* 알림 & 로그인*/}
       <div className="flex items-center space-x-4 relative">
         {/* 알림 버튼 */}
         <button onClick={() => setShowAlarm(true)} className="relative">
@@ -37,7 +41,7 @@ const Header = () => {
         </button>
 
         {/* 로그인 버튼 */}
-        <button className="button-style">
+        <button className="button-style" onClick={() => navigate("/login")}>
           로그인
         </button>
       </div>
