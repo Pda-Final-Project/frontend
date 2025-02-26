@@ -5,7 +5,7 @@ import DUMMY_STOCKS from "./data/dummyStocks";
 export default function Stocks() {
   const navigate = useNavigate();
   return (
-    <div className="w-full sm:w-1/2 max-w-xl p-4">
+    <div className="w-full sm:w-1/2 p-4">
       <h1
         className="text-[18px] font-bold cursor-pointer hover:text-blue-md p-4"
         onClick={() => navigate("/stocks")}

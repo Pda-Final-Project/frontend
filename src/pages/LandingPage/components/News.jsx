@@ -2,6 +2,7 @@ import React, { useEffect, useState }  from "react";
 import DUMMY_NEWS from "./data/dummyNews";
 import { timeAgo } from "../../../utils/timeAgo";
 import { news } from "../../../api/newsApi"
+import { HiPlusCircle } from "react-icons/hi";
 
 const NEWS_SITE_URL = "https://www.bloomberg.com";
 
@@ -54,9 +55,10 @@ export default function News() {
                         href={NEWS_SITE_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center min-w-[180px] sm:min-w-[220px] md:min-w-[260px] lg:min-w-[280px] max-w-[320px] bg-gray-150 text-gray-500 font-bold text-lg rounded-lg shadow-md transition-all hover:bg-gray-200 duration-300"
+                        className="flex items-center justify-center min-w-[180px] sm:min-w-[220px] md:min-w-[260px] lg:min-w-[280px] max-w-[320px] bg-gray-50 text-blue-md font-bold text-lg rounded-lg shadow-md transition-all hover:bg-gray-200 duration-300"
                     >
-                        ➕ more
+                    <HiPlusCircle />
+            <span className="ml-1">more</span>
                     </a>
                 </div>
             </div>
