@@ -35,19 +35,19 @@ export default function StockListPage() {
     setStocks
   );
 
-  useEffect(() => {
-    //주식 조회
-    const tryFetchStocks = async () => {
-      try {
-        const response = await fetchStocks();
-        if (response.data.status == "OK") {
-          setStocks(response.data.data);
-          console.log(stocks);
-        }
-      } catch (error) {
-        console.error("주식 리스트 조회 중 오류 발생:", error);
+  //주식 조회
+  const tryFetchStocks = async (sortBy = "") => {
+    try {
+      const response = await fetchStocks(sortBy);
+      if (response.data.status == "OK") {
+        setStocks(response.data.data);
       }
-    };
+    } catch (error) {
+      console.error("주식 리스트 조회 중 오류 발생:", error);
+    }
+  };
+
+  useEffect(() => {
     tryFetchStocks();
   }, []);
 
@@ -55,10 +55,31 @@ export default function StockListPage() {
     <div>
       <div>해외 주식</div>
       <div className="flex flex-col">
+        {/** 정렬 */}
+        <div className="flex w-32 gap-2">
+          <div
+            className="white-button-style"
+            onClick={() => {
+              tryFetchStocks("vol");
+            }}
+          >
+            거래량
+          </div>
+          <div
+            className="white-button-style"
+            onClick={() => {
+              tryFetchStocks("rate");
+            }}
+          >
+            등락율
+          </div>
+        </div>
+
+        {/** 종목 리스트 */}
         <div className="grid grid-cols-4 gap-4">
           <div>종목</div>
           <div>현재가</div>
-          <div>등락률</div>
+          <div>등락율</div>
           <div>거래량</div>
         </div>
         {stocks.map((stock) => (
