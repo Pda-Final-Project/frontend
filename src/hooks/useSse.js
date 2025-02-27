@@ -36,14 +36,14 @@ export default function useSse(url, eventHandlers = {}) {
           console.log(`📡 ${eventName} 데이터 수신:`, parsedData);
           callback(parsedData);
         } catch (err) {
-          console.error("❌ SSE JSON 파싱 오류:", err);
+          console.error("SSE JSON 파싱 오류:", err);
         }
       });
     });
 
     // 에러 핸들링
     eventSource.onerror = (err) => {
-      console.error("❌ SSE 오류:", err);
+      console.error("SSE 오류:", err);
       setError(err);
       setIsConnected(false);
       eventSource.close();
@@ -52,7 +52,7 @@ export default function useSse(url, eventHandlers = {}) {
     // 정리 함수 (컴포넌트 언마운트 시 연결 해제)
     return () => {
       eventSource.close();
-      console.log("🔌 SSE 연결 해제됨:", url);
+      console.log("SSE 연결 해제됨:", url);
       setIsConnected(false);
     };
   }, [url]);

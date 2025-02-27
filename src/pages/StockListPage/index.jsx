@@ -28,8 +28,11 @@ export default function StockListPage() {
     },
   ]);
 
-  const { stockUpdates, stockTrades, isConnected, error, closeConnection } =
-    useStockSse("http://localhost:19099/v1/api/stocks/stream");
+  const { isConnected, error, closeConnection } = useStockSse(
+    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
+    stocks,
+    setStocks
+  );
 
   return (
     <div>

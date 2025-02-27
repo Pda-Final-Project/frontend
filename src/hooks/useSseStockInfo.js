@@ -6,21 +6,21 @@ import useSse from "./useSse"; // 위에서 만든 useSse를 가져옴
  * @param {string} url - SSE 이벤트를 구독할 서버 URL
  * @returns {Object} { stockUpdates, stockTrades, isConnected, error, closeConnection }
  */
-export function useStockSse(url) {
-  const [stockUpdate, setStockUpdates] = useState([]);
-  const [stockTrade, setStockTrades] = useState([]);
-
+export function useStockSse(url, stocks, setStocks) {
   // SSE 이벤트 핸들러 정의
   const eventHandlers = {
     stockUpdate: (data) => {
-      setStockUpdates((prev) => [data, ...prev.slice(0, 29)]); // 최근 30개 유지
-    },
-    stockTrade: (data) => {
-      setStockTrades((prev) => [data, ...prev.slice(0, 29)]);
+      setStocks((prevStocks) => {
+        return prevStocks.map((stock) =>
+          stock.ticker === data.ticker
+            ? { ...stock, price: data.current_price, rate: data.change_rate }
+            : stock
+        );
+      });
     },
   };
 
   const { isConnected, error, closeConnection } = useSse(url, eventHandlers);
 
-  return { stockUpdate, stockTrade, isConnected, error, closeConnection };
+  return { isConnected, error, closeConnection };
 }
