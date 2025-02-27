@@ -20,13 +20,14 @@ export default function StocksSortedByVol() {
     tryFetchStocks();
   }, []);
   return (
-    <div className="w-full sm:w-1/2 p-4">
-      <h1
-        className="text-[18px] font-bold cursor-pointer hover:text-blue-md p-4"
+    <div className="w-full sm:w-1/2 p-4 flex flex-col">
+      <div
+        className="text-[18px] font-bold cursor-pointer hover:text-blue-md duration-300 p-4 inline-block w-fit"
         onClick={() => navigate("/stocks")}
       >
-        해외 실시간 <span className="font-bold text-blue-md">Best</span> 순위
-      </h1>
+        해외 실시간 <span className="font-bold text-blue-md">Best 거래량 </span>
+        순위
+      </div>
 
       {/* 컨테이너 */}
       <div className="w-full max-w-3xl p-2 rounded-2xl">
@@ -60,11 +61,11 @@ export default function StocksSortedByVol() {
 
             {/* 등락률 (양:빨강, 음:파랑) */}
             <div
-              className={
+              className={`w-1/4 text-center ${
                 stock.change_rate.startsWith("+")
                   ? "text-red-500"
                   : "text-blue-500"
-              }
+              }`}
             >
               {stock.change_rate}
             </div>
