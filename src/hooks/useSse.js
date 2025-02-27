@@ -33,7 +33,6 @@ export default function useSse(url, eventHandlers = {}) {
       eventSource.addEventListener(eventName, (event) => {
         try {
           const parsedData = JSON.parse(event.data);
-          //   console.log(`📡 ${eventName} 데이터 수신:`, parsedData);
           callback(parsedData);
         } catch (err) {
           console.error("SSE JSON 파싱 오류:", err);

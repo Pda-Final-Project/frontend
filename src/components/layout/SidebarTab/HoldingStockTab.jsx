@@ -8,22 +8,22 @@ export default function HoldingStockTab() {
     {
       ticker: "NVDA",
       name: "엔비디아",
-      price: 1000,
-      rate: 1.23,
+      current_price: 1000,
+      change_rate: 1.23,
       pinned: true,
     },
     {
       ticker: "TSLA",
       name: "테슬라",
-      price: 1000,
-      rate: 1.23,
+      current_price: 1000,
+      change_rate: 1.23,
       pinned: true,
     },
     {
       ticker: "GOOGL",
       name: "구글",
-      price: 1000,
-      rate: 1.23,
+      current_price: 1000,
+      change_rate: 1.23,
       pinned: true,
     },
   ]);
@@ -71,8 +71,8 @@ export default function HoldingStockTab() {
             </div>
             <div className="flex gap-4 items-center">
               <div className="flex flex-col items-end font-semibold">
-                <div>{stock.price}원</div>
-                <div className="text-sm">{stock.rate}</div>
+                <div>{stock.current_price}원</div>
+                <div className="text-sm">{stock.change_rate}</div>
               </div>
               <LikeButton ticker={stock.ticker} initState={stock.pinned} />
             </div>

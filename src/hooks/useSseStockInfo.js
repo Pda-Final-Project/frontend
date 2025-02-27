@@ -13,7 +13,11 @@ export function useStockSse(url, stocks, setStocks) {
       setStocks((prevStocks) => {
         return prevStocks.map((stock) =>
           stock.ticker === data.ticker
-            ? { ...stock, price: data.current_price, rate: data.change_rate }
+            ? {
+                ...stock,
+                current_price: data.current_price,
+                change_rate: data.change_rate,
+              }
             : stock
         );
       });
