@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         path: "/disclosures/:filling_id",
         element: <DisclosureDetailPage />,
       },
-      { path: "/main/:stock_ticker/:filling_id", element: <MainPage /> },
+      { path: "/main/:ticker/:filling_id", element: <MainPage /> },
       { path: "/introduce_disclosures", element: <IntroduceDisclosurePage /> },
     ],
   },
