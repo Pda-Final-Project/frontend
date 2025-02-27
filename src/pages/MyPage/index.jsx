@@ -17,7 +17,7 @@ export default function Index() {
 
       <div className="mb-4" />
 
-      {/* 보유 & 손익 내역을 수평으로 배치 */}
+      {/* 보유 & 손익 내역 수평 배치 */}
       <div className="flex flex-col lg:flex-row gap-4">
         {/* 보유 종목 */}
         <div className="w-full lg:w-1/2">
