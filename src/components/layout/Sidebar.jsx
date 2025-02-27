@@ -8,12 +8,7 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentSidebar, setCurrentSidebar] = useState("");
 
-  useEffect(() => {
-    console.log(isOpen, currentSidebar);
-  }, [isOpen, currentSidebar]);
-
   const handleSidebar = (sidebarType) => {
-    console.log(sidebarType, isOpen);
     if (currentSidebar === sidebarType && isOpen) {
       setIsOpen(false);
     } else {
