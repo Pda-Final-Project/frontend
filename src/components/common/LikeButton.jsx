@@ -43,7 +43,7 @@ export default function LikeButton({ ticker, initState }) {
   };
   return (
     <div
-      className={`${isLiked ? "text-red-400" : "text-gray-md"} text-lg`}
+      className={`${isLiked ? "text-red-500" : "text-gray-md"} text-lg`}
       onClick={() => {
         changeLikeState();
       }}

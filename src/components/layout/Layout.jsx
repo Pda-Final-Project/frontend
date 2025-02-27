@@ -14,7 +14,7 @@ export default function Layout() {
         </header>
 
         {/* 메인 콘텐츠 */}
-        <main className="flex flex-grow min-h-screen pt-20 items-center justify-center">
+        <main className="flex flex-grow min-h-screen pt-16 items-center justify-center">
           <Outlet />
         </main>
 
