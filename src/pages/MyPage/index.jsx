@@ -10,7 +10,7 @@ export default function Index() {
       {/* 계좌 및 기본 정보 */}
       <MyInfo />
 
-      <div className="mb-4" />
+      <div className="mb-3" />
 
       {/* 해외 주식 잔고 */}
       <StockBalance />

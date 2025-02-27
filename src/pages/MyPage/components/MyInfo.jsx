@@ -29,7 +29,7 @@ export default function MyInfo() {
   */
 
   return (
-    <div className="w-full flex justify-between items-center bg-gray-light p-4 rounded-lg text-black font-semibold">
+    <div className="w-full flex justify-between items-center bg-gray-light p-3 rounded-lg text-black font-semibold">
       {/* 계좌번호 */}
       <span className="text-[16px]">{account.account_number}</span>
 
