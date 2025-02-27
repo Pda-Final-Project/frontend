@@ -16,7 +16,7 @@ export default function Index() {
       </div>
 
       {/** 해외 경제 뉴스 */}
-      <div className="mt-4">
+      <div className="flex flex-col w-full mt-4">
         <News />
       </div>
 
