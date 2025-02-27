@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStockSse } from "../../hooks/useSseStockInfo";
+import { fetchStocks } from "../../api/stockApi";
 
 export default function StockListPage() {
   const navigate = useNavigate();
@@ -28,11 +29,27 @@ export default function StockListPage() {
     },
   ]);
 
-  const { isConnected, error, closeConnection } = useStockSse(
+  const { isConnected, error } = useStockSse(
     `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
     stocks,
     setStocks
   );
+
+  useEffect(() => {
+    //주식 조회
+    const tryFetchStocks = async () => {
+      try {
+        const response = await fetchStocks();
+        if (response.data.status == "OK") {
+          setStocks(response.data.data);
+          console.log(stocks);
+        }
+      } catch (error) {
+        console.error("주식 리스트 조회 중 오류 발생:", error);
+      }
+    };
+    tryFetchStocks();
+  }, []);
 
   return (
     <div>
@@ -54,11 +71,11 @@ export default function StockListPage() {
           >
             <div>{stock.name}</div>
             <div>
-              {stock.price}
+              {stock.current_price}
               <span>원</span>
             </div>
             <div>
-              {stock.rate}
+              {stock.change_rate}
               <span>%</span>
             </div>
             <div>

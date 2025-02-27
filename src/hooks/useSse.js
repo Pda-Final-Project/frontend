@@ -19,7 +19,7 @@ export default function useSse(url, eventHandlers = {}) {
 
     // 연결 성공 시
     eventSource.onopen = () => {
-      console.log("✅ SSE 연결됨:", url);
+      console.log("SSE 연결됨:", url);
       setIsConnected(true);
     };
 
@@ -33,7 +33,7 @@ export default function useSse(url, eventHandlers = {}) {
       eventSource.addEventListener(eventName, (event) => {
         try {
           const parsedData = JSON.parse(event.data);
-          console.log(`📡 ${eventName} 데이터 수신:`, parsedData);
+          //   console.log(`📡 ${eventName} 데이터 수신:`, parsedData);
           callback(parsedData);
         } catch (err) {
           console.error("SSE JSON 파싱 오류:", err);
@@ -57,13 +57,5 @@ export default function useSse(url, eventHandlers = {}) {
     };
   }, [url]);
 
-  // 수동으로 SSE 연결 종료
-  const closeConnection = () => {
-    if (eventSource) {
-      eventSource.close();
-      setIsConnected(false);
-    }
-  };
-
-  return { isConnected, error, closeConnection };
+  return { isConnected, error };
 }

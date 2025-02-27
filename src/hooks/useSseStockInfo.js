@@ -4,7 +4,7 @@ import useSse from "./useSse"; // 위에서 만든 useSse를 가져옴
 /**
  * 주식 관련 SSE 데이터를 처리하는 훅
  * @param {string} url - SSE 이벤트를 구독할 서버 URL
- * @returns {Object} { stockUpdates, stockTrades, isConnected, error, closeConnection }
+ * @returns {Object}
  */
 export function useStockSse(url, stocks, setStocks) {
   // SSE 이벤트 핸들러 정의
@@ -20,7 +20,7 @@ export function useStockSse(url, stocks, setStocks) {
     },
   };
 
-  const { isConnected, error, closeConnection } = useSse(url, eventHandlers);
+  const { isConnected, error } = useSse(url, eventHandlers);
 
-  return { isConnected, error, closeConnection };
+  return { isConnected, error };
 }
