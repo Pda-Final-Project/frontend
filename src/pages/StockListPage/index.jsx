@@ -1,43 +1,63 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useStockSse } from "../../hooks/useSseStockInfo";
+import { fetchStocks } from "../../api/stockApi";
 
-export default function index() {
+export default function StockListPage() {
   const navigate = useNavigate();
-  const [stocks, setStocks] = useState([
-    {
-      ticker: "APPL",
-      name: "apple",
-      price: "1000",
-      rate: "+12",
-      volume: "100",
-    },
-    {
-      ticker: "APPL",
-      name: "apple",
-      price: "1000",
-      rate: "+12",
-      volume: "100",
-    },
-    {
-      ticker: "APPL2",
-      name: "apple2",
-      price: "1000",
-      rate: "+12",
-      volume: "100",
-    },
-  ]);
+  const [stocks, setStocks] = useState([]);
+
+  const { isConnected, error } = useStockSse(
+    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
+    stocks,
+    setStocks
+  );
+
+  //주식 조회
+  const tryFetchStocks = async (sortBy = "") => {
+    try {
+      const response = await fetchStocks(sortBy);
+      if (response.data.status == "OK") {
+        setStocks(response.data.data);
+      }
+    } catch (error) {
+      console.error("주식 리스트 조회 중 오류 발생:", error);
+    }
+  };
 
   useEffect(() => {
-    //종목리스트 조회 api 호출
+    tryFetchStocks();
   }, []);
+
   return (
     <div>
       <div>해외 주식</div>
       <div className="flex flex-col">
+        {/** 정렬 */}
+        <div className="flex w-32 gap-2">
+          <div
+            className="white-button-style"
+            onClick={() => {
+              tryFetchStocks("vol");
+            }}
+          >
+            거래량
+          </div>
+          <div
+            className="white-button-style"
+            onClick={() => {
+              tryFetchStocks("rate");
+            }}
+          >
+            등락율
+          </div>
+        </div>
+
+        {/** 종목 리스트 */}
         <div className="grid grid-cols-4 gap-4">
           <div>종목</div>
           <div>현재가</div>
-          <div>등락률</div>
+          <div>등락율</div>
           <div>거래량</div>
         </div>
         {stocks.map((stock) => (
@@ -50,11 +70,11 @@ export default function index() {
           >
             <div>{stock.name}</div>
             <div>
-              {stock.price}
+              {stock.current_price}
               <span>원</span>
             </div>
             <div>
-              {stock.rate}
+              {stock.change_rate}
               <span>%</span>
             </div>
             <div>
