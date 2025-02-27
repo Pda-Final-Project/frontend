@@ -44,7 +44,7 @@ export default function index() {
             key={stock.ticker}
             className="grid grid-cols-4 gap-4"
             onClick={() => {
-              navigate(`../main/${stock.ticker}`);
+              navigate(`../main/${stock.ticker}/all`);
             }}
           >
             <div>{stock.name}</div>
