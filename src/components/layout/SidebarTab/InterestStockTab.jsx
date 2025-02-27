@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import LikeButton from "../../common/LikeButton";
 
 export default function InterestStockTab() {
   const [stocks, setStocks] = useState([
@@ -86,12 +87,15 @@ export default function InterestStockTab() {
                 }.png`}
                 className="w-12 h-12 rounded-full"
               />
-              <div className="font-semibold">{stock.name}</div>
+              <div className="font-semibold text-sm">{stock.name}</div>
             </div>
 
-            <div className="flex flex-col items-end font-semibold">
-              <div>{stock.price}원</div>
-              <div className="text-sm">{stock.change_rate}</div>
+            <div className="flex gap-4 items-center">
+              <div className="flex flex-col items-end font-semibold">
+                <div>{stock.price}원</div>
+                <div className="text-sm">{stock.change_rate}</div>
+              </div>
+              <LikeButton ticker={stock.ticker} initState={stock.pinned} />
             </div>
           </div>
         ))}
