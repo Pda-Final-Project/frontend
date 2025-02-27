@@ -29,10 +29,6 @@ export default function InterestStockTab() {
   ]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(stocks);
-  }, [stocks]);
-
   //실시간 시세 및 등락율 sse 연결
   const { isConnected, error } = useStockSse(
     `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
