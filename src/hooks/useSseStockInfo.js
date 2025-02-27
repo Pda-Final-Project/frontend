@@ -21,6 +21,5 @@ export function useStockSse(url, stocks, setStocks) {
   };
 
   const { isConnected, error } = useSse(url, eventHandlers);
-
   return { isConnected, error };
 }

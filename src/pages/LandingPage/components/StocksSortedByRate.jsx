@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DUMMY_STOCKS from "./data/dummyStocks";
 
-export default function BestStocks() {
+export default function StocksSortedByRate() {
   const navigate = useNavigate();
   return (
     <div className="w-full sm:w-1/2 p-4">
@@ -10,12 +10,11 @@ export default function BestStocks() {
         className="text-[18px] font-bold cursor-pointer hover:text-blue-md p-4"
         onClick={() => navigate("/stocks")}
       >
-        해외 실시간 <span className="font-bold text-blue-md">Best</span> 순위
+        해외 실시간 <span className="font-bold text-blue-md">등락률</span> 순위
       </h1>
 
       {/* 컨테이너 */}
       <div className="w-full max-w-3xl p-2 rounded-2xl">
-
         {/* 헤더 */}
         <div className="flex justify-between bg-gray-100 text-black font-bold p-4 rounded-2xl shadow-md mb-2">
           <p className="w-1/3 text-[16px] text-center">종목명</p>
