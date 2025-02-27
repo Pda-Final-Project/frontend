@@ -18,8 +18,8 @@ export default function index() {
       volume: "100",
     },
     {
-      ticker: "APPL",
-      name: "apple",
+      ticker: "APPL2",
+      name: "apple2",
       price: "1000",
       rate: "+12",
       volume: "100",
