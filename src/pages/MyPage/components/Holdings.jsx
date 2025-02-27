@@ -52,15 +52,15 @@ export default function Holdings() {
   });
 
   return (
-    <div className="bg-gray-300 p-4 rounded-lg">
+    <div>
       {/* 헤더 */}
       <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold">보유종목</h1>
+        <h1 className="text-lg font-bold">보유종목</h1>
 
         {/* 정렬 기준 드롭다운 */}
         <div className="relative">
           <button
-            className="bg-gray-400 px-4 py-2 rounded-lg font-bold flex items-center"
+            className="bg-gray-light px-4 py-2 rounded-lg font-bold text-blue-md flex items-center"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
             {sortOptions.find((option) => option.key === sortBy)?.label} ▼
@@ -68,7 +68,7 @@ export default function Holdings() {
 
           {/* 드롭다운 메뉴 */}
           {isDropdownOpen && (
-            <div className="absolute right-0 mt-1 w-32 bg-gray-500 text-white rounded-lg shadow-lg">
+            <div className="absolute right-0 mt-1 w-32 bg-gray-light text-blue-md font-bold rounded-lg shadow-lg">
               {sortOptions.map((option) => (
                 <button
                   key={option.key}
@@ -87,8 +87,9 @@ export default function Holdings() {
       </div>
 
       {/* 보유 종목 리스트 */}
+      <div className="bg-gray-light p-4 mt-1 rounded-xl">
       {sortedHoldings.map((stock) => (
-        <div key={stock.id} className="bg-gray-400 p-4 mt-3 rounded-lg">
+        <div key={stock.id} className="bg-white p-4 ml-1 mr-1 mt-2 mb-3 rounded-xl">
           {/* 종목명 & 수익금액 */}
           <div className="flex justify-between items-center border-b pb-2">
             <div>
@@ -128,6 +129,7 @@ export default function Holdings() {
           </div>
         </div>
       ))}
+    </div>
     </div>
   );
 }
