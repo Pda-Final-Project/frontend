@@ -5,29 +5,7 @@ import { fetchStocks } from "../../api/stockApi";
 
 export default function StockListPage() {
   const navigate = useNavigate();
-  const [stocks, setStocks] = useState([
-    {
-      ticker: "APPL",
-      name: "apple",
-      price: "1000",
-      rate: "+12",
-      volume: "100",
-    },
-    {
-      ticker: "NVDA",
-      name: "nvida",
-      price: "1000",
-      rate: "+12",
-      volume: "100",
-    },
-    {
-      ticker: "TSLA",
-      name: "tesla",
-      price: "1000",
-      rate: "+12",
-      volume: "100",
-    },
-  ]);
+  const [stocks, setStocks] = useState([]);
 
   const { isConnected, error } = useStockSse(
     `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
