@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-export default function index() {
+import { useStockSse } from "../../hooks/useSseStockInfo";
+
+export default function StockListPage() {
   const navigate = useNavigate();
   const [stocks, setStocks] = useState([
     {
@@ -11,24 +13,24 @@ export default function index() {
       volume: "100",
     },
     {
-      ticker: "APPL",
-      name: "apple",
+      ticker: "NVDA",
+      name: "nvida",
       price: "1000",
       rate: "+12",
       volume: "100",
     },
     {
-      ticker: "APPL2",
-      name: "apple2",
+      ticker: "TSLA",
+      name: "tesla",
       price: "1000",
       rate: "+12",
       volume: "100",
     },
   ]);
 
-  useEffect(() => {
-    //종목리스트 조회 api 호출
-  }, []);
+  const { stockUpdates, stockTrades, isConnected, error, closeConnection } =
+    useStockSse("http://localhost:19099/v1/api/stocks/stream");
+
   return (
     <div>
       <div>해외 주식</div>
