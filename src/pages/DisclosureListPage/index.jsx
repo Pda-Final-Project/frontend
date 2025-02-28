@@ -24,7 +24,10 @@ export default function Index() {
   // 현재 페이지에 해당하는 공시 데이터
   const indexOfLastReport = currentPage * reportsPerPage;
   const indexOfFirstReport = indexOfLastReport - reportsPerPage;
-  const currentReports = DUMMY_REPORTS.slice(indexOfFirstReport, indexOfLastReport);
+  const currentReports = DUMMY_REPORTS.slice(
+    indexOfFirstReport,
+    indexOfLastReport
+  );
 
   return (
     <div className="w-full p-5 mx-auto">
@@ -82,7 +85,9 @@ export default function Index() {
                 <button
                   key={type}
                   className={`px-4 py-2 rounded-md ${
-                    selectedReportType === type ? "bg-blue-md text-white" : "bg-white"
+                    selectedReportType === type
+                      ? "bg-blue-md text-white"
+                      : "bg-white"
                   }`}
                   onClick={() => setSelectedReportType(type)}
                 >
@@ -118,7 +123,7 @@ export default function Index() {
                 <tr
                   key={index}
                   className="hover:bg-blue-100 cursor-pointer"
-                  onClick={() => navigate(`/reports/${index}`)}
+                  onClick={() => navigate(`/disclosures/${index}`)}
                 >
                   <td className="p-3">{report.type}</td>
                   <td className="p-3">{report.title}</td>
