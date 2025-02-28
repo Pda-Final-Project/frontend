@@ -71,91 +71,96 @@ export default function Index() {
   };
 
   return (
-    <div className="w-full p-5 mx-auto">
+    <div className="w-full p-5 mx-auto flex flex-col gap-20">
       {/* 검색 필터 */}
-      <h1 className="text-lg font-bold mb-3">해외 공시</h1>
+      <div>
+        <h1 className="text-lg font-bold my-8 text-center">
+          해외 공시 찾아보기
+        </h1>
 
-      <div className="bg-gray-100 p-5 rounded-lg flex flex-col justify-center items-center">
-        <div className="flex grid-cols-2 gap-8 w-full">
-          {/* 왼쪽 (종목명 + 기간) */}
-          <div className="flex flex-col w-1/2 gap-3">
-            {/* 종목 검색 */}
-            <div className="flex items-center">
-              <h2 className="text-md font-semibold w-1/6">종목</h2>
-              <input
-                type="text"
-                placeholder="종목코드를 입력하세요"
-                className="bg-white p-2 w-5/6 rounded-md"
-                value={ticker}
-                onChange={(e) => setTicker(e.target.value)}
-              />
+        <div className="bg-gray-light p-5 rounded-lg flex flex-col justify-center items-center">
+          <div className="grid md:grid-cols-2 sm:grid-cols-1  gap-6 w-full">
+            {/* 왼쪽 (종목명 + 기간) */}
+            <div className="flex flex-col gap-3 w-full">
+              {/* 종목 검색 */}
+              <div className="flex items-center">
+                <h2 className="text-md font-semibold w-1/6">종목</h2>
+                <div className="w-5/6">
+                  <input
+                    type="text"
+                    placeholder="종목코드를 입력하세요"
+                    className="input-style"
+                    value={ticker}
+                    onChange={(e) => setTicker(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* 기간 선택 */}
+              <div className="flex items-center">
+                <h2 className="text-md font-semibold w-1/6">기간</h2>
+                <div className="w-5/6 flex items-center">
+                  <input
+                    type="date"
+                    className="input-style"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                  <span className="px-1">-</span>
+                  <input
+                    type="date"
+                    className="input-style"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* 기간 선택 */}
-            <div className="flex items-center">
-              <h2 className="text-md font-semibold w-1/6">기간</h2>
-              <div className="w-5/6 flex items-center">
-                <input
-                  type="date"
-                  className="bg-white p-2 rounded-md"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                />
-                <span className="px-3">-</span>
-                <input
-                  type="date"
-                  className="bg-white p-2 rounded-md"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                />
+            {/* 오른쪽 (공시유형) */}
+            <div className="flex flex-col w-full">
+              <h2 className="text-md font-semibold mb-2">공시유형</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2">
+                {fillingTypeData.map((type) => (
+                  <button
+                    key={type.id}
+                    className={`px-4 py-2 rounded-md ${
+                      fillingType === type.id
+                        ? "bg-blue-md text-white"
+                        : "bg-white"
+                    }`}
+                    onClick={() => {
+                      fillingType == type.id
+                        ? setFillingType("")
+                        : setFillingType(type.id);
+                    }}
+                  >
+                    {type.name}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* 오른쪽 (공시유형) */}
-          <div className="flex flex-col w-1/2">
-            <h2 className="text-md font-semibold mb-2">공시유형</h2>
-            <div className="flex flex-wrap gap-2">
-              {fillingTypeData.map((type) => (
-                <button
-                  key={type.id}
-                  className={`px-4 py-2 rounded-md ${
-                    fillingType === type.id
-                      ? "bg-blue-md text-white"
-                      : "bg-white"
-                  }`}
-                  onClick={() => setFillingType(type.id)}
-                >
-                  {type.name}
-                </button>
-              ))}
-            </div>
+          {/* 검색 버튼 */}
+          <div className="flex flex-col sm:flex-row mt-8 w-100 gap-8 justify-center">
+            <button className="button-style" onClick={handleSearch}>
+              공시 검색하기
+            </button>
+            <button className="white-button-style" onClick={resetSearch}>
+              초기화
+            </button>
           </div>
-        </div>
-
-        {/* 검색 버튼 */}
-        <div className="flex mt-8 w-100 gap-4">
-          <button className="button-style" onClick={handleSearch}>
-            공시 검색하기
-          </button>
-          <button
-            className="white-button-style"
-            onClick={() => {
-              resetSearch();
-            }}
-          >
-            초기화
-          </button>
         </div>
       </div>
 
       {/* 공시 리스트 */}
-      <div className="mt-6">
+      <div className="">
         <h2 className="text-lg font-semibold mb-2">공시 검색 결과</h2>
-        <div className="border border-gray-300 rounded-lg">
+        <div className="rounded-lg bg-white">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-gray-light">
+              <tr className="border-b-1 border-gray-md text-gray-md">
                 <th className="p-3">지수 종류</th>
                 <th className="p-3">보고서명</th>
                 <th className="p-3">발행 일시</th>
@@ -165,7 +170,7 @@ export default function Index() {
               {currentReports.map((report, index) => (
                 <tr
                   key={index}
-                  className="hover:bg-blue-100 cursor-pointer"
+                  className="hover:bg-blue-light cursor-pointer font-semibold"
                   onClick={() => handleClick(report.fillingId)}
                 >
                   <td className="p-3">{report.fillingType}</td>
@@ -178,7 +183,7 @@ export default function Index() {
         </div>
 
         {/* 페이지네이션 */}
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-8">
           {Array.from(
             { length: Math.ceil(fillings.length / reportsPerPage) },
             (_, i) => i + 1
