@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Index() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 검색 필터 상태
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,6 +29,16 @@ export default function Index() {
     indexOfFirstReport,
     indexOfLastReport
   );
+
+  const handleClick = (index) => {
+    if (location.pathname.startsWith("/main")) {
+      // "/main/NVDA/all" → "/main/NVDA/index"
+      navigate(location.pathname.replace("/all", `/${index}`));
+    } else {
+      // 기본적으로 "/disclosures/index"
+      navigate(`${location.pathname}/${index}`);
+    }
+  };
 
   return (
     <div className="w-full p-5 mx-auto">
@@ -123,7 +134,7 @@ export default function Index() {
                 <tr
                   key={index}
                   className="hover:bg-blue-100 cursor-pointer"
-                  onClick={() => navigate(`/disclosures/${index}`)}
+                  onClick={() => handleClick(index)}
                 >
                   <td className="p-3">{report.type}</td>
                   <td className="p-3">{report.title}</td>
