@@ -55,7 +55,7 @@ export default function Holdings() {
     <div>
       {/* 헤더 */}
       <div className="flex justify-between items-center">
-        <h1 className="text-lg font-bold">보유종목</h1>
+        <h1 className="text-lg font-bold ml-1 mt-3 mb-2.5">보유종목</h1>
 
         {/* 정렬 기준 드롭다운 */}
         <div className="relative">
@@ -89,7 +89,7 @@ export default function Holdings() {
       {/* 보유 종목 리스트 */}
       <div className="bg-gray-light p-4 mt-1 rounded-xl">
       {sortedHoldings.map((stock) => (
-        <div key={stock.id} className="bg-white p-4 ml-1 mr-1 mt-2 mb-3 rounded-xl">
+        <div key={stock.id} className="bg-white p-4 mb-2 rounded-xl">
           {/* 종목명 & 수익금액 */}
           <div className="flex justify-between items-center border-b pb-2">
             <div>

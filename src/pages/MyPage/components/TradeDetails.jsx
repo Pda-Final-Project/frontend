@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useState } from "react";
+import OrderDetails from "./OrderDetails";
 
 const DUMMY_TRADES = [
   {
@@ -65,36 +65,63 @@ const DUMMY_TRADES = [
 ];
 
 export default function TradeDetails() {
+  const [activeTab, setActiveTab] = useState("profit");
+  const getColorClass = (value) => (value >= 0 ? "text-red-500 font-semibold" : "text-blue-500 font-semibold");
   return (
     <div className="mt-1 rounded-xl">
-    {/* 제목 */}
-    <div className="text-lg font-bold flex gap-4">
-      <p className="cursor-pointer">손익 내역</p>
-      <p className="cursor-pointer">주문 내역</p>
-    </div>
+    {/* 탭 메뉴 */}
+    <div className="flex border-b border-gray-300 text-[16px]">
+        <button
+          className={`p-2 w-1/4 text-center ${
+            activeTab === "profit" ? "border-b-2 border-blue-md font-bold" : "text-gray-500"
+          }`}
+          onClick={() => setActiveTab("profit")}
+        >
+          손익 내역
+        </button>
+        <button
+          className={`p-2 w-1/4 text-center ${
+            activeTab === "order" ? "border-b-2 border-blue-md font-bold" : "text-gray-500"
+          }`}
+          onClick={() => setActiveTab("order")}
+        >
+          주문 내역
+        </button>
+      </div>
   
-  
-      <div className="bg-gray-light p-4 mt-1 rounded-xl">
-      
-        {/* 요약 정보 */}
-        <div className="grid grid-cols-4 gap-2 p-2 text-[14px]">
-          <p className="font-semibold">실현 손익 (USD)</p>
+      {activeTab === "profit" ? (
+        <div className="bg-gray-light p-4 mt-2.5 rounded-xl">
           
-            {DUMMY_TRADES.reduce((acc, trade) => acc + parseFloat(trade.profit), 0).toFixed(2)}
-          
-          <p className="font-semibold">매도 금액 (USD)</p>
-          <p>
-            {DUMMY_TRADES.reduce((acc, trade) => acc + parseFloat(trade.sellPrice) * parseInt(trade.sellAmount), 0).toFixed(2)}
-          </p>
-          <p className="font-semibold">매매 손익 (USD)</p>
-          <p>
-            {DUMMY_TRADES.reduce((acc, trade) => acc + ((parseFloat(trade.sellPrice) - parseFloat(trade.buyPrice)) * parseInt(trade.sellAmount)), 0).toFixed(2)}
-          </p>
-          <p className="font-semibold">환차 손익 (KRW)</p>
-          <p>
-            {DUMMY_TRADES.reduce((acc, trade) => acc + ((parseFloat(trade.sellExchangeRate) - parseFloat(trade.buyExchangeRate)) * parseFloat(trade.sellPrice) * parseInt(trade.sellAmount)), 0).toFixed(2)}
-          </p>
-        </div>
+          {/* ✅ 값에 따라 색상 결정하는 함수 */}
+    
+
+{/* 요약 정보 */}
+<div className="grid grid-cols-4 gap-2 p-2 text-[14px]">
+  <p className="font-semibold text-gray-500">실현 손익</p>
+  <p className={`${getColorClass(DUMMY_TRADES.reduce((acc, trade) => acc + parseFloat(trade.profit), 0))}`}>
+    {DUMMY_TRADES.reduce((acc, trade) => acc + parseFloat(trade.profit), 0).toFixed(2)}
+    <span> USD</span>
+  </p>
+
+  <p className="font-semibold text-gray-500">매도 금액</p>
+  <p className={`${getColorClass(DUMMY_TRADES.reduce((acc, trade) => acc + parseFloat(trade.sellPrice) * parseInt(trade.sellAmount), 0))}`}>
+    {DUMMY_TRADES.reduce((acc, trade) => acc + parseFloat(trade.sellPrice) * parseInt(trade.sellAmount), 0).toFixed(2)}
+    <span> USD</span>
+  </p>
+
+  <p className="font-semibold text-gray-500">매매 손익</p>
+  <p className={`${getColorClass(DUMMY_TRADES.reduce((acc, trade) => acc + ((parseFloat(trade.sellPrice) - parseFloat(trade.buyPrice)) * parseInt(trade.sellAmount)), 0))}`}>
+    {DUMMY_TRADES.reduce((acc, trade) => acc + ((parseFloat(trade.sellPrice) - parseFloat(trade.buyPrice)) * parseInt(trade.sellAmount)), 0).toFixed(2)}
+    <span> USD</span>
+  </p>
+
+  <p className="font-semibold text-gray-500">환차 손익</p>
+  <p className={`${getColorClass(DUMMY_TRADES.reduce((acc, trade) => acc + ((parseFloat(trade.sellExchangeRate) - parseFloat(trade.buyExchangeRate)) * parseFloat(trade.sellPrice) * parseInt(trade.sellAmount)), 0))}`}>
+    {DUMMY_TRADES.reduce((acc, trade) => acc + ((parseFloat(trade.sellExchangeRate) - parseFloat(trade.buyExchangeRate)) * parseFloat(trade.sellPrice) * parseInt(trade.sellAmount)), 0).toFixed(2)}
+    <span> KRW</span>
+  </p>
+</div>
+
 
         {/* 매매 내역 테이블 */}
         <div className="bg-white p-2 mt-3 rounded-xl">
@@ -102,12 +129,12 @@ export default function TradeDetails() {
             <thead>
               <tr className="border-b border-blue-300 font-semibold bg-white">
                 <th className="p-2">매도일자</th>
-                <th className="p-2">종목명 <br/>ticker</th>
-                <th className="p-2">실현손익(USD) <br/> 손익률(%)</th>
-                <th className="p-2">매도 평균가(USD) <br/> 매수 평균가(USD)</th>
-                <th className="p-2">매도 금액(USD) <br/> 매수 금액(USD)</th>
+                <th className="p-2">종목명</th>
+                <th className="p-2">실현손익 <br/> 손익률 (%)</th>
+                <th className="p-2">매도 평균가 <br/> 매수 평균가</th>
+                <th className="p-2">매도 금액 <br/> 매수 금액</th>
                 <th className="p-2">매도 수량 <br/> 매수 수량</th>
-                <th className="p-2">매도 환율(KRW/USD) <br/> 매수 환율(KRW/USD)</th>
+                <th className="p-2">매도 환율 (KRW/USD) <br/> 매수 환율 (KRW/USD)</th>
               </tr>
             </thead>
             
@@ -144,7 +171,13 @@ export default function TradeDetails() {
             </tbody>
           </table>
         </div>
-      </div>
+        </div>
+      ) : (
+        <OrderDetails />
+      )}
+      
+      
+        
     </div>
   );
 }
