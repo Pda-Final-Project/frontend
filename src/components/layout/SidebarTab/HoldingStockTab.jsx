@@ -10,21 +10,18 @@ export default function HoldingStockTab() {
       name: "엔비디아",
       current_price: 1000,
       change_rate: 1.23,
-      pinned: true,
     },
     {
       ticker: "TSLA",
       name: "테슬라",
       current_price: 1000,
       change_rate: 1.23,
-      pinned: true,
     },
     {
       ticker: "GOOGL",
       name: "구글",
       current_price: 1000,
       change_rate: 1.23,
-      pinned: true,
     },
   ]);
   const navigate = useNavigate();
@@ -34,8 +31,6 @@ export default function HoldingStockTab() {
     stocks,
     setStocks
   );
-
-  useEffect(() => {}, []);
 
   return (
     <div className="h-full w-100 bg-gray-light z-50 py-4 px-2 space-y-2">
@@ -74,7 +69,7 @@ export default function HoldingStockTab() {
                 <div>{stock.current_price}원</div>
                 <div className="text-sm">{stock.change_rate}</div>
               </div>
-              <LikeButton ticker={stock.ticker} initState={stock.pinned} />
+              <LikeButton ticker={stock.ticker} />
             </div>
           </div>
         ))}

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import useSSEPrice from "../../hooks/useSSEPrice";
 
 //실시간 시세
 export default function MarketPriceList() {
   const sseUrl = import.meta.env.VITE_PRICE_SSE_URL;
-  // 소켓 연결 시 대체
-  // const marketPrices = useSSEPrice(sseUrl);
+
   const marketPrices = [
     {
       trade_price: 1000,

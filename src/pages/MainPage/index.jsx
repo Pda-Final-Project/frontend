@@ -12,7 +12,6 @@ export default function MainPage() {
     name: "Tesla Inc",
     currentPrice: 185215.7,
     changeRate: "+2.22",
-    pinned: true,
   });
   return (
     <div className="flex flex-col w-full h-full bg-gray-light p-8 ">
@@ -31,7 +30,7 @@ export default function MainPage() {
           <div className="flex items-center gap-2">
             <div className="text-lg">{stockInfo.name}</div>
             <div className="text-lg text-gray-md">{ticker}</div>
-            <LikeButton ticker={ticker} initState={stockInfo.pinned} />
+            <LikeButton ticker={ticker} />
           </div>
           <div className="flex items-end gap-2">
             <div className=" text-2xl">
