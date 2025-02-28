@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceArea,
 } from "recharts";
 import { TiWeatherDownpour } from "react-icons/ti"; // 파란색 아이콘
 import { IoIosSunny } from "react-icons/io"; // 빨간색 아이콘
@@ -20,19 +21,62 @@ const data = [
 ];
 
 export default function WeatherGraph10Q() {
+  const [selectedBar, setSelectedBar] = useState(null);
+
+  const handleXAxisClick = (name) => {
+    setSelectedBar(name === selectedBar ? null : name);
+    console.log("Clicked:", name);
+  };
+
+  const CustomXAxisTick = (props) => {
+    const { x, y, payload } = props;
+    return (
+      <text
+        x={x}
+        y={y}
+        dy={10}
+        textAnchor="middle"
+        fill={selectedBar === payload.value ? "#54b0fe" : "#000"}
+        className="cursor-pointer font-bold"
+        onClick={() => handleXAxisClick(payload.value)}
+      >
+        {payload.value}
+      </text>
+    );
+  };
+
   return (
-    <div className="relative w-full h-[350px]">
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart
-          data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
+    <div className="relative w-full h-[300px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+          <CartesianGrid strokeDasharray />
+          <XAxis dataKey="name" tick={<CustomXAxisTick />} />{" "}
+          <YAxis
+            domain={[
+              0,
+              Math.max(...data.map((d) => Math.max(d.uv, d.pv))) * 1.5,
+            ]}
+          />
           <Tooltip />
           <Legend />
+          {data.map((d, index) => {
+            let color = "rgba(200, 200, 200, 0.3)"; // 기본 배경색
+            if (d.uv > d.pv) color = "rgba(84, 176, 254, 0.53)"; // 🔵 파랑 배경
+            else if (d.uv < d.pv) color = "rgba(255, 100, 100, 0.3)"; // 🔴 빨강 배경
 
+            return (
+              <ReferenceArea
+                key={index}
+                x1={d.name}
+                x2={d.name}
+                y1={0}
+                y2={Math.max(...data.map((d) => Math.max(d.uv, d.pv))) * 1.5}
+                strokeOpacity={0}
+                fill={color}
+                fillOpacity={0.5}
+              />
+            );
+          })}
           <Bar
             dataKey="uv"
             fill="#54b0fe"
@@ -46,7 +90,6 @@ export default function WeatherGraph10Q() {
         </BarChart>
       </ResponsiveContainer>
 
-      {/* ✅ 특정 데이터 포인트에 아이콘 추가 */}
       {data.map((d, index) => {
         let icon = null;
         if (d.uv > d.pv) {
@@ -61,8 +104,8 @@ export default function WeatherGraph10Q() {
               key={index}
               className="absolute"
               style={{
-                left: `${index * 28 + 26}%`, // X축 위치 (조정 필요)
-                top: `20%`, // Y축 위치 (조정 필요)
+                left: `${index * 28.5 + 27}%`, // X축 위치
+                top: `15%`, // Y축 위치
                 transform: "translate(-50%, -50%)",
               }}
             >

@@ -4,6 +4,7 @@ import api from "./axiosInstance";
 const fetchFillingInfo = (filling_id) =>
   api.get(`http://127.0.0.1:19098/v1/api/fillings/${filling_id}`, {
     isAuthRequired: false,
+    validateStatus: (status) => status >= 200 && status < 400,
   });
 
 const fetchFillings = (params) =>
