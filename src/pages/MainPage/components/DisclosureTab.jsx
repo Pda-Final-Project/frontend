@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 export default function DisclosureTab() {
   const { filling_id } = useParams();
   return (
-    <div className="bg-gray-200 h-full">
+    <div className="h-full">
       {filling_id == "all" ? <DisclosureListPage /> : <DisclosureDetailPage />}
     </div>
   );

@@ -58,8 +58,14 @@ export default function Index() {
   const indexOfFirstReport = indexOfLastReport - reportsPerPage;
   const currentReports = fillings.slice(indexOfFirstReport, indexOfLastReport);
 
-  const handleClick = (index) => {
-    navigate(`${location.pathname}/${index}`);
+  const handleClick = (fillingId) => {
+    const currentPath = location.pathname;
+
+    if (currentPath.startsWith("/main") && currentPath.endsWith("/all")) {
+      navigate(currentPath.replace("/all", `/${fillingId}`));
+    } else {
+      navigate(`${currentPath}/${fillingId}`);
+    }
   };
 
   const resetSearch = () => {
@@ -71,10 +77,10 @@ export default function Index() {
   };
 
   return (
-    <div className="w-full p-5 mx-auto flex flex-col gap-20">
+    <div className="w-full flex flex-col gap-12">
       {/* 검색 필터 */}
       <div>
-        <h1 className="text-lg font-bold my-8 text-center">
+        <h1 className="text-lg font-bold text-center mb-4">
           해외 공시 찾아보기
         </h1>
 
@@ -156,8 +162,10 @@ export default function Index() {
 
       {/* 공시 리스트 */}
       <div className="">
-        <h2 className="text-lg font-semibold mb-2">공시 검색 결과</h2>
-        <div className="rounded-lg bg-white">
+        <h2 className="text-lg font-semibold mb-2 text-center">
+          공시 검색 결과
+        </h2>
+        <div className="rounded-lg bg-white p-2">
           <table className="w-full text-left">
             <thead>
               <tr className="border-b-1 border-gray-md text-gray-md">
