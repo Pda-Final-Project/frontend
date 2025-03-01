@@ -2,7 +2,7 @@
 import api from "./axiosInstance";
 
 const fetchStocks = (sortBy = "", searchParam = "") =>
-  api.get("/stocks", {
+  api.get("http://127.0.0.1:19099/v1/api/stocks", {
     params: {
       sortBy,
       searchParam,
@@ -12,16 +12,25 @@ const fetchStocks = (sortBy = "", searchParam = "") =>
   });
 
 const fetchHoldingStocks = (sortBy = "") =>
-  api.get("/stocks/holding", {
+  api.get("http://127.0.0.1:19092/v1/api/stocks/holding", {
     params: { sortBy: sortBy },
     isAuthRequired: true,
   });
 
-const fetchLikeStocks = () => api.get("/stocks/like", { isAuthRequired: true });
+const fetchLikeStocks = () =>
+  api.get("http://127.0.0.1:19092/v1/api/stocks/like", {
+    isAuthRequired: true,
+  });
 const removeLikeStock = (ticker) =>
-  api.delete(`/stocks/like/${ticker}`, { isAuthRequired: true });
+  api.delete(`http://127.0.0.1:19092/v1/api/stocks/like/${ticker}`, {
+    isAuthRequired: true,
+  });
 const addLikeStock = (ticker) =>
-  api.post("/stocks/like", { ticker: ticker }, { isAuthRequired: true });
+  api.post(
+    "http://127.0.0.1:19092/v1/api/stocks/like",
+    { ticker: ticker },
+    { isAuthRequired: true }
+  );
 
 export {
   fetchStocks,

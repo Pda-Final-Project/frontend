@@ -9,7 +9,7 @@
   --color-red: "#FF0000";
 }
 .input-style {
-  @apply border border-gray-md px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full;
+  @apply border bg-white border-gray-md px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full;
 }
 .button-style {
   @apply text-center bg-blue-md px-4 py-2 rounded-lg w-full text-white hover:bg-blue-light hover:text-black cursor-pointer duration-300 disabled:bg-blue-light disabled:text-white;

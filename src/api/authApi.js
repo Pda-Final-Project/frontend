@@ -2,10 +2,14 @@
 import api from "./axiosInstance";
 
 const login = (userData) =>
-  api.post("/auth/login", userData, { isAuthRequired: false });
+  api.post("http://127.0.0.1:19092/v1/api/auth/login", userData, {
+    isAuthRequired: false,
+  });
 
 const register = (userData) =>
-  api.post("/auth/join", userData, { isAuthRequired: false });
+  api.post("http://127.0.0.1:19092/v1/api/auth/join", userData, {
+    isAuthRequired: false,
+  });
 
 const logout = () => {
   sessionStorage.removeItem("accessToken");
