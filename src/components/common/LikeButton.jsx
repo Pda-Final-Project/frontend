@@ -4,7 +4,7 @@ import { useLikedStocksStore } from "../../hooks/useLikedStocksStore";
 
 export default function LikeButton({ ticker }) {
   const { likedStocks, toggleLike } = useLikedStocksStore();
-  const isLiked = likedStocks.has(ticker); // Zustand의 전역 상태 사용
+  const isLiked = likedStocks?.includes(ticker); // Zustand의 전역 상태 사용
 
   return (
     <div

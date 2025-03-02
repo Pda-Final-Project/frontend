@@ -7,14 +7,21 @@ import {
 
 // Zustand 스토어 정의
 export const useLikedStocksStore = create((set, get) => ({
-  likedStocks: new Set(), // 좋아요한 종목을 Set으로 저장
+  likedStocks: [], // ✅ Set 대신 Array 사용
 
   // ✅ API에서 좋아요 리스트 불러오기
   fetchLikedStocks: async () => {
     try {
       const response = await fetchLikeStocks();
-      if (response.data.status === "OK") {
-        set({ likedStocks: new Set(response.data.data) });
+      console.log("Fetched liked stocks:", response.data);
+
+      if (
+        response?.data?.status === "OK" &&
+        Array.isArray(response.data.data)
+      ) {
+        set({ likedStocks: response.data.data }); // ✅ Array로 저장
+      } else {
+        console.warn("Invalid response format:", response.data);
       }
     } catch (error) {
       console.error("좋아요 리스트 불러오기 실패:", error);
@@ -23,17 +30,11 @@ export const useLikedStocksStore = create((set, get) => ({
 
   // ✅ 좋아요 토글 (추가/삭제)
   toggleLike: async (ticker) => {
-    // 현재 상태 가져오기
     const currentLikedStocks = get().likedStocks;
-    const newLikedStocks = new Set(currentLikedStocks);
-    const isLiked = newLikedStocks.has(ticker);
-
-    // UI 즉시 반영
-    if (isLiked) {
-      newLikedStocks.delete(ticker);
-    } else {
-      newLikedStocks.add(ticker);
-    }
+    const isLiked = currentLikedStocks.includes(ticker);
+    const newLikedStocks = isLiked
+      ? currentLikedStocks.filter((stock) => stock !== ticker)
+      : [...currentLikedStocks, ticker];
 
     set({ likedStocks: newLikedStocks });
 
@@ -45,8 +46,9 @@ export const useLikedStocksStore = create((set, get) => ({
       }
     } catch (error) {
       console.error("좋아요 변경 실패:", error);
+      alert("좋아요 변경에 실패했습니다. 다시 시도해주세요.");
 
-      // API 실패하면 상태 롤백
+      // ✅ API 실패 시 상태 롤백
       set({ likedStocks: currentLikedStocks });
     }
   },
