@@ -45,10 +45,14 @@ const chartData = [
   },
 ];
 
-export default function InsightBox({ fillingType }) {
+export default function InsightBox({ fillingType, filling10qJsonUrl }) {
   //선택된 공시에 대해서 chartData를 받아와 chartMini에 줘야 함
   const { selectedFilling, setSelectedFilling } = useState();
-  console.log(fillingType);
+
+  const handleXAxisClick = (name) => {
+    setSelectedFilling(name === selectedFilling ? null : name);
+  };
+
   return (
     <div>
       <div className="font-semibold text-[16px] mb-4">오늘의 주식 날씨는?</div>
@@ -57,7 +61,14 @@ export default function InsightBox({ fillingType }) {
           <div className="font-semibold text-blue-md text-sm mb-4">
             해당 분기의 작년과 올해 실적을 비교해보세요
           </div>
-          {fillingType == "10-Q" ? <WeatherGraph10Q /> : <WeatherGraph8K />}
+          {fillingType == "10-Q" ? (
+            <WeatherGraph10Q
+              handleXAxisClick={handleXAxisClick}
+              filling10qJsonUrl={filling10qJsonUrl}
+            />
+          ) : (
+            <WeatherGraph8K handleXAxisClick={handleXAxisClick} />
+          )}
         </div>
         <div className="w-2/5">
           <div className="font-semibold text-blue-md text-sm pl-8">

@@ -5,7 +5,6 @@ import { fetchFillingInfo } from "../../api/disclosureApi";
 
 export default function DisclosureDetail() {
   const { filling_id } = useParams();
-
   const [filling, setFilling] = useState({});
 
   useEffect(() => {
@@ -25,6 +24,7 @@ export default function DisclosureDetail() {
       alert("서버 내부 오류가 발생했습니다..");
     }
   };
+
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* 공시 기본 정보 */}
@@ -38,7 +38,10 @@ export default function DisclosureDetail() {
       {/* 공시 추가 인사이트 */}
       {filling.fillingType == "10-Q" || filling.fillingType == "8-K" ? (
         <div className="w-full flex flex-col p-6 bg-white rounded-lg">
-          <InsightBox fillingType={filling.fillingType} />
+          <InsightBox
+            fillingType={filling.fillingType}
+            filling10qJsonUrl={filling.filling10qJsonUrl}
+          />
         </div>
       ) : (
         ""

@@ -21,13 +21,8 @@ const data = [
   { name: "Page D", value: 800 },
 ];
 
-export default function WeatherGraph8K() {
+export default function WeatherGraph8K(handleXAxisClick) {
   const [selectedBar, setSelectedBar] = useState(null);
-
-  const handleXAxisClick = (name) => {
-    setSelectedBar(name === selectedBar ? null : name);
-    console.log("Clicked:", name);
-  };
 
   const CustomXAxisTick = (props) => {
     const { x, y, payload } = props;
