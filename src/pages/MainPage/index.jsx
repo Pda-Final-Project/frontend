@@ -4,6 +4,7 @@ import DisclosureTab from "./components/DisclosureTab";
 import TradingTab from "./components/TradingTab";
 import LikeButton from "../../components/common/LikeButton";
 import { fetchStocks } from "../../api/stockApi";
+import { formatNumber } from "../../utils/numberFormat";
 
 export default function MainPage() {
   const { ticker, filling_id } = useParams();
@@ -43,9 +44,6 @@ export default function MainPage() {
           <img
             src={`${import.meta.env.VITE_STOCK_LOGO_URL}${ticker}.png`}
             className="w-full h-14 rounded-full"
-            onClick={() =>
-              console.log(`${import.meta.env.VITE_STOCK_LOGO_URL}${ticker}.png`)
-            }
           />
         </div>
         <div>
@@ -56,7 +54,7 @@ export default function MainPage() {
           </div>
           <div className="flex items-end gap-2">
             <div className="text-2xl">
-              {stockInfo.current_price.toLocaleString("en-US")}원
+              {formatNumber(parseFloat(stockInfo.current_price))}원
             </div>
             <div className="text-sm">
               <span

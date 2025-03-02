@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "../../common/LikeButton";
 import { useStockSse } from "../../../hooks/useSseStockInfo";
+import { formatNumber } from "../../../utils/numberFormat";
 
 export default function HoldingStockTab() {
   const [stocks, setStocks] = useState([
@@ -31,8 +32,6 @@ export default function HoldingStockTab() {
     stocks,
     setStocks
   );
-
-  useEffect(() => {}, []);
 
   return (
     <div className="h-full w-100 bg-gray-light shadow-md z-50 py-4 px-2 space-y-2">
@@ -68,7 +67,7 @@ export default function HoldingStockTab() {
             </div>
             <div className="flex gap-4 items-center">
               <div className="flex flex-col items-end font-semibold">
-                <div>{stock.current_price}원</div>
+                <div>{formatNumber(parseFloat(stock.current_price))}원</div>
                 <div className="text-sm">{stock.change_rate}</div>
               </div>
               <LikeButton ticker={stock.ticker} initState={stock.pinned} />

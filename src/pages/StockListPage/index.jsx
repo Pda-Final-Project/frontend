@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useStockSse } from "../../hooks/useSseStockInfo";
 import { fetchStocks } from "../../api/stockApi";
+import { formatNumber } from "../../utils/numberFormat";
 
 export default function StockListPage() {
   const navigate = useNavigate();
@@ -127,7 +128,9 @@ export default function StockListPage() {
                     <span className="ml-1">{stock.name}</span>
                   </td>
 
-                  <td className="p-3">{stock.current_price} 원</td>
+                  <td className="p-3">
+                    {formatNumber(parseFloat(stock.current_price))}원
+                  </td>
                   <td
                     className={`p-3 ${
                       parseFloat(stock.change_rate) >= 0
@@ -138,7 +141,9 @@ export default function StockListPage() {
                     {stock.change_rate}
                   </td>
 
-                  <td className="p-3">{stock.volume}</td>
+                  <td className="p-3">
+                    {formatNumber(parseFloat(stock.volume))}
+                  </td>
                 </tr>
               ))}
             </tbody>
