@@ -91,7 +91,7 @@ export default function StockListPage() {
         {" "}
         {/* 테이블 */}
         <div>
-          <table className="w-full text-center overflow-hidden border-separate border-spacing-0 text-[13px] ">
+          <table className="w-full text-center overflow-hidden border-separate border-spacing-0 text-sm font-semibold ">
             <thead>
               <tr className="bg-white text-gray-md">
                 <th className="p-3 text-left">종목</th>
