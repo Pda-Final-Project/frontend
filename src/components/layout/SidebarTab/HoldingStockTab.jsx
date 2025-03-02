@@ -10,21 +10,18 @@ export default function HoldingStockTab() {
       name: "엔비디아",
       current_price: 1000,
       change_rate: 1.23,
-      pinned: true,
     },
     {
       ticker: "TSLA",
       name: "테슬라",
       current_price: 1000,
       change_rate: 1.23,
-      pinned: true,
     },
     {
       ticker: "GOOGL",
       name: "구글",
       current_price: 1000,
       change_rate: 1.23,
-      pinned: true,
     },
   ]);
   const navigate = useNavigate();
