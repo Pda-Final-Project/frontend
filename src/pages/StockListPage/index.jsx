@@ -99,8 +99,8 @@ export default function StockListPage() {
       <div>
       <table className="w-full text-center overflow-hidden rounded-2xl border-separate border-spacing-0">
           <thead>
-            <tr className="bg-gray-light text-gray-700 rounded-xl">
-              <th className="p-3">종목</th>
+            <tr className="bg-white text-gray-500 rounded-xl">
+              <th className="p-3 text-left">종목</th>
               <th className="p-3">현재가</th>
               <th className="p-3">등락률</th>
               <th className="p-3">거래량</th>
@@ -111,7 +111,7 @@ export default function StockListPage() {
             {currentStocks.map((stock, index) => (
               <tr
                 key={index}
-                className={`cursor-pointer ${index % 2 === 0 ? 'bg-white' : 'bg-gray-light'}`}
+                className={`cursor-pointer ${index % 2 === 0 ? 'bg-gray-light' : 'bg-white'}`}
                 onClick={() => navigate(`../main/${stock.ticker}/all`)}
               >
                 <td className="p-3 flex items-center space-x-2 ">
@@ -141,8 +141,8 @@ export default function StockListPage() {
         {[1, 2, 3].map((page) => (
           <button
             key={page}
-            className={`mx-1 px-3 py-1 rounded-md ${
-              currentPage === page ? "bg-blue-md text-white font-semibold" : "bg-gray-light"
+            className={`mx-1 px-3 py-1 rounded-[150px] ${
+              currentPage === page ? "bg-blue-md text-white font-semibold" : "bg-white"
             }`}
             onClick={() => setCurrentPage(page)}
           >
