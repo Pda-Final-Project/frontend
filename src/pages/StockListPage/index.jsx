@@ -114,15 +114,15 @@ export default function StockListPage() {
                 className={`cursor-pointer ${index % 2 === 0 ? 'bg-gray-light' : 'bg-white'}`}
                 onClick={() => navigate(`../main/${stock.ticker}/all`)}
               >
-                <td className="p-3 flex items-center space-x-2 ">
+                <td className="p-3 flex items-center space-x-2">
                   <FaHeart className={`${stock.isFavorite ? 'text-red-500' : 'text-gray-400'}`} />
-                  <span>{index + 1 + (currentPage - 1) * stocksPerPage}</span>
+                  <span className="w-12">{index + 1 + (currentPage - 1) * stocksPerPage}</span>
                   <img
                     src={`${import.meta.env.VITE_STOCK_LOGO_URL}${stock.ticker}.png`}
-                    className="w-5 h-5 rounded-full"
+                    className="w-5 h-5 rounded-full ml-3"
                     alt="img"
                   />
-                  <span>{stock.name}</span>
+                  <span className="ml-1">{stock.name}</span>
                 </td>
                 
                 <td className="p-3">{stock.current_price} 원</td>
