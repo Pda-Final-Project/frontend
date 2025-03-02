@@ -81,7 +81,7 @@ export default function MarketPriceList() {
     },
   ];
   return (
-    <div className="bg-white p-4 flex flex-col rounded-lg h-full overflow-y-hidden text-sm">
+    <div className="bg-white p-4 flex flex-col rounded-lg h-full text-sm overflow-y-hidden">
       <div className="text-lg font-semibold">실시간 시세</div>
       <div className="grid grid-cols-4 gap-4 font-semibold text-gray-md border-b-1 border-gray-md py-2">
         <div className="w-full text-left">체결가</div>
@@ -89,7 +89,7 @@ export default function MarketPriceList() {
         <div className="w-full text-right">거래량</div>
         <div className="w-full text-right">시간</div>
       </div>
-      <div className="overflow-y-auto max-h-40">
+      <div className="overflow-y-auto no-scrollbar max-h-72">
         {marketPrices.map((el, id) => (
           <div
             key={id}
