@@ -88,7 +88,6 @@ export default function StockListPage() {
       </div>
 
       <div>
-        {" "}
         {/* 테이블 */}
         <div>
           <table className="w-full text-center overflow-hidden border-separate border-spacing-0 text-sm font-semibold ">

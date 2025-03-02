@@ -20,9 +20,9 @@ export default function StocksSortedByVol() {
     tryFetchStocks();
   }, []);
   return (
-    <div className="w-full p-4 flex flex-col">
+    <div className="w-full flex flex-col">
       <div
-        className="text-[18px] font-bold cursor-pointer hover:text-blue-md duration-300 p-4 inline-block w-fit"
+        className="text-[18px] font-bold cursor-pointer hover:text-blue-md duration-300 inline-block w-fit mb-2"
         onClick={() => navigate("/stocks")}
       >
         해외 실시간 <span className="font-bold text-blue-md">Best 거래량 </span>
@@ -30,50 +30,53 @@ export default function StocksSortedByVol() {
       </div>
 
       {/* 컨테이너 */}
-      <div className="w-full p-2 rounded-2xl">
-        {/* 헤더 */}
-        <div className="flex justify-between bg-gray-100 text-black font-bold p-4 rounded-2xl shadow-md mb-2 text-[14px] ">
-          <p className="w-1/4 text-center">종목명</p>
-          <p className="w-1/4 text-center">현재가</p>
-          <p className="w-1/4 text-center">등락률</p>
-          <p className="w-1/4 text-center">거래량</p>
-        </div>
+      <div className="w-full rounded-2xl">
+        <table className="w-full text-center overflow-hidden border-separate border-spacing-0 text-sm font-semibold ">
+          <thead>
+            <tr className="bg-white text-gray-md">
+              <th className="p-3 text-left">종목</th>
+              <th className="p-3">현재가</th>
+              <th className="p-3">등락률</th>
+              <th className="p-3">거래량</th>
+            </tr>
+          </thead>
+          <tbody className="overflow-hidden rounded-lg">
+            {stocks?.slice(0, 8).map((stock, index) => (
+              <tr
+                key={index}
+                className={`cursor-pointer hover:bg-blue-light rounded-lg ${
+                  index % 2 === 0 ? "bg-gray-light" : "bg-white"
+                }`}
+                onClick={() => navigate(`../main/${stock.ticker}/all`)}
+              >
+                <td className="py-4 px-8 flex items-center space-x-2">
+                  <span className="w-4">{index + 1}</span>
+                  <img
+                    src={`${import.meta.env.VITE_STOCK_LOGO_URL}${
+                      stock.ticker
+                    }.png`}
+                    className="w-5 h-5 rounded-full ml-3"
+                    alt="img"
+                  />
+                  <span className="ml-1">{stock.name}</span>
+                </td>
 
-        {/* 데이터 */}
-        {stocks?.slice(0, 5).map((stock, index) => (
-          <div
-            key={index}
-            className="flex justify-between items-center p-4 rounded-2xl shadow-md hover:shadow-lg transition-all mb-3 text-sm font-semibold"
-            onClick={() => navigate(`./main/${stock.ticker}/all`)}
-          >
-            {/* 종목명 & 종목 코드 */}
-            <div className="w-1/4 text-center">
-              <p className="text-sm font-bold">
-                {stock.name.length > 10
-                  ? stock.name.slice(0, 20) + "..."
-                  : stock.name}
-              </p>
-              <p className="text-gray-md">{stock.ticker}</p>
-            </div>
+                <td className="p-3">{stock.current_price} 원</td>
+                <td
+                  className={`p-3 ${
+                    parseFloat(stock.change_rate) >= 0
+                      ? "text-red-500"
+                      : "text-blue-500"
+                  }`}
+                >
+                  {stock.change_rate}
+                </td>
 
-            {/* 현재가 */}
-            <p className="w-1/4 text-center">{stock.current_price}</p>
-
-            {/* 등락률 (양:빨강, 음:파랑) */}
-            <div
-              className={`w-1/4 text-center ${
-                stock.change_rate.startsWith("+")
-                  ? "text-red-500"
-                  : "text-blue-500"
-              }`}
-            >
-              {stock.change_rate}
-            </div>
-
-            {/* 거래량 */}
-            <p className="w-1/4 text-center">{stock.volume}</p>
-          </div>
-        ))}
+                <td className="p-3">{stock.volume}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ export default function News() {
   }, []);
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full">
       {/* 제목 */}
       <h1 className="text-[18px] font-bold ml-3">글로벌 경제 뉴스</h1>
       {/* 데이터가 로딩되지 않았을 경우 표시 */}
@@ -39,7 +39,7 @@ export default function News() {
           뉴스 데이터를 불러오는 중...
         </p>
       ) : (
-        <div className="w-full overflow-auto no-scrollbar">
+        <div className="overflow-auto no-scrollbar">
           {" "}
           {/* 가로 스크롤 적용 */}
           <div className="flex space-x-4 p-4 rounded-lg max-w-screen-xl">
