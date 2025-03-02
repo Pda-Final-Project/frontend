@@ -10,7 +10,7 @@ const fillingTypeData = [
   { id: "SC 13G", name: "주식 대량 보유 보고서" },
 ];
 
-export default function Index() {
+export default function DisclosureList() {
   const navigate = useNavigate();
   const location = useLocation();
 

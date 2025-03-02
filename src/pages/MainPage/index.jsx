@@ -53,7 +53,7 @@ export default function MainPage() {
           </div>
         </div>
       </div>
-      <div className="w-full grid grid-cols-2 h-full gap-4">
+      <div className="w-full grid grid-cols-2 h-full gap-8">
         {/** 공시탭 */}
         <div className="">
           <DisclosureTab ticker={ticker} />

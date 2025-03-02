@@ -6,7 +6,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import MyPage from "../pages/MyPage";
 import StockListPage from "../pages/StockListPage";
-import DisclosureListPage from "../pages/DisclosureListPage";
+import DisclosureListPage from "../pages/DisclosureListPage/DisclosureListPage";
 import DisclosureDetailPage from "../pages/DisclosureDetailPage";
 import MainPage from "../pages/MainPage";
 import IntroduceDisclosurePage from "../pages/IntroduceDisclosurePage";
