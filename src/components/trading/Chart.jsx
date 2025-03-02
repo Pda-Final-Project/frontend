@@ -12,7 +12,7 @@ const Chart = ({ chartData }) => {
       <div className="container">
         <IgrFinancialChart
           width="100%"
-          height="250px"
+          height="300px"
           isToolbarVisible={false}
           chartType="Candle" // 캔들 차트
           zoomSliderType="None"

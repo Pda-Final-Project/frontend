@@ -16,7 +16,7 @@ export default function ChartTab({ ticker }) {
     /** To do: 해당 타입에 따른 chartData 요청 */
   };
   return (
-    <div className="bg-white flex flex-col rounded-lg py-4 text-sm">
+    <div className="bg-white flex flex-col rounded-lg py-4 text-sm h-full">
       {/** 주식 종류 탭 */}
       <div className="flex w-full justify-end px-4">
         <div className="flex gap-2">
@@ -37,7 +37,7 @@ export default function ChartTab({ ticker }) {
         </div>
       </div>
       {/** 주식 차트 */}
-      <div className="z-0 ">
+      <div className="z-0 w-full">
         <Chart chartData={chartData} />
       </div>
     </div>

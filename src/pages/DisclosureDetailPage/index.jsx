@@ -27,7 +27,7 @@ export default function DisclosureDetailPage() {
     }
   };
   return (
-    <div className="w-full h-full p-20 bg-gray-light">
+    <div className="w-full h-full px-32 py-20 bg-gray-light">
       <DisclosureDetail />
     </div>
   );

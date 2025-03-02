@@ -40,7 +40,7 @@ export default function StockListPage() {
   const currentStocks = stocks.slice(indexOfFirstStock, indexOfLastStock);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center px-20 py-10">
+    <div className="w-full h-full flex flex-col justify-center px-32 py-20">
       <div>
         <div className="flex items-center space-x-2 mb-2">
           <h1 className="text-lg font-bold mb-2">해외 주식 순위 </h1>

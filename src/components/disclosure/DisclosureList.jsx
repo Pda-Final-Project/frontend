@@ -85,7 +85,7 @@ export default function DisclosureList() {
         </h1>
 
         <div className="bg-gray-light p-5 rounded-lg flex flex-col justify-center items-center">
-          <div className="grid md:grid-cols-2 sm:grid-cols-1  gap-6 w-full">
+          <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-12 w-full">
             {/* 왼쪽 (종목명 + 기간) */}
             <div className="flex flex-col gap-3 w-full">
               {/* 종목 검색 */}
