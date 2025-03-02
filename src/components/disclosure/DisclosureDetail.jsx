@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import InsightBox from "../../components/disclosure/InsightBox";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchFillingInfo } from "../../api/disclosureApi";
+import { IoChevronBack } from "react-icons/io5";
 
 export default function DisclosureDetail() {
   const { filling_id } = useParams();
   const [filling, setFilling] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     tryFetchFilling();
@@ -29,7 +31,15 @@ export default function DisclosureDetail() {
     <div className="flex flex-col gap-4 w-full">
       {/* 공시 기본 정보 */}
       <div className="flex w-full p-6 justify-between items-center font-semibold rounded-lg bg-white">
-        <div className="font-semibold text-lg">{filling.fillingTitle}</div>
+        <div className="font-semibold text-lg flex items-center gap-4">
+          <IoChevronBack
+            className="hover:text-blue-md text-2xl cursor-pointer"
+            onClick={() => {
+              navigate(-1);
+            }}
+          />
+          {filling.fillingTitle}
+        </div>
         <div className="flex items-center gap-8 text-sm">
           <div>공시 분류: {filling.fillingType}</div>
           <div>제출일자: {filling.submitTimestamp}</div>
