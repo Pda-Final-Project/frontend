@@ -20,7 +20,7 @@ export default function StocksSortedByVol() {
     tryFetchStocks();
   }, []);
   return (
-    <div className="w-full sm:w-1/2 p-4 flex flex-col">
+    <div className="w-full p-4 flex flex-col">
       <div
         className="text-[18px] font-bold cursor-pointer hover:text-blue-md duration-300 p-4 inline-block w-fit"
         onClick={() => navigate("/stocks")}
@@ -30,7 +30,7 @@ export default function StocksSortedByVol() {
       </div>
 
       {/* 컨테이너 */}
-      <div className="w-full max-w-3xl p-2 rounded-2xl">
+      <div className="w-full p-2 rounded-2xl">
         {/* 헤더 */}
         <div className="flex justify-between bg-gray-100 text-black font-bold p-4 rounded-2xl shadow-md mb-2 text-[14px] ">
           <p className="w-1/4 text-center">종목명</p>

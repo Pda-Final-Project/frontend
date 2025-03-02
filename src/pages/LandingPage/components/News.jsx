@@ -39,7 +39,7 @@ export default function News() {
           뉴스 데이터를 불러오는 중...
         </p>
       ) : (
-        <div className="w-full overflow-auto">
+        <div className="w-full overflow-auto no-scrollbar">
           {" "}
           {/* 가로 스크롤 적용 */}
           <div className="flex space-x-4 p-4 rounded-lg max-w-screen-xl">

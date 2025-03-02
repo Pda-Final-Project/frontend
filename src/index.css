@@ -1,5 +1,9 @@
 @import "tailwindcss";
+@plugin 'tailwind-scrollbar-hide';
 
+@plugin 'tailwind-scrollbar' {
+  nocompatible: true;
+}
 @theme {
   --font-sans: "sans-serif";
   --color-gray-light: #f6f7f9;
@@ -16,4 +20,13 @@
 }
 .white-button-style {
   @apply text-center cursor-pointer bg-white px-2 py-1 border-1 border-gray-md font-semibold rounded-lg w-full hover:bg-blue-md duration-300;
+}
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
