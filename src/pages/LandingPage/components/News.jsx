@@ -50,20 +50,20 @@ export default function News() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="bg-gray-50 p-3 rounded-lg shadow-md hover:shadow-lg transition-shadow min-w-[180px] sm:min-w-[220px] md:min-w-[260px] lg:min-w-[280px] max-w-[320px] flex flex-col duration-300 h-60">
+                <div className="overflow-hidden rounded-lg hover:shadow-md transition-shadow w-72 flex flex-col duration-300 h-60">
                   {/* 뉴스 이미지 */}
                   <img
                     src={article.news_img.replace(/S\.jpg$/, "L.jpg")}
                     alt={article.news_title}
-                    className="w-72 h-40 object-cover rounded-md"
+                    className="w-72 h-40 object-cover rounded-md transition-transform hover:scale-110"
                   />
 
                   {/* 뉴스 제목 */}
-                  <h2 className="mt-2 font-semibold text-sm">
+                  <h2 className="mt-2 font-semibold text-sm px-2">
                     {article.news_title}
                   </h2>
                   {/* 출처 및 시간 ("00분 전" 표시) */}
-                  <p className="text-md text-gray-600">
+                  <p className="text-md text-gray-600 px-2 py-1">
                     {article.news_company} • {timeAgo(article.news_date)}
                   </p>
                 </div>
@@ -75,7 +75,7 @@ export default function News() {
               href={NEWS_SITE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center min-w-[180px] sm:min-w-[220px] md:min-w-[260px] lg:min-w-[280px] max-w-[320px] bg-gray-50 text-blue-md font-bold text-lg rounded-lg shadow-md transition-all hover:bg-gray-200 duration-300"
+              className="flex items-center justify-center min-w-72 bg-gray-50 text-blue-md font-bold text-lg rounded-lg transition-all hover:bg-gray-200 duration-300"
             >
               <HiPlusCircle />
               <span className="ml-1">more</span>
