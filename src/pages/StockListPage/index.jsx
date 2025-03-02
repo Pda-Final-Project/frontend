@@ -24,7 +24,7 @@ export default function StockListPage() {
         name: "테슬라",
         ticker: "TSLA",
         current_price: (511410 + index * 100).toLocaleString(),
-        change_rate: `+${(3032 + index * 10).toLocaleString()}원 (${(4.4 + index * 0.1).toFixed(1)}%)`,
+        change_rate: `${(3032 + index * 10).toLocaleString()}원 (${(4.4 + index * 0.1).toFixed(1)}%)`,
         volume: (1000000 - index * 5000).toLocaleString(),
         isFavorite: index === 0, // 첫 번째 항목만 관심 등록
       }));
@@ -48,8 +48,16 @@ export default function StockListPage() {
 
   // 정렬 함수
   const sortedStocks = [...stocks].sort((a, b) => {
-    if (sortBy === "volume") return parseInt(b.volume.replace(/,/g, "")) - parseInt(a.volume.replace(/,/g, ""));
-    if (sortBy === "rate") return parseFloat(b.change_rate.match(/\d+(\.\d+)?/g)[1]) - parseFloat(a.change_rate.match(/\d+(\.\d+)?/g)[1]);
+    const getRateValue = (rate) => parseFloat(rate.match(/\d+(\.\d+)?/g)[1]);
+    const getVolumeValue = (volume) => parseInt(volume.replace(/,/g, ""));
+    
+    if (sortBy === "volume") return getVolumeValue(b.volume) - getVolumeValue(a.volume);
+    if (sortBy === "rate") return getRateValue(b.change_rate) - getRateValue(a.change_rate);
+    if (sortBy === "popularity") {
+      const avgA = (getRateValue(a.change_rate) + getVolumeValue(a.volume)) / 2;
+      const avgB = (getRateValue(b.change_rate) + getVolumeValue(b.volume)) / 2;
+      return avgB - avgA;
+    }
     return 0;
   });
 
@@ -59,58 +67,69 @@ export default function StockListPage() {
   const currentStocks = sortedStocks.slice(indexOfFirstStock, indexOfLastStock);
 
   return (
-    <div className="w-full mx-auto p-5">
-      <h1 className="text-lg font-bold mb-4">해외 주식</h1>
+    
+    <div className="w-full mx-auto p-10">
+      <div className="flex items-center space-x-2 mb-2">
+      <h1 className="text-lg font-bold mb-2">해외 종목 순위 </h1> <span className="text-blue-md">투자자가 선택한 종목 🇺🇸 TOP 30을 둘러봐요</span> 
+      </div>
       
       {/* 정렬 버튼 */}
-      <div className="flex space-x-4 mb-4">
+      <div className="flex space-x-4 mb-5">
         <button 
-          className={`px-4 py-2 rounded-md ${sortBy === "volume" ? "bg-blue-md text-white font-semibold" : "bg-gray-200"}`}
+          className={`px-4 py-2 font-bold rounded-lg ${sortBy === "volume" ? "bg-gray-light text-blue-md" : "text-blue-md"}`}
           onClick={() => { setSortBy("volume"); tryFetchStocks("vol"); }}
         >
-          거래량 많은 순
+          거래량
         </button>
         <button 
-          className={`px-4 py-2 rounded-md ${sortBy === "rate" ? "bg-blue-md text-white" : "bg-gray-200"}`}
+          className={`px-4 py-2 font-bold rounded-lg ${sortBy === "rate" ? "bg-gray-light text-blue-md" : "text-blue-md"}`}
           onClick={() => { setSortBy("rate"); tryFetchStocks("rate"); }}
         >
           급상승
         </button>
+        <button 
+          className={`px-4 py-2 font-bold rounded-lg ${sortBy === "popularity" ? "bg-gray-light text-blue-md" : "text-blue-md"}`}
+          onClick={() => { setSortBy("popularity"); }}
+        >
+          인기
+        </button>
       </div>
 
       {/* 테이블 */}
-      <div className="rounded-lg">
-        <table className="w-full text-center">
+      <div>
+      <table className="w-full text-center overflow-hidden rounded-2xl border-separate border-spacing-0">
           <thead>
-            <tr className="bg-gray-100 text-gray-700">
+            <tr className="bg-gray-light text-gray-700 rounded-xl">
               <th className="p-3">종목</th>
               <th className="p-3">현재가</th>
               <th className="p-3">등락률</th>
               <th className="p-3">거래량</th>
             </tr>
+
           </thead>
-          <tbody>
+          <tbody className="overflow-hidden rounded-b-2xl">
             {currentStocks.map((stock, index) => (
               <tr
                 key={index}
-                className={`cursor-pointer ${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}`}
+                className={`cursor-pointer ${index % 2 === 0 ? 'bg-white' : 'bg-gray-light'}`}
                 onClick={() => navigate(`../main/${stock.ticker}/all`)}
               >
-                <td className="p-3 flex items-center">
-                  <FaHeart className={`mr-2 ${stock.isFavorite ? 'text-red-500' : 'text-gray-400'}`} />
-                  {index + 1 + (currentPage - 1) * stocksPerPage}
-                </td>
-                <td className="p-3 flex items-center">
+                <td className="p-3 flex items-center space-x-2 ">
+                  <FaHeart className={`${stock.isFavorite ? 'text-red-500' : 'text-gray-400'}`} />
+                  <span>{index + 1 + (currentPage - 1) * stocksPerPage}</span>
                   <img
-                    src="/tesla-logo.png"
-                    alt="테슬라"
-                    className="w-5 h-5 mr-2"
+                    src={`${import.meta.env.VITE_STOCK_LOGO_URL}${stock.ticker}.png`}
+                    className="w-5 h-5 rounded-full"
+                    alt="img"
                   />
-                  {stock.name}
+                  <span>{stock.name}</span>
                 </td>
+                
                 <td className="p-3">{stock.current_price} 원</td>
-                <td className="p-3 text-red-500">{stock.change_rate}</td>
+                <td className={`p-3 ${parseFloat(stock.change_rate) >= 0 ? "text-red-500" : "text-blue-500"}`}>{stock.change_rate}</td>
+                
                 <td className="p-3">{stock.volume}</td>
+
               </tr>
             ))}
           </tbody>
@@ -123,7 +142,7 @@ export default function StockListPage() {
           <button
             key={page}
             className={`mx-1 px-3 py-1 rounded-md ${
-              currentPage === page ? "bg-blue-md text-white" : "bg-gray-200"
+              currentPage === page ? "bg-blue-md text-white font-semibold" : "bg-gray-light"
             }`}
             onClick={() => setCurrentPage(page)}
           >
