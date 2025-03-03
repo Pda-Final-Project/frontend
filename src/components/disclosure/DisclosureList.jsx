@@ -3,11 +3,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { fetchFillings } from "../../api/disclosureApi";
 
 const fillingTypeData = [
-  { id: "10-Q", name: "분기 보고서" },
-  { id: "8-K", name: "수시 보고서" },
-  { id: "S-1", name: "증권 발행 등록 신고서" },
-  { id: "4", name: "내부자 거래 보고서" },
-  { id: "SC 13G", name: "주식 대량 보유 보고서" },
+  { id: "10-Q", name: "분기 보고서 (10-Q)" },
+  { id: "8-K", name: "수시 보고서 (8-K)" },
+  { id: "S-1", name: "증권 거래 신고서 (Form S-1)" },
+  { id: "4", name: "내부자 거래 보고서 (Form4)" },
+  { id: "SC 13G", name: "지분율 5% 이상 변동 보고서 (Schedule 13D/13G)" },
 ];
 
 export default function DisclosureList() {
@@ -79,17 +79,23 @@ export default function DisclosureList() {
   return (
     <div className="w-full flex flex-col gap-4 text-sm font-semibold">
       {/* 검색 필터 */}
-      <div className="bg-white p-4 py-8 rounded-lg">
-        <h1 className="text-lg font-bold text-center mb-4">
-          해외 공시 찾아보기
-        </h1>
+      <div>
+        <div className="flex flex-col justify-center items-center ml-3 mb-3">
+          <h1 className="text-lg text-center font-bold mb-1">
+            해외 공시 찾아보기{" "}
+          </h1>
+          <span className="text-blue-md text-center">
+            {" "}
+            🔎 SEC Edgar 공시를 쉽고 간편하게 검색해 보세요
+          </span>
+        </div>
 
         <div className="bg-gray-light p-5 rounded-lg flex flex-col justify-center items-center">
           <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-12 w-full">
             {/* 왼쪽 (종목명 + 기간) */}
             <div className="flex flex-col gap-3 w-full">
               {/* 종목 검색 */}
-              <div className="flex items-center">
+              <div className="flex items-center mt-6">
                 <h2 className="text-md font-semibold w-1/6">종목</h2>
                 <div className="w-5/6">
                   <input
@@ -130,7 +136,7 @@ export default function DisclosureList() {
                 {fillingTypeData.map((type) => (
                   <button
                     key={type.id}
-                    className={`px-4 py-2 rounded-md ${
+                    className={`px-4 py-2 rounded-md font-semibold ${
                       fillingType === type.id
                         ? "bg-blue-md text-white"
                         : "bg-white"
@@ -151,7 +157,7 @@ export default function DisclosureList() {
           {/* 검색 버튼 */}
           <div className="flex flex-col sm:flex-row mt-8 w-100 gap-8 justify-center">
             <button className="button-style" onClick={handleSearch}>
-              공시 검색하기
+              검색하기
             </button>
             <button className="white-button-style" onClick={resetSearch}>
               초기화
