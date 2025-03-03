@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "../../common/LikeButton";
 import { useStockSse } from "../../../hooks/useSseStockInfo";
-import { formatNumber } from "../../../utils/numberFormat";
 
 export default function HoldingStockTab() {
   const [stocks, setStocks] = useState([
@@ -11,18 +10,21 @@ export default function HoldingStockTab() {
       name: "엔비디아",
       current_price: 1000,
       change_rate: 1.23,
+      pinned: true,
     },
     {
       ticker: "TSLA",
       name: "테슬라",
       current_price: 1000,
       change_rate: 1.23,
+      pinned: true,
     },
     {
       ticker: "GOOGL",
       name: "구글",
       current_price: 1000,
       change_rate: 1.23,
+      pinned: true,
     },
   ]);
   const navigate = useNavigate();
@@ -33,13 +35,15 @@ export default function HoldingStockTab() {
     setStocks
   );
 
+  useEffect(() => {}, []);
+
   return (
-    <div className="h-full w-100 bg-gray-light shadow-md z-50 py-4 px-2 space-y-2">
+    <div className="h-full w-100 bg-gray-light z-50 py-4 px-2 space-y-2">
       {/* 내부 사이드바 헤더 */}
       <div className="p-4 flex flex-col justify-between border-b-1 border-gray-md">
-        <h2 className="text-lg font-semibold w-full">My 보유주식</h2>
+        <h2 className="text-lg font-semibold w-full">My 보유 종목</h2>
         <div className="text-sm mt-1 text-blue-md">
-          나의 보유 주식을 모아보세요
+          나의 보유 종목을 모아보세요
         </div>
       </div>
 
@@ -67,7 +71,7 @@ export default function HoldingStockTab() {
             </div>
             <div className="flex gap-4 items-center">
               <div className="flex flex-col items-end font-semibold">
-                <div>{formatNumber(parseFloat(stock.current_price))}원</div>
+                <div>{stock.current_price}원</div>
                 <div className="text-sm">{stock.change_rate}</div>
               </div>
               <LikeButton ticker={stock.ticker} initState={stock.pinned} />

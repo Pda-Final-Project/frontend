@@ -29,7 +29,7 @@ export default function StocksSortedByVol() {
           해외 종목 <span className="font-bold text-blue-md">거래량 </span>
           Best 순위
         </h1>
-        <span className="text-blue-md text-center ml-2">
+        <span className="text-blue-md text-center ml-2 font-semibold">
           {" "}
           더 많은 종목 보러가기
         </span>
