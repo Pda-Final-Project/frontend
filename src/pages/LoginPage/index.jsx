@@ -63,7 +63,9 @@ export default function Index() {
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
         <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
-          <h1 className="font-bold text-3xl">FinPago 시작하기</h1>
+          <h1 className="font-bold text-xl">FinPago 시작하기</h1>
+          <span className="text-blue-md text-sm mb-1">"실시간 해외 공시 번역·요약부터 매매까지,</span>
+          <span className="text-blue-md text-sm mb-10"> 지금 만나보세요!"</span>
           <div className="flex flex-col space-y-4 w-full">
             {/* 전화번호 입력 */}
             <input
