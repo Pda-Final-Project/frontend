@@ -42,7 +42,7 @@ export default function InterestStockTab() {
       <div className="p-4 flex flex-col justify-between border-b-1 border-gray-md">
         <h2 className="text-lg font-semibold w-full">My 관심주식</h2>
         <div className="text-sm mt-1 text-blue-md">
-          나의 관심 주식을 모아보세요
+          나의 관심 종목을 모아보세요
         </div>
       </div>
 
