@@ -49,7 +49,7 @@ const Header = () => {
           className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer"
           onClick={() => navigate("/stocks")}
         >
-          해외주식
+          해외종목
         </a>
         {/* 검색창 */}
         <div className="relative flex-grow w-80">

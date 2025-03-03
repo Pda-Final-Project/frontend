@@ -20,13 +20,19 @@ export default function StocksSortedByVol() {
     tryFetchStocks();
   }, []);
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full">
       <div
-        className="text-[18px] font-bold cursor-pointer hover:text-blue-md duration-300 inline-block w-fit mb-2"
+        className="flex p-3 items-center cursor-pointer"
         onClick={() => navigate("/stocks")}
       >
-        해외 실시간 <span className="font-bold text-blue-md">Best 거래량 </span>
-        순위
+        <h1 className="text-[18px] font-bold cursor-pointer hover:text-blue-md duration-300 inline-block w-fit mb-1">
+          해외 종목 <span className="font-bold text-blue-md">거래량 </span>
+          Best 순위
+        </h1>
+        <span className="text-blue-md text-center ml-2">
+          {" "}
+          더 많은 종목 보러가기
+        </span>
       </div>
 
       {/* 컨테이너 */}
