@@ -32,7 +32,10 @@ export default function News() {
   return (
     <div className="w-full p-4">
       {/* 제목 */}
-      <h1 className="text-[18px] font-bold ml-3">글로벌 경제 뉴스</h1>
+      <div className="flex p-3 items-center">
+      <h1 className="text-[18px] font-bold mb-1 mr-2">글로벌 경제 뉴스</h1>
+      <a className="text-blue-md text-center cursor-pointer" href={NEWS_SITE_URL}> Investing.com 바로가기 </a> 
+      </div>
       {/* 데이터가 로딩되지 않았을 경우 표시 */}
       {newsData.length === 0 ? (
         <p className="text-gray-500 text-center">

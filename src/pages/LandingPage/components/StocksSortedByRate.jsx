@@ -21,14 +21,13 @@ export default function StocksSortedByRate() {
   }, []);
   return (
     <div className="w-full sm:w-1/2 p-4">
+      <div className="flex p-3 items-center cursor-pointer" onClick={() => navigate("/stocks")}>
       <h1
-        className="text-[18px] font-bold cursor-pointer hover:text-blue-md duration-300 p-4 inline-block w-fit"
-        onClick={() => navigate("/stocks")}
-      >
-        해외 실시간 <span className="font-bold text-blue-md">Best 등락율 </span>
-        순위
-      </h1>
-
+        className="text-[18px] font-bold cursor-pointer hover:text-blue-md duration-300 inline-block w-fit mb-1">
+        해외 종목 <span className="font-bold text-blue-md">등락률 </span>
+        Best 순위
+      </h1><span className="text-blue-md text-center ml-2"> 더 많은 종목 보러가기</span>
+      </div>
       {/* 컨테이너 */}
       <div className="w-full max-w-3xl p-2 rounded-2xl">
         {/* 헤더 */}
