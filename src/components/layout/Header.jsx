@@ -19,8 +19,8 @@ const Header = () => {
 
       {/* 네비게이션 */}
       <nav className="flex space-x-3 text-[14px] font-semibold items-center">
-        <a className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/disclosures")}>해외공시</a>
-        <a className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/stocks")}>해외주식</a>
+        <a className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/disclosures")}>해외 공시</a>
+        <a className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/stocks")}>해외 종목</a>
         {/* 검색창 */}
         <div className="flex-grow max-w-lg">
         <input 
