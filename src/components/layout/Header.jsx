@@ -1,39 +1,130 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { FaRegBell } from "react-icons/fa";
 import AlarmModal from "../common/AlarmModal";
 import { useNavigate } from "react-router-dom";
-import { HiLightBulb } from "react-icons/hi";
-
+import { fetchStocks } from "../../api/stockApi";
+import { formatNumber } from "../../utils/numberFormat";
 
 const Header = () => {
   const [showAlarm, setShowAlarm] = useState(false);
+  const [searchParam, setSearchParam] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+
   const navigate = useNavigate();
+
+  const handleSearch = async () => {
+    try {
+      const response = await fetchStocks("", searchParam);
+      if (response.data.status === "OK") {
+        setSearchResult(response.data.data);
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
-    <header className="flex items-center justify-between px-4 py-2 bg-white">
+    <header className="flex items-center justify-between px-4 py-2 bg-white relative">
       {/* 로고 */}
       <div className="flex items-center space-x-2">
-        <img src="../../../public/images/logo.png" alt="FinPago Logo" className="w-36 cursor-pointer" 
-        onClick={() => navigate("/")}/>
-        {/* <h1 className="text-xl font-bold">FinPago</h1> */}
+        <img
+          src="../../../public/images/logo.png"
+          alt="FinPago Logo"
+          className="w-36 cursor-pointer"
+          onClick={() => navigate("/")}
+        />
       </div>
 
       {/* 네비게이션 */}
       <nav className="flex space-x-3 text-[14px] font-semibold items-center">
-        <a className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/disclosures")}>해외공시</a>
-        <a className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/stocks")}>해외주식</a>
+        <a
+          className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer"
+          onClick={() => navigate("/disclosures")}
+        >
+          해외공시
+        </a>
+        <a
+          className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer"
+          onClick={() => navigate("/stocks")}
+        >
+          해외주식
+        </a>
         {/* 검색창 */}
-        <div className="flex-grow max-w-lg">
-        <input 
-          type="text"
-          placeholder="종목명 or 종목 코드로 검색" 
-          className="w-full min-w-[300px] rounded-xl px-3 py-2 bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-md duration-300"
-        />
+        <div className="relative flex-grow w-80">
+          <input
+            type="text"
+            placeholder="종목명 or 종목 코드로 검색"
+            className="w-full min-w-[300px] rounded-xl px-3 py-2 bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-md duration-300"
+            value={searchParam}
+            onChange={(e) => setSearchParam(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+          />
+          {/* 검색 결과 드롭다운 */}
+          {searchResult.length > 0 && (
+            <div className="absolute left-0 right-0 mt-2 bg-white shadow-md rounded-lg max-h-60 no-scrollbar overflow-y-auto">
+              {searchResult.map((stock, index) => (
+                <div
+                  key={index}
+                  className="p-4 hover:bg-gray-100 cursor-pointer text-xs"
+                  onClick={() => {
+                    setSearchResult([]);
+                    setSearchParam("");
+                    navigate(`/main/${stock.ticker}/all`);
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center w-2/3">
+                      <img
+                        src={`${import.meta.env.VITE_STOCK_LOGO_URL}${
+                          stock.ticker
+                        }.png`}
+                        className="w-8 h-8 rounded-full mr-2"
+                      />
+                      <span>
+                        {stock.name} ({stock.ticker})
+                      </span>
+                    </div>
+                    <div className="flex flex-col w-1/3 justify-end">
+                      <span className="text-right">
+                        {formatNumber(parseFloat(stock.current_price))}원
+                      </span>
+                      <span
+                        className={`text-right ${
+                          parseFloat(stock.change_rate) >= 0
+                            ? "text-red-500"
+                            : "text-blue-500"
+                        }`}
+                      >
+                        {stock.change_rate}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         {/* 가이드 & My계좌 */}
-        <a className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/introduce_disclosures")} >공시 가이드</a>
-        <a className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer" onClick={() => navigate("/my_page")} >My계좌</a>
+        <a
+          className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer"
+          onClick={() => navigate("/introduce_disclosures")}
+        >
+          공시 가이드
+        </a>
+        <a
+          className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer"
+          onClick={() => navigate("/my_page")}
+        >
+          My계좌
+        </a>
       </nav>
-        {/* 알림 & 로그인*/}
+      {/* 알림 & 로그인*/}
       <div className="flex items-center space-x-4 relative">
         {/* 알림 버튼 */}
         <button onClick={() => setShowAlarm(true)} className="relative">

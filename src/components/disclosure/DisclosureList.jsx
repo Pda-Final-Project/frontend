@@ -10,7 +10,7 @@ const fillingTypeData = [
   { id: "SC 13G", name: "주식 대량 보유 보고서" },
 ];
 
-export default function Index() {
+export default function DisclosureList() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -77,15 +77,15 @@ export default function Index() {
   };
 
   return (
-    <div className="w-full flex flex-col gap-12">
+    <div className="w-full flex flex-col gap-4 text-sm font-semibold">
       {/* 검색 필터 */}
-      <div>
+      <div className="bg-white p-4 py-8 rounded-lg">
         <h1 className="text-lg font-bold text-center mb-4">
           해외 공시 찾아보기
         </h1>
 
         <div className="bg-gray-light p-5 rounded-lg flex flex-col justify-center items-center">
-          <div className="grid md:grid-cols-2 sm:grid-cols-1  gap-6 w-full">
+          <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-12 w-full">
             {/* 왼쪽 (종목명 + 기간) */}
             <div className="flex flex-col gap-3 w-full">
               {/* 종목 검색 */}
@@ -161,7 +161,7 @@ export default function Index() {
       </div>
 
       {/* 공시 리스트 */}
-      <div className="">
+      <div className="bg-white p-4 py-8 rounded-lg">
         <h2 className="text-lg font-semibold mb-2 text-center">
           공시 검색 결과
         </h2>
@@ -178,7 +178,9 @@ export default function Index() {
               {currentReports.map((report, index) => (
                 <tr
                   key={index}
-                  className="hover:bg-blue-light cursor-pointer font-semibold"
+                  className={`cursor-pointer hover:bg-blue-light rounded-lg ${
+                    index % 2 === 0 ? "bg-gray-light" : "bg-white"
+                  }`}
                   onClick={() => handleClick(report.fillingId)}
                 >
                   <td className="p-3">{report.fillingType}</td>

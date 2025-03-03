@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "../../common/LikeButton";
 import { useStockSse } from "../../../hooks/useSseStockInfo";
+import { formatNumber } from "../../../utils/numberFormat";
 
 export default function InterestStockTab() {
   const [stocks, setStocks] = useState([
@@ -37,7 +38,7 @@ export default function InterestStockTab() {
   );
 
   return (
-    <div className="h-full w-100 bg-gray-light z- 50 py-4 px-2 space-y-2">
+    <div className="h-full w-100 bg-gray-light z-50 py-4 px-2 space-y-2 shadow-md">
       {/* 내부 사이드바 헤더 */}
       <div className="p-4 flex flex-col justify-between border-b-1 border-gray-md">
         <h2 className="text-lg font-semibold w-full">My 관심주식</h2>
@@ -68,7 +69,7 @@ export default function InterestStockTab() {
 
             <div className="flex gap-4 items-center">
               <div className="flex flex-col items-end font-semibold">
-                <div>{stock.current_price}원</div>
+                <div>{formatNumber(parseFloat(stock.current_price))}원</div>
                 <div className="text-sm">{stock.change_rate}</div>
               </div>
               <LikeButton ticker={stock.ticker} initState={stock.pinned} />

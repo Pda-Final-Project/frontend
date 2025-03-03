@@ -22,19 +22,19 @@ export default function Index() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center mx-24">
+    <div className="flex flex-col items-center justify-center px-32 py-20">
       <div className="flex items-center mb-2 border-b-1 border-gray-md w-full justify-center pb-4">
         <div className="text-3xl font-bold">공시 가이드 with</div>
         <img src="../../../public/images/logo.png" className="h-16" />
       </div>
 
-      <div className=" grid grid-rows-2 p-4">
+      <div className=" grid grid-rows-2">
         {splitData.map((row, rowIndex) => (
-          <div key={rowIndex} className="grid grid-cols-3 gap-4 p-2">
+          <div key={rowIndex} className="grid grid-cols-3 gap-8">
             {row.map((fil, index) => (
               <div
                 key={index}
-                className="bg-white p-6 shadow-lg rounded-lg flex flex-col justify-center font-semibold"
+                className="bg-white p-6 shadow-lg rounded-lg flex flex-col justify-center font-semibold mb-8"
               >
                 <div className="flex justify-between items-center">
                   <div>

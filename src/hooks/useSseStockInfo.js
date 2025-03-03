@@ -10,6 +10,7 @@ export function useStockSse(url, stocks, setStocks) {
   // SSE 이벤트 핸들러 정의
   const eventHandlers = {
     stockUpdate: (data) => {
+      console.log(data);
       setStocks((prevStocks) => {
         return prevStocks.map((stock) =>
           stock.ticker === data.ticker

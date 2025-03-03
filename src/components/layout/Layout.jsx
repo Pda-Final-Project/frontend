@@ -9,7 +9,7 @@ export default function Layout() {
       {/* 메인 컨텐츠 영역 */}
       <div className="flex flex-col flex-grow ml-16 relative ">
         {/* 헤더 */}
-        <header className=" fixed top-0 left-16 right-0 z-1 shadow-md">
+        <header className=" fixed top-0 left-16 right-0 z-1">
           <Header />
         </header>
 
@@ -19,7 +19,7 @@ export default function Layout() {
         </main>
 
         {/* 푸터 */}
-        <footer className="bg-gray-200 h-20">
+        <footer className="bg-gray-light h-20">
           <Footer />
         </footer>
       </div>

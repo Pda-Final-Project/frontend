@@ -6,7 +6,7 @@ import TradeDetails from "./components/TradeDetails";
 
 export default function Index() {
   return (
-    <div className="w-full p-4">
+    <div className="w-full p-8">
       {/* 계좌 및 기본 정보 */}
       <MyInfo />
 

@@ -40,7 +40,7 @@ export default function TradingTab({ ticker, currentPrice }) {
         <ChartTab ticker={ticker} />
       </div>
       {/** 매수 & 매도 */}
-      <div className="grid grid-cols-2 gap-4 w-full h-full">
+      <div className="grid grid-cols-2 gap-4 w-full">
         <div>
           <BuyBox withHolding={withHolding} orderStock={orderStock} />
         </div>
