@@ -41,7 +41,7 @@ const Header = () => {
       {/* 로고 */}
       <div className="flex items-center space-x-2">
         <img
-          src="../../../public/images/logo.png"
+          src="/images/logo.png"
           alt="FinPago Logo"
           className="w-36 cursor-pointer"
           onClick={() => navigate("/")}

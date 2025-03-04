@@ -26,7 +26,7 @@ export default function Index() {
       <div className="w-full flex flex-col items-center pb-4">
         <div className="flex items-center mb-2 w-full justify-center">
           <div className="text-3xl font-bold">공시 가이드 with</div>
-          <img src="../../../public/images/logo.png" className="h-16" />
+          <img src="/images/logo.png" className="h-16" />
         </div>
 
         <span className="text-[14px] text-blue-md text-center mt-1 mb-2">
