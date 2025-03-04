@@ -42,7 +42,7 @@ export default function SellBox({ maxQuantity, orderStock }) {
       <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
-        action={() => orderStock("SELL", sellQuantity, totalOrderPrice)} // action을 함수로 수정
+        action={() => orderStock("SELL", sellQuantity, sellPrice)} // action을 함수로 수정
         message={modalMessage}
       />
       {/** 제목 */}

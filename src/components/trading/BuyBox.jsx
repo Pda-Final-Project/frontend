@@ -53,7 +53,7 @@ export default function BuyBox({ withHolding, orderStock }) {
       <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
-        action={() => orderStock("BUY", buyQuantity, totalOrderPrice)} // action을 함수로 수정
+        action={() => orderStock("BUY", buyQuantity, buyPrice)} // action을 함수로 수정
         message={modalMessage}
       />
       {/** 제목 */}

@@ -17,18 +17,6 @@ export default function TradingTab({ ticker, currentPrice }) {
     tryFetchAvailQuantity();
   }, []);
 
-  const tryFetchBalance = async () => {
-    try {
-      const response = await fetchBalance();
-      if (response.data.status == "OK") {
-        setTotalBalance(response.data.data);
-        console.log(response.data.data);
-      }
-    } catch (error) {
-      console.error("예수금 조회 중 오류 발생: ", error.message);
-    }
-  };
-
   const tryFetchAvailBalance = async () => {
     try {
       const response = await fetchAvailBalance();
@@ -51,6 +39,7 @@ export default function TradingTab({ ticker, currentPrice }) {
       console.error("사용 가능 주수 조회 중 오류 발생: ", error.message);
     }
   };
+
   const orderStock = async (offerType, offerQuantity, offerPrice) => {
     try {
       const response = await postOrder({
@@ -61,6 +50,8 @@ export default function TradingTab({ ticker, currentPrice }) {
       });
       if (response.data.status == "CREATED") {
         console.log(response.data.message);
+        tryFetchAvailQuantity();
+        tryFetchAvailBalance();
       }
     } catch (error) {
       console.error("주문 중 오류 발생: ", error.message);
