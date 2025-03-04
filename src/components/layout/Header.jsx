@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegBell } from "react-icons/fa";
 import AlarmModal from "../common/AlarmModal";
 import { useNavigate } from "react-router-dom";
 import { fetchStocks } from "../../api/stockApi";
 import { formatNumber } from "../../utils/numberFormat";
+import { logout } from "../../api/authApi";
 
 const Header = () => {
   const [showAlarm, setShowAlarm] = useState(false);
   const [searchParam, setSearchParam] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const [isLogin, setIsLogin] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,12 +27,21 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("accessToken");
+    if (!token) {
+      setIsLogin(false);
+    } else {
+      setIsLogin(true);
+    }
+  }, []);
+
   return (
     <header className="flex items-center justify-between px-4 py-2 bg-white relative">
       {/* 로고 */}
       <div className="flex items-center space-x-2">
         <img
-          src="../../../public/images/logo.png"
+          src="/images/logo.png"
           alt="FinPago Logo"
           className="w-36 cursor-pointer"
           onClick={() => navigate("/")}
@@ -130,11 +141,16 @@ const Header = () => {
         <button onClick={() => setShowAlarm(true)} className="relative">
           <FaRegBell className="text-blue-md text-2xl mx-3 cursor-pointer hover:text-blue-light duration-300" />
         </button>
-
+        {isLogin ? (
+          <button className="button-style" onClick={() => logout(setIsLogin)}>
+            로그아웃
+          </button>
+        ) : (
+          <button className="button-style" onClick={() => navigate("/login")}>
+            로그인
+          </button>
+        )}
         {/* 로그인 버튼 */}
-        <button className="button-style" onClick={() => navigate("/login")}>
-          로그인
-        </button>
       </div>
 
       {/* 알람 모달 (showAlarm이 true일 때만 렌더링) */}

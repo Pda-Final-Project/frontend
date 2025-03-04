@@ -33,8 +33,14 @@ export default function News() {
     <div className="w-full">
       {/* 제목 */}
       <div className="flex p-3 items-center">
-      <h1 className="text-[18px] font-bold mb-1 mr-2">글로벌 경제 뉴스</h1>
-      <a className="text-blue-md text-center cursor-pointer hover:underline font-semibold" href={NEWS_SITE_URL}> Investing.com 바로가기 </a> 
+        <h1 className="text-[18px] font-bold mb-1 mr-2">글로벌 경제 뉴스</h1>
+        <a
+          className="text-blue-md text-center cursor-pointer hover:underline font-semibold"
+          href={NEWS_SITE_URL}
+        >
+          {" "}
+          Investing.com 바로가기{" "}
+        </a>
       </div>
       {/* 데이터가 로딩되지 않았을 경우 표시 */}
       {newsData.length === 0 ? (
@@ -63,7 +69,9 @@ export default function News() {
 
                   {/* 뉴스 제목 */}
                   <h2 className="mt-2 font-semibold text-sm px-2">
-                    {article.news_title}
+                    {article.news_title && article.news_title.length > 53
+                      ? article.news_title.slice(0, 53) + "..."
+                      : article.news_title}
                   </h2>
                   {/* 출처 및 시간 ("00분 전" 표시) */}
                   <p className="text-md text-gray-600 px-2 py-1">

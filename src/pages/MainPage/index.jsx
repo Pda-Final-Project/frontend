@@ -5,36 +5,56 @@ import TradingTab from "./components/TradingTab";
 import LikeButton from "../../components/common/LikeButton";
 import { fetchStocks } from "../../api/stockApi";
 import { formatNumber } from "../../utils/numberFormat";
+import { useStockSse } from "../../hooks/useSseStockInfo";
 
 export default function MainPage() {
   const { ticker, filling_id } = useParams();
-  const [stockInfo, setStockInfo] = useState({
-    ticker: "",
-    current_price: "",
-    name: "",
-    change_rate: "",
-    volume: "",
-  });
+  const [stockInfo, setStockInfo] = useState([
+    {
+      ticker: ticker,
+      name: "",
+      current_price: 0,
+      change_rate: 0,
+    },
+  ]); // 초기값을 배열([])로 설정
 
   const tryFetchStock = async () => {
     try {
       const response = await fetchStocks("", ticker);
       if (response.data.status === "OK") {
-        const stockData = response.data.data.find(
-          (stock) => stock.ticker === ticker
-        );
-        if (stockData) {
-          setStockInfo(stockData);
+        const filteredStock = response.data.data
+          .flat()
+          .find((stock) => stock.ticker === ticker);
+
+        if (filteredStock) {
+          setStockInfo([filteredStock]);
+        } else {
+          setStockInfo([]);
         }
       }
     } catch (error) {
-      console.error("주식 리스트 조회 중 오류 발생:", error);
+      console.error("주식 정보 조회 중 오류 발생:", error);
     }
   };
 
   useEffect(() => {
-    tryFetchStock();
-  }, []);
+    if (ticker) {
+      tryFetchStock();
+    }
+  }, [ticker]);
+
+  // 실시간 시세 및 등락율 SSE 연결
+  const { isConnected, error } = useStockSse(
+    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
+    stockInfo,
+    setStockInfo
+  );
+
+  if (stockInfo.length === 0) {
+    return <div className="text-center text-gray-500">로딩 중...</div>;
+  }
+
+  const currentStock = stockInfo[0]; // 배열에서 첫 번째 요소 사용
 
   return (
     <div className="flex flex-col w-full h-full bg-gray-light p-8">
@@ -48,25 +68,25 @@ export default function MainPage() {
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <div className="text-lg">{stockInfo.name}</div>
+            <div className="text-lg">{currentStock.name}</div>
             <div className="text-lg text-gray-md">{ticker}</div>
             <LikeButton ticker={ticker} />
           </div>
           <div className="flex items-end gap-2">
             <div className="text-2xl">
-              {formatNumber(parseFloat(stockInfo.current_price))}원
+              {formatNumber(parseFloat(currentStock.current_price))}원
             </div>
             <div className="text-sm">
               <span
                 className={
-                  stockInfo.change_rate.startsWith("+")
+                  currentStock.change_rate?.toString().startsWith("+")
                     ? "text-red-500"
-                    : stockInfo.change_rate.startsWith("-")
+                    : currentStock.change_rate?.toString().startsWith("-")
                     ? "text-blue-500"
                     : "text-black"
                 }
               >
-                {stockInfo.change_rate}%
+                {currentStock.change_rate}%
               </span>
             </div>
           </div>
@@ -74,15 +94,15 @@ export default function MainPage() {
       </div>
       <div className="w-full grid grid-cols-2 h-full gap-8">
         {/** 공시탭 */}
-        <div className="">
+        <div>
           <DisclosureTab ticker={ticker} />
         </div>
         {/** 주식탭 */}
-        <div className="">
+        <div>
           <TradingTab
             filling_id={filling_id}
             ticker={ticker}
-            currentPrice={stockInfo.currentPrice}
+            currentPrice={currentStock.current_price}
           />
         </div>
       </div>

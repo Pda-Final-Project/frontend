@@ -1,6 +1,7 @@
 //종목 조회, 보유 종목 조회, 관심 종목 조회, 추가, 삭제
 import api from "./axiosInstance";
 
+//종목 조회
 const fetchStocks = (sortBy = "", searchParam = "") =>
   api.get("http://127.0.0.1:19099/v1/api/stocks", {
     params: {
@@ -11,12 +12,19 @@ const fetchStocks = (sortBy = "", searchParam = "") =>
     isAuthRequired: false,
   });
 
-const fetchHoldingStocks = (sortBy = "") =>
-  api.get("http://127.0.0.1:19092/v1/api/stocks/holding", {
-    params: { sortBy: sortBy },
+//특정 종목에 대한 주수 조회
+const fetchHoldingStocks = (ticker) =>
+  api.get(`http://127.0.0.1:19092/v1/api/stocks/holdings/${ticker}`, {
     isAuthRequired: true,
   });
 
+//특정 종목에 대한 사용가능 주수 조회
+const fetchAvailQuantityByStock = (ticker) =>
+  api.get(`http://127.0.0.1:19092/v1/api/stocks/available-stocks/${ticker}`, {
+    isAuthRequired: true,
+  });
+
+//관심 종목 조회, 추가, 삭제
 const fetchLikeStocks = () =>
   api.get("http://127.0.0.1:19092/v1/api/stocks/like", {
     isAuthRequired: true,
@@ -38,4 +46,5 @@ export {
   fetchLikeStocks,
   removeLikeStock,
   addLikeStock,
+  fetchAvailQuantityByStock,
 };

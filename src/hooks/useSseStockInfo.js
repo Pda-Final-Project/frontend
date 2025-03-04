@@ -10,8 +10,10 @@ export function useStockSse(url, stocks, setStocks) {
   // SSE 이벤트 핸들러 정의
   const eventHandlers = {
     stockUpdate: (data) => {
-      console.log(data);
       setStocks((prevStocks) => {
+        if (!Array.isArray(prevStocks)) {
+          return []; // prevStocks가 배열이 아니면 빈 배열 반환
+        }
         return prevStocks.map((stock) =>
           stock.ticker === data.ticker
             ? {

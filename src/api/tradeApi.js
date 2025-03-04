@@ -1,11 +1,9 @@
 //매수/매도, 주문 취소, 주문 정정
 import api from "./axiosInstance";
 
-const removeOrder = (orderId) =>
-  api.delete(`/order/${orderId}`, { isAuthRequired: true });
-const updateOrder = (orderId, orderData) =>
-  api.put(`/order/${orderId}`, orderData, { isAuthRequired: true });
-const addOrder = (orderData) =>
-  api.post("/order", { orderData }, { isAuthRequired: true });
+const postOrder = (orderData) =>
+  api.post("http://127.0.0.1:19093/v1/api/order/create", orderData, {
+    isAuthRequired: true,
+  });
 
-export { removeOrder, updateOrder, addOrder };
+export { postOrder };

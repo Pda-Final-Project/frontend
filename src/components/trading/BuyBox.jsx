@@ -10,7 +10,7 @@ const percents = [
 ];
 
 export default function BuyBox({ withHolding, orderStock }) {
-  const [buyQuantity, setBuyQuantity] = useState(0);
+  const [buyQuantity, setBuyQuantity] = useState();
   const [buyPrice, setBuyPrice] = useState(0);
   const [maxQuantity, setMaxQuantity] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +28,6 @@ export default function BuyBox({ withHolding, orderStock }) {
     } else {
       setMaxQuantity(0);
     }
-    setBuyQuantity(maxQuantity); // maxQuantity가 업데이트될 때마다 buyQuantity 업데이트
   }, [buyPrice, withHolding, maxQuantity]);
 
   const checkBuyQuantity = (tmpQuantity) => {
@@ -54,11 +53,13 @@ export default function BuyBox({ withHolding, orderStock }) {
       <PasswordModal
         isOpen={isModalOpen}
         setOpen={setIsModalOpen}
-        action={() => orderStock("sell", buyQuantity, totalOrderPrice)} // action을 함수로 수정
+        action={() => orderStock("BUY", buyQuantity, buyPrice)} // action을 함수로 수정
         message={modalMessage}
       />
       {/** 제목 */}
-      <div className="font-semibold text-[16px]">주문하기</div>
+      <div className="font-semibold text-[16px] flex items-end justify-between">
+        주문하기<span className="text-xs">사용가능 예수금: {withHolding}</span>
+      </div>
       {/** 판매 입력 */}
       <div className="flex flex-col space-y-2 py-2 border-b-1 border-gray-md">
         <div className="flex items-center">
@@ -71,7 +72,6 @@ export default function BuyBox({ withHolding, orderStock }) {
           />
         </div>
         <div className="flex items-start">
-          
           <div className="font-semibold w-1/5 mt-3">주문수량</div>
           <div className="w-full flex flex-col space-y-2">
             <input
