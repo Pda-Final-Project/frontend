@@ -79,8 +79,8 @@ export default function DisclosureList() {
   return (
     <div className="w-full flex flex-col gap-4 text-sm font-semibold">
       {/* 검색 필터 */}
-      <div>
-        <div className="flex flex-col justify-center items-center ml-3 mb-3">
+      <div className="bg-white p-4">
+        <div className="flex flex-col justify-center items-center mt-3 mb-3">
           <h1 className="text-lg text-center font-bold mb-1">
             해외 공시 찾아보기{" "}
           </h1>
