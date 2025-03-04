@@ -31,7 +31,7 @@ export default function Sidebar() {
             }`}
           >
             <FaHeart className="text-xl" />
-            <div className="text-xs">관심주식</div>
+            <div className="text-xs">관심종목</div>
           </div>
           <div
             onClick={() => handleSidebar("holding")}
@@ -42,7 +42,7 @@ export default function Sidebar() {
             }`}
           >
             <GoGraph className="text-xl" />
-            <div className="text-xs">보유주식</div>
+            <div className="text-xs">보유종목</div>
           </div>
         </div>
       </div>

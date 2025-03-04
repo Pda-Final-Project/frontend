@@ -56,7 +56,7 @@ export default function Register() {
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
         <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
-          <h1 className="font-bold text-3xl">FinPago 함께하기</h1>
+          <h1 className="font-bold text-2xl">FinPago 함께하기</h1>
           <div className="flex flex-col space-y-4 w-full">
             <div>
               <input
