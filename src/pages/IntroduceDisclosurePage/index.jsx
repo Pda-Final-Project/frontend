@@ -29,10 +29,8 @@ export default function Index() {
           <img src="/images/logo.png" className="h-16" />
         </div>
 
-        <span className="text-[14px] text-blue-md text-center mt-1 mb-2">
-          <span>어떤 공시인지 모르겠다면? 핵심만 쏙쏙 알려드립니다. </span>
-          <br />
-          <span>투자에 필요한 중요한 공시 정보를 놓치지 마세요!</span>
+        <span className="text-[16px] text-blue-md text-center mt-1 mb-2 font-semibold">
+          투자에 필요한 중요한 공시 정보, 핵심만 쏙쏙 알려드립니다!    
         </span>
         <div className="w-full border-t-1 border-gray-md mt-4"></div>
       </div>

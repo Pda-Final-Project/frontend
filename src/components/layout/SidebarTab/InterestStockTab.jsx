@@ -41,7 +41,7 @@ export default function InterestStockTab() {
     <div className="h-full w-100 bg-gray-light z-50 py-4 px-2 space-y-2 shadow-md">
       {/* 내부 사이드바 헤더 */}
       <div className="p-4 flex flex-col justify-between border-b-1 border-gray-md">
-        <h2 className="text-lg font-semibold w-full">My 관심주식</h2>
+        <h2 className="text-lg font-semibold w-full">My 관심종목</h2>
         <div className="text-sm mt-1 text-blue-md">
           나의 관심 종목을 모아보세요
         </div>

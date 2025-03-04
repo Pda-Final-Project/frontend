@@ -30,7 +30,7 @@ export default function Disclosures() {
           </span>{" "}
           해외공시
         </h1>
-        <span className="text-blue-md text-center"> 더 많은 공시 보러가기</span>
+        <span className="text-blue-md text-center font-semibold"> 더 많은 공시 보러가기</span>
       </div>
       {/* 가로 스크롤 컨테이너 */}
       <div className="w-full overflow-auto no-scrollbar">
