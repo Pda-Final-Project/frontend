@@ -5,16 +5,16 @@ import BuyBox from "../../../components/trading/BuyBox";
 import MarketPriceList from "../../../components/trading/MarketPriceList";
 import { fetchAvailBalance, fetchBalance } from "../../../api/accountApi";
 import { postOrder } from "../../../api/tradeApi";
+import { fetchAvailQuantityByStock } from "../../../api/stockApi";
 
 export default function TradingTab({ ticker, currentPrice }) {
   const [totalBalance, setTotalBalance] = useState(0);
   const [availBalance, setAvailBalance] = useState(0);
-  const [holdingQuantity, setHoldingQuantity] = useState(50);
+  const [availQuantity, setAvailQuantity] = useState(50);
 
   useEffect(() => {
-    tryFetchBalance();
     tryFetchAvailBalance();
-    bringHoldingQuantity();
+    tryFetchAvailQuantity();
   }, []);
 
   const tryFetchBalance = async () => {
@@ -40,11 +40,18 @@ export default function TradingTab({ ticker, currentPrice }) {
     }
   };
 
-  const bringHoldingQuantity = () => {
-    // 보유 주식 수 가져오기
+  const tryFetchAvailQuantity = async () => {
+    try {
+      const response = await fetchAvailQuantityByStock(ticker);
+      if (response.data.status == "OK") {
+        setAvailQuantity(response.data.data);
+        console.log(response.data.data);
+      }
+    } catch (error) {
+      console.error("사용 가능 주수 조회 중 오류 발생: ", error.message);
+    }
   };
   const orderStock = async (offerType, offerQuantity, offerPrice) => {
-    //매수/매도하기
     try {
       const response = await postOrder({
         offerType: offerType,
@@ -58,14 +65,8 @@ export default function TradingTab({ ticker, currentPrice }) {
     } catch (error) {
       console.error("주문 중 오류 발생: ", error.message);
     }
-
-    console.log({
-      offerType: offerType,
-      offerQuantity: offerQuantity,
-      offerPrice: offerPrice,
-      stockTicker: ticker,
-    });
   };
+
   return (
     <div className="w-full h-full flex flex-col space-y-4">
       {/** 주식 차트 */}
@@ -78,7 +79,7 @@ export default function TradingTab({ ticker, currentPrice }) {
           <BuyBox withHolding={availBalance} orderStock={orderStock} />
         </div>
         <div>
-          <SellBox maxQuantity={holdingQuantity} orderStock={orderStock} />
+          <SellBox maxQuantity={availQuantity} orderStock={orderStock} />
         </div>
       </div>
       {/** 실시간 시세 & 체결 내역 */}

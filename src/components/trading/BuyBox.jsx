@@ -10,7 +10,7 @@ const percents = [
 ];
 
 export default function BuyBox({ withHolding, orderStock }) {
-  const [buyQuantity, setBuyQuantity] = useState(0);
+  const [buyQuantity, setBuyQuantity] = useState();
   const [buyPrice, setBuyPrice] = useState(0);
   const [maxQuantity, setMaxQuantity] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +28,6 @@ export default function BuyBox({ withHolding, orderStock }) {
     } else {
       setMaxQuantity(0);
     }
-    setBuyQuantity(maxQuantity); // maxQuantity가 업데이트될 때마다 buyQuantity 업데이트
   }, [buyPrice, withHolding, maxQuantity]);
 
   const checkBuyQuantity = (tmpQuantity) => {

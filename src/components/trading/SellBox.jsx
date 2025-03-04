@@ -10,8 +10,8 @@ const percents = [
 ];
 
 export default function SellBox({ maxQuantity, orderStock }) {
-  const [sellQuantity, setSellQuantity] = useState(0);
-  const [sellPrice, setSellPrice] = useState(0);
+  const [sellQuantity, setSellQuantity] = useState();
+  const [sellPrice, setSellPrice] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     price: "",
@@ -28,7 +28,7 @@ export default function SellBox({ maxQuantity, orderStock }) {
     }
   };
 
-  const totalOrderPrice = Math.floor(sellPrice * sellQuantity);
+  const totalOrderPrice = Math.floor(sellPrice * sellQuantity) || 0;
 
   const openModal = () => {
     modalMessage.price = totalOrderPrice;
