@@ -10,6 +10,7 @@ import DisclosureListPage from "../pages/DisclosureListPage/DisclosureListPage";
 import DisclosureDetailPage from "../pages/DisclosureDetailPage";
 import MainPage from "../pages/MainPage";
 import IntroduceDisclosurePage from "../pages/IntroduceDisclosurePage";
+import EarningsPage from "../pages/EarningsPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "/my_page", element: <MyPage /> },
       { path: "/stocks", element: <StockListPage /> },
       { path: "/disclosures", element: <DisclosureListPage /> },
+      { path: "/earnings/:ticker", element: <EarningsPage /> },
       {
         path: "/disclosures/:filling_id",
         element: <DisclosureDetailPage />,
