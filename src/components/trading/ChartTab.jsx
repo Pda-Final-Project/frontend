@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Chart from "./Chart";
-import { chartData } from "./sampleStockData";
+import CandleChart from "./CandleChart";
 import { fetchChart } from "../../api/stockApi";
 
-const chartTypeData = [
-  { id: "D", title: "일" },
-  { id: "W", title: "주" },
-  { id: "M", title: "월" },
-];
+// const chartTypeData = [
+//   { id: "D", title: "일" },
+//   { id: "W", title: "주" },
+//   { id: "M", title: "월" },
+// ];
 
 export default function ChartTab({ ticker }) {
   const [chartType, setChartType] = useState("D");
@@ -27,12 +26,12 @@ export default function ChartTab({ ticker }) {
       if (response.data.status === "OK") {
         setChartData(
           response.data.data.map((item) => ({
-            Date: new Date(item.date), // 문자열을 Date 객체로 변환
-            Open: item.open,
-            High: item.high,
-            Low: item.low,
-            Close: item.close,
-            Volume: item.volume,
+            date: new Date(item.date), // 문자열을 Date 객체로 변환
+            open: item.open,
+            high: item.high,
+            low: item.low,
+            close: item.close,
+            volume: item.volume,
           }))
         );
       }
@@ -42,10 +41,10 @@ export default function ChartTab({ ticker }) {
   };
 
   return (
-    <div className="bg-white flex flex-col rounded-lg py-4 text-sm h-full">
+    <div className="bg-white flex flex-col rounded-lg py-4 px-4 text-sm h-full">
       {/** 주식 종류 탭 */}
-      <div className="flex w-full justify-end px-4">
-        <div className="flex gap-2">
+      {/* <div className="flex w-full justify-end px-4">
+         <div className="flex gap-2">
           {chartTypeData.map((el) => (
             <button
               key={el.id}
@@ -59,12 +58,10 @@ export default function ChartTab({ ticker }) {
               {el.title}
             </button>
           ))}
-        </div>
-      </div>
+        </div> 
+      </div> */}
       {/** 주식 차트 */}
-      <div className="z-0 w-full">
-        <Chart chartData={chartData} />
-      </div>
+      <CandleChart chartData={chartData} />
     </div>
   );
 }
