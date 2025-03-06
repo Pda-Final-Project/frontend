@@ -1,34 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "./Chart";
 import { chartData } from "./sampleStockData";
+import { fetchChart } from "../../api/stockApi";
 
-const chart_type = [
-  { id: "d", title: "일" },
-  { id: "w", title: "주" },
-  { id: "m", title: "월" },
+const chartTypeData = [
+  { id: "D", title: "일" },
+  { id: "W", title: "주" },
+  { id: "M", title: "월" },
 ];
 
 export default function ChartTab({ ticker }) {
-  const [currentChartType, setCurrentChartType] = useState("d");
-  // const [chartData, setChartData] = useState([]);
+  const [chartType, setChartType] = useState("D");
+  const [chartData, setChartData] = useState([]);
 
-  const getChartData = (type) => {
-    /** To do: 해당 타입에 따른 chartData 요청 */
+  useEffect(() => {
+    getChartData();
+  }, [chartType, ticker]);
+
+  const getChartData = async () => {
+    const params = {
+      ticker,
+      chartType,
+    };
+    try {
+      const response = await fetchChart(params);
+      if (response.data.status === "OK") {
+        setChartData(
+          response.data.data.map((item) => ({
+            Date: new Date(item.date), // 문자열을 Date 객체로 변환
+            Open: item.open,
+            High: item.high,
+            Low: item.low,
+            Close: item.close,
+            Volume: item.volume,
+          }))
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   return (
     <div className="bg-white flex flex-col rounded-lg py-4 text-sm h-full">
       {/** 주식 종류 탭 */}
       <div className="flex w-full justify-end px-4">
         <div className="flex gap-2">
-          {chart_type.map((el) => (
+          {chartTypeData.map((el) => (
             <button
               key={el.id}
               onClick={() => {
-                setCurrentChartType(el.id);
-                getChartData(el.id);
+                setChartType(el.id);
               }}
               className={`${
-                currentChartType == el.id ? "!bg-blue-md text-white " : ""
+                chartType == el.id ? "!bg-blue-md text-white " : ""
               } white-button-style`}
             >
               {el.title}

@@ -41,7 +41,7 @@ export default function DisclosureList() {
         setFillings(response.data.data.content);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
