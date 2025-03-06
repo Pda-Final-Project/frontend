@@ -25,25 +25,7 @@ export default function WeatherGraph10Q({
   handleXAxisClick,
   filling10qJsonUrl,
 }) {
-  const [selectedBar, setSelectedBar] = useState(null);
   const [chartData, setChartData] = useState([]);
-
-  const CustomXAxisTick = (props) => {
-    const { x, y, payload } = props;
-    return (
-      <text
-        x={x}
-        y={y}
-        dy={10}
-        textAnchor="middle"
-        fill={selectedBar === payload.value ? "#54b0fe" : "#000"}
-        className="cursor-pointer font-bold"
-        onClick={() => handleXAxisClick(payload.value)}
-      >
-        {payload.value}
-      </text>
-    );
-  };
 
   const getQuarter = (endDate) => {
     const date = new Date(endDate);
@@ -76,7 +58,7 @@ export default function WeatherGraph10Q({
 
   useEffect(() => {
     fetchFilling10q();
-  }, []);
+  }, [filling10qJsonUrl]);
 
   return (
     <div className="relative w-full h-[300px]">
@@ -86,7 +68,7 @@ export default function WeatherGraph10Q({
           margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" tick={<CustomXAxisTick />} />
+          <XAxis dataKey="name" />
           <YAxis
             domain={[
               0,
@@ -140,8 +122,8 @@ export default function WeatherGraph10Q({
                 strokeOpacity={0}
                 fill={
                   isIncrease
-                    ? "rgba(255, 100, 100, 0.3)"
-                    : "rgba(84, 176, 254, 0.53)"
+                    ? "rgba(255, 247, 0, 0.3)"
+                    : "rgba(84, 176, 254, 0.3)"
                 }
                 fillOpacity={0.5}
               />
