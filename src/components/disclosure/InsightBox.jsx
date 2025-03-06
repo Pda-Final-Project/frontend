@@ -52,9 +52,6 @@ export default function InsightBox({ fillingType, filling10qJsonUrl, ticker }) {
   const [selectedFilling, setSelectedFilling] = useState(null);
   const [chartData, setChartData] = useState(chartDataDummy);
 
-  const handleXAxisClick = (value) => {
-    setSelectedFilling(value);
-  };
   const tryFetchChartData = async () => {
     const params = { ticker, chartType: "D" };
     try {
@@ -89,11 +86,11 @@ export default function InsightBox({ fillingType, filling10qJsonUrl, ticker }) {
           </div>
           {fillingType === "10-Q" ? (
             <WeatherGraph10Q
-              handleXAxisClick={handleXAxisClick}
+              setSelectedFilling={setSelectedFilling}
               filling10qJsonUrl={filling10qJsonUrl}
             />
           ) : (
-            <WeatherGraph8K handleXAxisClick={handleXAxisClick} />
+            <WeatherGraph8K setSelectedFilling={setSelectedFilling} />
           )}
         </div>
         <div className="w-2/5">

@@ -15,52 +15,62 @@ import { TiWeatherDownpour } from "react-icons/ti"; // 파란색 아이콘
 import { IoIosSunny } from "react-icons/io"; // 빨간색 아이콘
 
 const data = [
-  { name: "Page A", value: 800 },
-  { name: "Page B", value: -800 },
-  { name: "Page C", value: 500 },
-  { name: "Page D", value: 800 },
+  { name: "2023-Q1", value: 800 },
+  { name: "2023-Q2", value: -800 },
+  { name: "2023-Q3", value: 500 },
+  { name: "2023-Q4", value: 800 },
 ];
 
-export default function WeatherGraph8K(handleXAxisClick) {
-  const [selectedBar, setSelectedBar] = useState(null);
+const CustomXAxisTick = (props) => {
+  const { x, y, payload, onClick } = props;
+  return (
+    <text
+      x={x}
+      y={y}
+      dy={10}
+      textAnchor="middle"
+      fill="#000"
+      style={{ cursor: "pointer", fontWeight: "bold" }}
+      onClick={() => onClick(payload.value)}
+    >
+      {payload.value}
+    </text>
+  );
+};
 
-  const CustomXAxisTick = (props) => {
-    const { x, y, payload } = props;
-    return (
-      <text
-        x={x}
-        y={y}
-        dy={10}
-        textAnchor="middle"
-        fill={selectedBar === payload.value ? "#54b0fe" : "#000"}
-        className="cursor-pointer font-bold"
-        onClick={() => handleXAxisClick(payload.value)}
-      >
-        {payload.value}
-      </text>
-    );
-  };
+export default function WeatherGraph8K({ setSelectedFilling }) {
+  // 예시로 setSelectedFilling을 prop으로 받아 상위에서 관리합니다.
+  // setSelectedFilling은 Legend 혹은 XAxis tick 클릭 시 호출됩니다.
+  const [selectedBar, setSelectedBar] = useState(null);
 
   return (
     <div className="relative w-full h-[300px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" tick={<CustomXAxisTick />} />
+          <XAxis
+            dataKey="name"
+            tick={
+              <CustomXAxisTick
+                onClick={(value) => {
+                  // 예시: setSelectedFilling 호출
+                  setSelectedFilling(value);
+                }}
+              />
+            }
+          />
           <YAxis
             domain={[
-              Math.min(...data.map((d) => d.value)) * 1.2, // 음수값 고려하여 최소값 조정
-              Math.max(...data.map((d) => d.value)) * 1.2, // 양수값 고려하여 최대값 조정
+              Math.min(...data.map((d) => d.value)) * 1.2,
+              Math.max(...data.map((d) => d.value)) * 1.2,
             ]}
           />
           <Tooltip />
           <Legend />
-
           {data.map((d, index) => {
-            let color = "rgba(200, 200, 200, 0.3)"; // 기본 배경색
-            if (d.value < 0) color = "rgba(84, 176, 254, 0.53)"; // 🔵 파랑 배경
-            else if (d.value > 0) color = "rgba(255, 100, 100, 0.3)"; // 🔴 빨강 배경
-
+            let color = "";
+            if (d.value < 0) color = "rgba(84, 176, 254, 0.3)";
+            else if (d.value > 0) color = "rgba(255, 247, 0, 0.3)";
             return (
               <ReferenceArea
                 key={index}
@@ -74,13 +84,11 @@ export default function WeatherGraph8K(handleXAxisClick) {
               />
             );
           })}
-
-          {/* ✅ 막대 색상 정상 적용 */}
           <Bar
             dataKey="value"
             shape={(props) => {
               const { x, y, width, height, payload } = props;
-              const fillColor = payload.value > 0 ? "#FF5F5E" : "#54b0fe"; // ✅ 빨강(양수), 파랑(음수)
+              const fillColor = payload.value > 0 ? "#ff7000" : "#54b0fe";
               return (
                 <Rectangle
                   x={x}
@@ -94,8 +102,7 @@ export default function WeatherGraph8K(handleXAxisClick) {
           />
         </BarChart>
       </ResponsiveContainer>
-
-      {/* ✅ 특정 데이터 포인트에 아이콘 추가 (위치 자동 조정) */}
+      {/* 추가 아이콘 표시 */}
       {data.map((d, index) => {
         let icon = null;
         if (d.value > 0) {
@@ -103,7 +110,6 @@ export default function WeatherGraph8K(handleXAxisClick) {
         } else if (d.value < 0) {
           icon = <TiWeatherDownpour className="text-blue-md text-5xl" />;
         }
-
         return (
           icon && (
             <div

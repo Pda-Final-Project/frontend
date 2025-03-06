@@ -21,9 +21,28 @@ const LABEL_MAP = {
   NetIncome: "순이익",
 };
 
+const CustomizedLegend = ({ payload, onClick = () => {} }) => {
+  return (
+    <div className="flex w-full justify-center gap-8">
+      {payload.map((entry, index) => (
+        <div
+          key={`legend-item-${index}`}
+          onClick={() => onClick(entry.value)}
+          className="text-sm font-semibold text-col cursor-pointer hover:underline"
+          style={{
+            color: entry.color || "#000",
+          }}
+        >
+          {entry.value}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export default function WeatherGraph10Q({
-  handleXAxisClick,
   filling10qJsonUrl,
+  setSelectedFilling,
 }) {
   const [chartData, setChartData] = useState([]);
 
@@ -81,7 +100,13 @@ export default function WeatherGraph10Q({
             tickFormatter={(value) => `${value.toFixed(1)}억`}
           />
           <Tooltip />
-          <Legend />
+          <Legend
+            content={
+              <CustomizedLegend
+                onClick={(value) => setSelectedFilling(value)}
+              />
+            }
+          />
           {chartData.length > 0 &&
             Object.keys(chartData[0])
               .filter((k) => k !== "name")
@@ -90,9 +115,9 @@ export default function WeatherGraph10Q({
                 <Bar
                   key={key}
                   dataKey={key}
-                  fill={index === 0 ? "#54b0fe" : "#FF5F5E"} // 이전 분기는 파랑, 이번 분기는 빨강
+                  fill={index === 0 ? "#54b0fe" : "#ff7000"} // 이전 분기는 파랑, 이번 분기는 빨강
                   activeBar={
-                    <Rectangle fill={index === 0 ? "#008AFF" : "#FF4645"} />
+                    <Rectangle fill={index === 0 ? "#008AFF" : "#ff5500"} />
                   }
                 />
               ))}
