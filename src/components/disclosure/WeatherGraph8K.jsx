@@ -30,6 +30,7 @@ const CustomXAxisTick = (props) => {
       dy={10}
       textAnchor="middle"
       fill="#000"
+      className="text-sm hover:underline"
       style={{ cursor: "pointer", fontWeight: "bold" }}
       onClick={() => onClick(payload.value)}
     >
