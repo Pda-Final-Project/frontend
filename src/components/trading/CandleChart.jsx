@@ -22,18 +22,13 @@ import {
   EdgeIndicator,
   MouseCoordinateX,
   MouseCoordinateY,
-  ZoomButtons,
-  withDeviceRatio,
-  withSize,
 } from "react-financial-charts";
 
-const CandleChart = ({ chartData }) => {
+const CandleChart = ({ chartData, height = 350, width = 900 }) => {
   const ScaleProvider =
     discontinuousTimeScaleProviderBuilder().inputDateAccessor(
       (d) => new Date(d.date)
     );
-  const height = 350;
-  const width = 900;
   const margin = { left: 0, right: 48, top: 0, bottom: 24 };
 
   const ema12 = ema()
@@ -54,9 +49,13 @@ const CandleChart = ({ chartData }) => {
 
   const elder = elderRay();
 
+  // 데이터 계산 (필요한 경우 계산 로직 조정)
   const calculatedData = elder(ema26(ema12(chartData)));
+  const filteredData = calculatedData.filter(
+    (d) => d.ema12 != null && d.ema26 != null
+  );
   const { data, xScale, xAccessor, displayXAccessor } =
-    ScaleProvider(chartData);
+    ScaleProvider(filteredData);
   const pricesDisplayFormat = format(".0f");
 
   const max = xAccessor(data[data.length - 1]);
@@ -71,7 +70,7 @@ const CandleChart = ({ chartData }) => {
   const barChartOrigin = (_, h) => [0, h - barChartHeight - elderRayHeight];
   const chartHeight = gridHeight - elderRayHeight;
 
-  // x축 날짜 형식을 "%-m월 %d일"로 지정 (예: "1월 27일")
+  // x축 날짜 형식: "%-m월 %d일" (예: "1월 27일")
   const dateTimeFormat = "%-m월 %d일";
   const timeDisplayFormat = timeFormat(dateTimeFormat);
 
@@ -119,7 +118,7 @@ const CandleChart = ({ chartData }) => {
           fill={(d) => (d.close > d.open ? "#f04452" : "#3182f6")}
           wickStroke={(d) => (d.close > d.open ? "#f04452" : "#3182f6")}
         />
-        <LineSeries yAccessor={ema26.accessor()} strokeStyle={ema26.stroke()} />
+        {/* <LineSeries yAccessor={ema26.accessor()} strokeStyle={ema26.stroke()} />
         <CurrentCoordinate
           yAccessor={ema26.accessor()}
           fillStyle={ema26.stroke()}
@@ -128,7 +127,7 @@ const CandleChart = ({ chartData }) => {
         <CurrentCoordinate
           yAccessor={ema12.accessor()}
           fillStyle={ema12.stroke()}
-        />
+        /> */}
         <MouseCoordinateY
           rectWidth={margin.right}
           displayFormat={pricesDisplayFormat}
@@ -141,7 +140,7 @@ const CandleChart = ({ chartData }) => {
           displayFormat={pricesDisplayFormat}
           yAccessor={yEdgeIndicator}
         />
-        <MovingAverageTooltip
+        {/* <MovingAverageTooltip
           origin={[8, 24]}
           options={[
             {
@@ -157,8 +156,7 @@ const CandleChart = ({ chartData }) => {
               windowSize: ema12.options().windowSize,
             },
           ]}
-        />
-        <ZoomButtons />
+        /> */}
         <OHLCTooltip origin={[8, 16]} />
       </Chart>
       <Chart

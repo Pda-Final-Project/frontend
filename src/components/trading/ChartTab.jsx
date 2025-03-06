@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CandleChart from "./CandleChart";
 import { fetchChart } from "../../api/stockApi";
-
-// const chartTypeData = [
-//   { id: "D", title: "일" },
-//   { id: "W", title: "주" },
-//   { id: "M", title: "월" },
-// ];
 
 export default function ChartTab({ ticker }) {
   const [chartType, setChartType] = useState("D");
   const [chartData, setChartData] = useState([]);
+  // 컨테이너 크기를 측정하기 위한 ref와 state
+  const containerRef = useRef(null);
+  const [dimensions, setDimensions] = useState({ width: 900, height: 350 });
 
   useEffect(() => {
     getChartData();
   }, [chartType, ticker]);
+
+  // 상위 컨테이너의 크기를 측정
+  useEffect(() => {
+    if (containerRef.current) {
+      const { clientWidth, clientHeight } = containerRef.current;
+      setDimensions({ width: clientWidth, height: clientHeight });
+    }
+  }, []);
 
   const getChartData = async () => {
     const params = {
@@ -41,27 +46,20 @@ export default function ChartTab({ ticker }) {
   };
 
   return (
-    <div className="bg-white flex flex-col rounded-lg py-4 px-4 text-sm h-full">
-      {/** 주식 종류 탭 */}
-      {/* <div className="flex w-full justify-end px-4">
-         <div className="flex gap-2">
-          {chartTypeData.map((el) => (
-            <button
-              key={el.id}
-              onClick={() => {
-                setChartType(el.id);
-              }}
-              className={`${
-                chartType == el.id ? "!bg-blue-md text-white " : ""
-              } white-button-style`}
-            >
-              {el.title}
-            </button>
-          ))}
-        </div> 
-      </div> */}
-      {/** 주식 차트 */}
-      <CandleChart chartData={chartData} />
+    <div
+      ref={containerRef}
+      className="bg-white flex flex-col rounded-lg py-4 px-4 text-sm"
+    >
+      {/* 주식 차트 */}
+      {chartData ? (
+        <CandleChart
+          chartData={chartData}
+          width={dimensions.width - 40 || 0} // 상위 div의 너비 전달
+          height={350} // 고정 비율로 높이 전달
+        />
+      ) : (
+        <div className="animate-skeleton h-[500px] bg-gray-200"></div>
+      )}
     </div>
   );
 }
