@@ -10,12 +10,12 @@ const fillingTypeData = [
   { id: "SC 13G", name: "지분율 5% 이상 변동 보고서 (Schedule 13D/13G)" },
 ];
 
-export default function DisclosureList() {
+export default function DisclosureList({ ticker = "" }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   // 검색 필터 상태
-  const [ticker, setTicker] = useState("");
+  const [tickerParam, setTickerParam] = useState(ticker);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [fillingType, setFillingType] = useState("");
@@ -26,7 +26,7 @@ export default function DisclosureList() {
 
   const tryFetchDisclosures = async () => {
     const params = {
-      ticker,
+      tickerParam,
       fillingType,
       startDate,
       endDate,
@@ -73,7 +73,7 @@ export default function DisclosureList() {
     setEndDate("");
     setStartDate("");
     setFillingType("");
-    setTicker("");
+    setTickerParam("");
   };
 
   return (
@@ -102,8 +102,8 @@ export default function DisclosureList() {
                     type="text"
                     placeholder="종목코드를 입력하세요"
                     className="input-style"
-                    value={ticker}
-                    onChange={(e) => setTicker(e.target.value)}
+                    value={tickerParam}
+                    onChange={(e) => setTickerParam(e.target.value)}
                   />
                 </div>
               </div>

@@ -6,9 +6,14 @@ import LikeButton from "../../components/common/LikeButton";
 import { fetchStocks } from "../../api/stockApi";
 import { formatNumber } from "../../utils/numberFormat";
 import { useStockSse } from "../../hooks/useSseStockInfo";
+import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
+import { TbLayoutSidebarRightExpand } from "react-icons/tb";
+import { RiExpandLeftLine } from "react-icons/ri";
+import { RiExpandRightLine } from "react-icons/ri";
 
 export default function MainPage() {
   const { ticker, filling_id } = useParams();
+  const [extend, setExtend] = useState("none");
   const [stockInfo, setStockInfo] = useState([
     {
       ticker: ticker,
@@ -92,18 +97,55 @@ export default function MainPage() {
           </div>
         </div>
       </div>
-      <div className="w-full grid grid-cols-2 h-full gap-8">
-        {/** 공시탭 */}
+      <div className="flex justify-between font-semibold text-xs mb-2">
         <div>
+          <div
+            onClick={() => {
+              setExtend(extend !== "fill" ? "fill" : "none");
+            }}
+            className="flex items-center py-2 px-3 rounded-lg bg-blue-light cursor-pointer hover:bg-blue-md hover:text-white duration-300"
+          >
+            공시 {extend == "fill" ? "작게" : "크게"} 보기
+            <span className="text-lg">
+              <RiExpandRightLine />
+              {/* <TbLayoutSidebarLeftExpand /> */}
+            </span>
+          </div>
+        </div>
+        <div>
+          <div
+            onClick={() => {
+              setExtend(extend !== "trade" ? "trade" : "none");
+            }}
+            className="flex items-center py-2 px-3 rounded-lg bg-blue-light cursor-pointer hover:bg-blue-md hover:text-white duration-300"
+          >
+            <span className="text-lg">
+              <RiExpandLeftLine />
+              {/* <TbLayoutSidebarRightExpand /> */}
+            </span>
+            트레이딩 {extend == "trade" ? "작게" : "크게"} 보기
+          </div>
+        </div>
+      </div>
+
+      <div className="flex gap-8  w-full h-full overflow-hidden transition-all duration-300">
+        {/* 공시 탭 */}
+        <div
+          className={`
+      transition-all duration-300 overflow-hidden
+      ${extend === "fill" ? "w-full" : extend === "trade" ? "w-0" : "w-full"}
+    `}
+        >
           <DisclosureTab ticker={ticker} />
         </div>
-        {/** 주식탭 */}
-        <div>
-          <TradingTab
-            filling_id={filling_id}
-            ticker={ticker}
-            currentPrice={currentStock.current_price}
-          />
+        {/* 트레이딩 탭 */}
+        <div
+          className={`
+      transition-all duration-300 overflow-hidden
+      ${extend === "trade" ? "w-full" : extend === "fill" ? "w-0" : "w-full"}
+    `}
+        >
+          <TradingTab ticker={ticker} extend={extend} />
         </div>
       </div>
     </div>

@@ -3,35 +3,35 @@ import ChartTab from "../../../components/trading/ChartTab";
 import SellBox from "../../../components/trading/SellBox";
 import BuyBox from "../../../components/trading/BuyBox";
 import MarketPriceList from "../../../components/trading/MarketPriceList";
-import { fetchAvailBalance, fetchBalance } from "../../../api/accountApi";
+import { fetchAvailBalance } from "../../../api/accountApi";
 import { postOrder } from "../../../api/tradeApi";
 import { fetchAvailQuantityByStock } from "../../../api/stockApi";
 
-export default function TradingTab({ ticker, currentPrice }) {
-  const [totalBalance, setTotalBalance] = useState(0);
+function TradingTab({ ticker, extend }) {
   const [availBalance, setAvailBalance] = useState(0);
   const [availQuantity, setAvailQuantity] = useState(50);
 
   useEffect(() => {
     tryFetchAvailBalance();
     tryFetchAvailQuantity();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const tryFetchAvailBalance = async () => {
     try {
       const response = await fetchAvailBalance();
-      if (response.data.status == "OK") {
+      if (response.data.status === "OK") {
         setAvailBalance(response.data.data);
       }
     } catch (error) {
-      console.error("사용 가능 예수금 조회 중 오류 발생");
+      console.error("사용 가능 예수금 조회 중 오류 발생", error);
     }
   };
 
   const tryFetchAvailQuantity = async () => {
     try {
       const response = await fetchAvailQuantityByStock(ticker);
-      if (response.data.status == "OK") {
+      if (response.data.status === "OK") {
         setAvailQuantity(response.data.data);
         console.log(response.data.data);
       }
@@ -48,7 +48,7 @@ export default function TradingTab({ ticker, currentPrice }) {
         offerPrice: offerPrice,
         stockTicker: ticker,
       });
-      if (response.data.status == "CREATED") {
+      if (response.data.status === "CREATED") {
         console.log(response.data.message);
         tryFetchAvailQuantity();
         tryFetchAvailBalance();
@@ -59,25 +59,40 @@ export default function TradingTab({ ticker, currentPrice }) {
   };
 
   return (
-    <div className="w-full h-full flex flex-col space-y-4">
-      {/** 주식 차트 */}
-      <div className="flex-col w-full h-full">
-        <ChartTab ticker={ticker} />
-      </div>
-      {/** 매수 & 매도 */}
-      <div className="grid grid-cols-2 gap-4 w-full">
-        <div>
-          <BuyBox withHolding={availBalance} orderStock={orderStock} />
+    <div className="w-full h-full">
+      {extend == "trade" ? (
+        // 확대(전체 화면) 상태: 상단은 좌측 차트 & 우측 매수/매도, 하단은 전체 실시간 시세 및 체결 내역
+        <div className="w-full h-full flex flex-col space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="w-full">
+              <ChartTab ticker={ticker} />
+            </div>
+            <div className="flex flex-col justify-center gap-4">
+              <BuyBox withHolding={availBalance} orderStock={orderStock} />
+              <SellBox maxQuantity={availQuantity} orderStock={orderStock} />
+            </div>
+          </div>
+          <div className="w-full">
+            <MarketPriceList />
+          </div>
         </div>
-        <div>
-          <SellBox maxQuantity={availQuantity} orderStock={orderStock} />
+      ) : (
+        // 기본 상태: 차례대로 세로 배치
+        <div className="w-full h-full flex flex-col space-y-4">
+          <div className="w-full h-100">
+            <ChartTab ticker={ticker} />
+          </div>
+          <div className="grid grid-cols-2 gap-4 w-full">
+            <BuyBox withHolding={availBalance} orderStock={orderStock} />
+            <SellBox maxQuantity={availQuantity} orderStock={orderStock} />
+          </div>
+          <div className="w-full">
+            <MarketPriceList />
+          </div>
         </div>
-      </div>
-      {/** 실시간 시세 & 체결 내역 */}
-
-      <div className="w-full h-full">
-        <MarketPriceList />
-      </div>
+      )}
     </div>
   );
 }
+
+export default React.memo(TradingTab);

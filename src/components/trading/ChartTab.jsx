@@ -5,33 +5,22 @@ import { fetchChart } from "../../api/stockApi";
 export default function ChartTab({ ticker }) {
   const [chartType, setChartType] = useState("D");
   const [chartData, setChartData] = useState([]);
-  // 컨테이너 크기를 측정하기 위한 ref와 state
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 900, height: 350 });
 
+  // 차트 데이터 가져오기
   useEffect(() => {
     getChartData();
   }, [chartType, ticker]);
 
-  // 상위 컨테이너의 크기를 측정
-  useEffect(() => {
-    if (containerRef.current) {
-      const { clientWidth, clientHeight } = containerRef.current;
-      setDimensions({ width: clientWidth, height: clientHeight });
-    }
-  }, []);
-
   const getChartData = async () => {
-    const params = {
-      ticker,
-      chartType,
-    };
+    const params = { ticker, chartType };
     try {
       const response = await fetchChart(params);
       if (response.data.status === "OK") {
         setChartData(
           response.data.data.map((item) => ({
-            date: new Date(item.date), // 문자열을 Date 객체로 변환
+            date: new Date(item.date),
             open: item.open,
             high: item.high,
             low: item.low,
@@ -45,17 +34,37 @@ export default function ChartTab({ ticker }) {
     }
   };
 
+  // ResizeObserver를 사용하여 컨테이너 크기를 지속적으로 업데이트
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width, height } = entry.contentRect;
+        setDimensions({ width, height });
+      }
+    });
+
+    resizeObserver.observe(container);
+
+    return () => {
+      if (container) {
+        resizeObserver.unobserve(container);
+      }
+    };
+  }, []);
+
   return (
     <div
       ref={containerRef}
-      className="bg-white flex flex-col rounded-lg py-4 px-4 text-sm"
+      className="bg-white flex flex-col rounded-lg py-4 px-4 text-sm h-full"
     >
-      {/* 주식 차트 */}
-      {chartData ? (
+      {chartData.length ? (
         <CandleChart
           chartData={chartData}
-          width={dimensions.width - 40 || 0} // 상위 div의 너비 전달
-          height={350} // 고정 비율로 높이 전달
+          width={dimensions.width - 20 || 0} // 패딩 등 고려하여 조정
+          height={dimensions.height - 20 || 0}
         />
       ) : (
         <div className="animate-skeleton h-[500px] bg-gray-200"></div>
