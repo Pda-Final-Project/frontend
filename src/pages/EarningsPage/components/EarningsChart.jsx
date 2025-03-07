@@ -10,12 +10,12 @@ import {
   Line,
   ComposedChart,
 } from "recharts";
-import earningdata from "./earningdata";
 import { format } from "d3-format";
 
-const EarningsChart = () => {
-  // 데이터 변환 (EPS 및 매출 변동률 추가)
-  const chartData = earningdata.map((data) => {
+const EarningsChart = ({ earningData }) => {
+  // earningData가 배열인지 확인하고, 아니라면 빈 배열 사용
+  const dataArray = Array.isArray(earningData) ? earningData : [];
+  const chartData = dataArray.map((data) => {
     const eps = data.eps ? parseFloat(data.eps) : null;
     const eps_estimated = data.eps_estimated
       ? parseFloat(data.eps_estimated)
@@ -63,7 +63,7 @@ const EarningsChart = () => {
             tick={{ fontSize: 12 }}
             domain={[-20, 20]}
           />
-          <Tooltip />
+          <Tooltip formatter={(value, name) => [format(",")(value), name]} />
           <Legend />
 
           {/* EPS 바 차트 */}

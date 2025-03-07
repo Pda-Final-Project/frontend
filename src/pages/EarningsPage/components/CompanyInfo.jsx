@@ -1,8 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import earningdata from "./earningdata";
 
-const CompanyInfo = () => {
+const CompanyInfo = ({ earningData }) => {
   const { ticker } = useParams(); // URL에서 ticker 가져오기
 
   if (!ticker) {
@@ -11,7 +10,7 @@ const CompanyInfo = () => {
 
   // 현재 날짜 기준 가장 최근 실적 발표 데이터 찾기
   const today = new Date();
-  const pastReports = earningdata.filter(
+  const pastReports = earningData.filter(
     (data) => new Date(data.date) <= today
   );
   const latestReport = pastReports.sort(

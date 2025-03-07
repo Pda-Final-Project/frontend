@@ -1,28 +1,11 @@
 import React from "react";
-import earningdata from "./earningdata";
 
-const EarningsReport = () => {
-  if (!earningdata || earningdata.length === 0)
+const EarningsReport = ({ earningData }) => {
+  if (!earningData || earningData.length === 0)
     return <p>데이터가 없습니다.</p>;
 
-  // 현재 날짜 기준으로 과거/미래 데이터 분류
-  const today = new Date();
-
-  // 가장 최근 발표된 실적 데이터 찾기
-  const pastReports = earningdata.filter(
-    (data) => new Date(data.date) <= today
-  );
-  const latestReport = pastReports.sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  )[0];
-
-  // 다가올 실적 발표 데이터 찾기
-  const upcomingReports = earningdata.filter(
-    (data) => new Date(data.date) > today
-  );
-  const nextReport = upcomingReports.sort(
-    (a, b) => new Date(a.date) - new Date(b.date)
-  )[0];
+  const latestReport = earningData[3];
+  const nextReport = earningData[4];
 
   // 변동률(%) 계산
   const calculatePercentageChange = (actual, estimated) => {

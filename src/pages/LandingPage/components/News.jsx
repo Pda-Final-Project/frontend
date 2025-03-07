@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { timeAgo } from "../../../utils/timeAgo";
-import { news } from "../../../api/newsApi";
+import { news } from "../../../api/othersApi";
 import { HiPlusCircle } from "react-icons/hi";
 
 const NEWS_SITE_URL = "https://www.investing.com";
