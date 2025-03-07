@@ -24,6 +24,13 @@ const fetchAvailQuantityByStock = (ticker) =>
     isAuthRequired: true,
   });
 
+//차트 조회
+const fetchChart = (params) =>
+  api.get("http://localhost:19099/v1/api/chart", {
+    params: params, // 빈 값 필터링하여 전달
+    isAuthRequired: false,
+  });
+
 //관심 종목 조회, 추가, 삭제
 const fetchLikeStocks = () =>
   api.get("http://127.0.0.1:19092/v1/api/stocks/like", {
@@ -47,4 +54,5 @@ export {
   removeLikeStock,
   addLikeStock,
   fetchAvailQuantityByStock,
+  fetchChart,
 };

@@ -49,6 +49,7 @@ export default function DisclosureDetail() {
       {filling.fillingType == "10-Q" || filling.fillingType == "8-K" ? (
         <div className="w-full flex flex-col p-6 bg-white rounded-lg">
           <InsightBox
+            ticker={filling.fillingTicker}
             fillingType={filling.fillingType}
             filling10qJsonUrl={filling.filling10qJsonUrl}
           />

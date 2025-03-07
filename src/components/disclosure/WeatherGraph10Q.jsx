@@ -21,29 +21,30 @@ const LABEL_MAP = {
   NetIncome: "순이익",
 };
 
-export default function WeatherGraph10Q({
-  handleXAxisClick,
-  filling10qJsonUrl,
-}) {
-  const [selectedBar, setSelectedBar] = useState(null);
-  const [chartData, setChartData] = useState([]);
+const CustomizedLegend = ({ payload, onClick = () => {} }) => {
+  return (
+    <div className="flex w-full justify-center gap-8">
+      {payload.map((entry, index) => (
+        <div
+          key={`legend-item-${index}`}
+          onClick={() => onClick(entry.value)}
+          className="text-sm font-semibold text-col cursor-pointer hover:underline"
+          style={{
+            color: entry.color || "#000",
+          }}
+        >
+          {entry.value}
+        </div>
+      ))}
+    </div>
+  );
+};
 
-  const CustomXAxisTick = (props) => {
-    const { x, y, payload } = props;
-    return (
-      <text
-        x={x}
-        y={y}
-        dy={10}
-        textAnchor="middle"
-        fill={selectedBar === payload.value ? "#54b0fe" : "#000"}
-        className="cursor-pointer font-bold"
-        onClick={() => handleXAxisClick(payload.value)}
-      >
-        {payload.value}
-      </text>
-    );
-  };
+export default function WeatherGraph10Q({
+  filling10qJsonUrl,
+  setSelectedFilling,
+}) {
+  const [chartData, setChartData] = useState([]);
 
   const getQuarter = (endDate) => {
     const date = new Date(endDate);
@@ -76,7 +77,7 @@ export default function WeatherGraph10Q({
 
   useEffect(() => {
     fetchFilling10q();
-  }, []);
+  }, [filling10qJsonUrl]);
 
   return (
     <div className="relative w-full h-[300px]">
@@ -86,7 +87,7 @@ export default function WeatherGraph10Q({
           margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" tick={<CustomXAxisTick />} />
+          <XAxis dataKey="name" />
           <YAxis
             domain={[
               0,
@@ -99,7 +100,13 @@ export default function WeatherGraph10Q({
             tickFormatter={(value) => `${value.toFixed(1)}억`}
           />
           <Tooltip />
-          <Legend />
+          <Legend
+            content={
+              <CustomizedLegend
+                onClick={(value) => setSelectedFilling(value)}
+              />
+            }
+          />
           {chartData.length > 0 &&
             Object.keys(chartData[0])
               .filter((k) => k !== "name")
@@ -108,9 +115,9 @@ export default function WeatherGraph10Q({
                 <Bar
                   key={key}
                   dataKey={key}
-                  fill={index === 0 ? "#54b0fe" : "#FF5F5E"} // 이전 분기는 파랑, 이번 분기는 빨강
+                  fill={index === 0 ? "#54b0fe" : "#ff7000"} // 이전 분기는 파랑, 이번 분기는 빨강
                   activeBar={
-                    <Rectangle fill={index === 0 ? "#008AFF" : "#FF4645"} />
+                    <Rectangle fill={index === 0 ? "#008AFF" : "#ff5500"} />
                   }
                 />
               ))}
@@ -140,8 +147,8 @@ export default function WeatherGraph10Q({
                 strokeOpacity={0}
                 fill={
                   isIncrease
-                    ? "rgba(255, 100, 100, 0.3)"
-                    : "rgba(84, 176, 254, 0.53)"
+                    ? "rgba(255, 247, 0, 0.3)"
+                    : "rgba(84, 176, 254, 0.3)"
                 }
                 fillOpacity={0.5}
               />

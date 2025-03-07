@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WeatherGraph10Q from "./WeatherGraph10Q";
 import ChartMini from "./ChartMini";
 import WeatherGraph8K from "./WeatherGraph8K";
-const chartData = [
+import { fetchChart } from "../../api/stockApi";
+
+const chartDataDummy = [
   {
     Date: new Date(2020, 2, 3),
     Open: 3235,
@@ -45,13 +47,34 @@ const chartData = [
   },
 ];
 
-export default function InsightBox({ fillingType, filling10qJsonUrl }) {
-  //선택된 공시에 대해서 chartData를 받아와 chartMini에 줘야 함
-  const { selectedFilling, setSelectedFilling } = useState();
+export default function InsightBox({ fillingType, filling10qJsonUrl, ticker }) {
+  // useState는 배열 비구조화로 받아야 합니다.
+  const [selectedFilling, setSelectedFilling] = useState(null);
+  const [chartData, setChartData] = useState(chartDataDummy);
 
-  const handleXAxisClick = (name) => {
-    setSelectedFilling(name === selectedFilling ? null : name);
+  const tryFetchChartData = async () => {
+    const params = { ticker, chartType: "D" };
+    try {
+      const response = await fetchChart(params);
+      if (response.data.status === "OK") {
+        const formatted = response.data.data.map((item) => ({
+          date: new Date(item.date), // 문자열을 Date 객체로 변환
+          open: item.open,
+          high: item.high,
+          low: item.low,
+          close: item.close,
+          volume: item.volume,
+        }));
+        setChartData(formatted);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   };
+
+  useEffect(() => {
+    console.log(selectedFilling);
+  }, [selectedFilling]);
 
   return (
     <div>
@@ -61,13 +84,13 @@ export default function InsightBox({ fillingType, filling10qJsonUrl }) {
           <div className="font-semibold text-blue-md text-sm mb-4">
             해당 분기의 작년과 올해 실적을 비교해보세요
           </div>
-          {fillingType == "10-Q" ? (
+          {fillingType === "10-Q" ? (
             <WeatherGraph10Q
-              handleXAxisClick={handleXAxisClick}
+              setSelectedFilling={setSelectedFilling}
               filling10qJsonUrl={filling10qJsonUrl}
             />
           ) : (
-            <WeatherGraph8K handleXAxisClick={handleXAxisClick} />
+            <WeatherGraph8K setSelectedFilling={setSelectedFilling} />
           )}
         </div>
         <div className="w-2/5">
