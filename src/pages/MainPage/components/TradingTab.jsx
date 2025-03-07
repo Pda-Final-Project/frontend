@@ -63,11 +63,11 @@ function TradingTab({ ticker, extend }) {
       {extend == "trade" ? (
         // 확대(전체 화면) 상태: 상단은 좌측 차트 & 우측 매수/매도, 하단은 전체 실시간 시세 및 체결 내역
         <div className="w-full h-full flex flex-col space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="w-full">
+          <div className="flex gap-4">
+            <div className="w-2/3">
               <ChartTab ticker={ticker} />
             </div>
-            <div className="flex flex-col justify-center gap-4">
+            <div className="flex flex-col justify-center gap-4 w-1/3">
               <BuyBox withHolding={availBalance} orderStock={orderStock} />
               <SellBox maxQuantity={availQuantity} orderStock={orderStock} />
             </div>
