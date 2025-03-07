@@ -13,4 +13,35 @@ const fetchAvailBalance = () =>
     isAuthRequired: true,
   });
 
-export { fetchAvailBalance, fetchBalance };
+//해외 주식 잔고 조회
+const fetchTotalHoldings = () =>
+  api.get("http://127.0.0.1:19092/v1/api/holdings/total/summary", {
+    isAuthRequired: true,
+  });
+
+//손익 내역 조회(list)
+const fetchTradeProfitList = () =>
+  api.get("http://127.0.0.1:19092/v1/api/tradeProfit/list", {
+    isAuthRequired: true,
+  });
+
+//손익 내역 조회(sum)
+const fetchTradeProfitSum = () =>
+  api.get("http://127.0.0.1:19092/v1/api/tradeProfit/sum", {
+    isAuthRequired: true,
+  });
+
+//보유 종목들 세부 데이터
+const fetchHoldings = () =>
+  api.get("http://127.0.0.1:19092/v1/api/stocks/holding", {
+    isAuthRequired: true,
+  });
+
+export {
+  fetchAvailBalance,
+  fetchBalance,
+  fetchTotalHoldings,
+  fetchTradeProfitList,
+  fetchTradeProfitSum,
+  fetchHoldings,
+};
