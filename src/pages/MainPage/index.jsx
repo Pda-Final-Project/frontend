@@ -55,6 +55,10 @@ export default function MainPage() {
     setStockInfo
   );
 
+  useEffect(() => {
+    console.log(extend);
+  }, [extend]);
+
   if (stockInfo.length === 0) {
     return <div className="text-center text-gray-500">로딩 중...</div>;
   }
@@ -128,7 +132,11 @@ export default function MainPage() {
         </div>
       </div>
 
-      <div className="flex gap-8  w-full h-full overflow-hidden transition-all duration-300">
+      <div
+        className={`flex w-full h-full overflow-hidden transition-all duration-300 ${
+          extend != "none" ? "" : "gap-8"
+        }`}
+      >
         {/* 공시 탭 */}
         <div
           className={`

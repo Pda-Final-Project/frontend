@@ -60,11 +60,11 @@ export default function ChartTab({ ticker }) {
       ref={containerRef}
       className="bg-white flex flex-col rounded-lg py-4 px-4 text-sm h-full"
     >
-      {chartData.length ? (
+      {chartData.length && dimensions.width > 100 && dimensions.height > 100 ? (
         <CandleChart
           chartData={chartData}
-          width={dimensions.width - 20 || 0} // 패딩 등 고려하여 조정
-          height={dimensions.height - 20 || 0}
+          width={Math.max(0, dimensions.width - 20)}
+          height={Math.max(0, dimensions.height - 20)}
         />
       ) : (
         <div className="animate-skeleton h-[500px] bg-gray-200"></div>
