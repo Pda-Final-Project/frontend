@@ -32,8 +32,9 @@ const fetchTradeProfitSum = () =>
   });
 
 //보유 종목들 세부 데이터
-const fetchHoldings = () =>
+const fetchHoldings = (params) =>
   api.get("http://127.0.0.1:19092/v1/api/stocks/holding", {
+    params: params,
     isAuthRequired: true,
   });
 
@@ -48,7 +49,7 @@ const fetchOrderNotTradedList = () =>
   api.get("http://127.0.0.1:19095/v1/api/execution/trades/failed", {
     isAuthRequired: true,
   });
-
+//주문 목록 리스트 조회
 const fetchAllOrderTradedList = () =>
   api.get("http://127.0.0.1:19095/v1/api/execution/trades/all", {
     isAuthRequired: true,
