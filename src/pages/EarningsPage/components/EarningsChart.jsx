@@ -73,7 +73,7 @@ const EarningsChart = () => {
             fill="#ccc"
             name="예상 EPS"
           />
-          <Bar yAxisId="left" dataKey="eps" fill="#32cd32" name="실제 EPS" />
+          <Bar yAxisId="left" dataKey="eps" fill="#fedd54" name="실제 EPS" />
 
           {/* EPS 변동률 선 그래프 */}
           <Line
@@ -106,7 +106,7 @@ const EarningsChart = () => {
             tickFormatter={format(".2s")}
             domain={[-20, 20]}
           />
-          <Tooltip />
+          <Tooltip formatter={(value, name) => [format(",")(value), name]} />
           <Legend />
 
           {/* 매출 바 차트 */}
@@ -119,7 +119,7 @@ const EarningsChart = () => {
           <Bar
             yAxisId="left"
             dataKey="revenue"
-            fill="#7b68ee"
+            fill="#54b0fe"
             name="실제 매출"
           />
 

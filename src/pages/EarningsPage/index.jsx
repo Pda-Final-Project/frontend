@@ -15,7 +15,7 @@ const EarningsPage = () => {
       </div>
 
       {/* 기업 정보 */}
-      <div className="flex rounded-lg mb-5 mt-3">
+      <div className="flex  mb-5 mt-3">
         <CompanyInfo />
       </div>
 
@@ -26,10 +26,10 @@ const EarningsPage = () => {
         </div>
 
         {/* 차트 */}
-        <h2 className="text-blue-md mt-2 mb-4 font-semibold">
+        {/* <h2 className="text-blue-md mt-2 mb-4 font-semibold">
           EPS 및 매출 변동 추이를 확인하고, 투자 결정을 위한 필수 정보를 쉽고
           빠르게 확인하세요!
-        </h2>
+        </h2> */}
         <div className=" bg-gray-light flex-col p-8 rounded-lg justify-center">
           <div className="grid-cols-2 grid gap-8 mb-4">
             <h2 className="text-[16px] font-bold">분기별 EPS 변동 추이</h2>

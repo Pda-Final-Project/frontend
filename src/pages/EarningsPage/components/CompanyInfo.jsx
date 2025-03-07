@@ -52,7 +52,7 @@ const CompanyInfo = () => {
   };
 
   return (
-    <div className="flex bg-gray-light p-2 px-8 justify-between rounded-lg items-center w-full h-full">
+    <div className="flex bg-gray-light p-3 px-8 justify-between rounded-lg items-center w-full h-full">
       <div className="flex gap-4 items-center">
         {/* 기업 로고 */}
         <img
