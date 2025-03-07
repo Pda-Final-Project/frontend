@@ -38,20 +38,9 @@ const fetchHoldings = (params) =>
     isAuthRequired: true,
   });
 
-//주문 목록 리스트에 있는 체결 내역 조회(체결, 부분체결)
-const fetchOrderTradedList = () =>
-  api.get("http://127.0.0.1:19095/v1/api/execution/trades", {
-    isAuthRequired: true,
-  });
-
-//주문 목록 리스트에 있는 체결 내역 조회(미체결)
-const fetchOrderNotTradedList = () =>
-  api.get("http://127.0.0.1:19095/v1/api/execution/trades/failed", {
-    isAuthRequired: true,
-  });
-//주문 목록 리스트 조회
-const fetchAllOrderTradedList = () =>
-  api.get("http://127.0.0.1:19095/v1/api/execution/trades/all", {
+//주문 목록 리스트에 있는 체결 내역 조회
+const fetchOrderTradeList = (filter) =>
+  api.get(`http://127.0.0.1:19095/v1/api/execution/trades${filter}`, {
     isAuthRequired: true,
   });
 
@@ -62,7 +51,5 @@ export {
   fetchTradeProfitList,
   fetchTradeProfitSum,
   fetchHoldings,
-  fetchAllOrderTradedList,
-  fetchOrderNotTradedList,
-  fetchOrderTradedList,
+  fetchOrderTradeList,
 };

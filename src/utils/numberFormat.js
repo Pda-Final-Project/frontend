@@ -12,4 +12,8 @@ function formatDate(dateStr) {
   return dateStr;
 }
 
-export { formatDate, formatNumber };
+function formatDateLong(dateStr) {
+  return dateStr.slice(0, 10).replace(/-/g, ".");
+}
+
+export { formatDate, formatNumber, formatDateLong };

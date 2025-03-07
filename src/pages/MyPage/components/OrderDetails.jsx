@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { format } from "d3-format";
+import { formatDateLong } from "../../../utils/numberFormat";
+import { fetchOrderTradeList } from "../../../api/accountApi";
 
-const DUMMY_ORDERS = [
+const orders_dummy = [
   {
     stockTicker: "TSLA",
     executionType: "현금매도", //종목명
@@ -28,12 +31,31 @@ const DUMMY_ORDERS = [
 
 export default function OrderDetails() {
   const [activeTab, setActiveTab] = useState("전체"); // 기본값: 전체
+  const [orders, setOrders] = useState(orders_dummy);
 
-  // 필터링된 주문 데이터
-  const filteredOrders = DUMMY_ORDERS.filter((order) => {
-    if (activeTab === "전체") return true;
-    return order.tradeStatus === activeTab;
-  });
+  const tryFetchOrders = async () => {
+    let filter = "";
+    if (activeTab == "전체") {
+      filter = "/all";
+    } else if (activeTab == "미체결") {
+      filter = "/failed";
+    }
+    try {
+      const response = await fetchOrderTradeList(filter);
+      if (response.data.status == "OK") {
+        setOrders(response.data.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    console.log(activeTab);
+    tryFetchOrders();
+  }, [activeTab]);
+
+  const formatCurrency = format(",.0f");
 
   return (
     <div className="bg-gray-light p-4 mt-2.5 rounded-xl">
@@ -87,7 +109,7 @@ export default function OrderDetails() {
             </tr>
           </thead>
           <tbody>
-            {filteredOrders.map((order, index) => (
+            {orders.map((order, index) => (
               <tr key={index} className="border-b border-gray-200">
                 <td className="p-2">
                   <span className="font-semibold">{order.stockTicker}</span>{" "}
@@ -95,21 +117,21 @@ export default function OrderDetails() {
                   {order.executionType}
                 </td>
                 <td className="p-2">
-                  {order.offerPrice} <br />
+                  {formatCurrency(order.offerPrice)} <br />
                   {order.orderAmount}
                 </td>
                 <td className="p-2">
-                  {order.tradePrice} <br />
+                  {formatCurrency(order.tradePrice)} <br />
                   {order.tradeQuantity}
                 </td>
                 <td className="p-2">
-                  {order.tradeStatus}
+                  {order.tradeStatus == "SUCCESS" ? "체결" : "미체결"}
                   <br />
                   {order.unfilledQuantity}
                 </td>
                 <td className="p-2">
                   {order.tradeNumber} <br />
-                  {order.tradeDate}
+                  {formatDateLong(order.tradeDate)}
                 </td>
               </tr>
             ))}
