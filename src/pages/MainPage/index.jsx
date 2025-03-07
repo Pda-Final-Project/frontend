@@ -141,7 +141,9 @@ export default function MainPage() {
         <div
           className={`
       transition-all duration-300 overflow-hidden
-      ${extend === "fill" ? "w-full" : extend === "trade" ? "w-0" : "w-full"}
+      ${
+        extend === "fill" ? "w-full" : extend === "trade" ? "w-0 h-0" : "w-full"
+      }
     `}
         >
           <DisclosureTab ticker={ticker} />
@@ -150,7 +152,9 @@ export default function MainPage() {
         <div
           className={`
       transition-all duration-300 overflow-hidden
-      ${extend === "trade" ? "w-full" : extend === "fill" ? "w-0" : "w-full"}
+      ${
+        extend === "trade" ? "w-full" : extend === "fill" ? "w-0 h-0" : "w-full"
+      }
     `}
         >
           <TradingTab ticker={ticker} extend={extend} />
