@@ -13,6 +13,26 @@ const DUMMY_HOLDINGS = [
     profitChange: 40000.0, // 손익등락(KRW)
     returnRate: 20.0, // 수익률(%)
   },
+  {
+    stockTicker: "TSLA", // 종목 코드
+    buyAmount: 1000000000.0, // 매수 금액(KRW)
+    buyAveragePrice: 50000.0, // 매수 평균가(KRW)
+    currentPrice: 60000.0, // 현재가(KRW)
+    holdingQuantity: 4, // 보유 수량
+    evaluationAmount: 240000.0, // 평가 금액(KRW) (보유 수량 * 현재가)
+    profitChange: 40000.0, // 손익등락(KRW)
+    returnRate: 20.0, // 수익률(%)
+  },
+  {
+    stockTicker: "TSLA", // 종목 코드
+    buyAmount: 1000000000.0, // 매수 금액(KRW)
+    buyAveragePrice: 50000.0, // 매수 평균가(KRW)
+    currentPrice: 60000.0, // 현재가(KRW)
+    holdingQuantity: 4, // 보유 수량
+    evaluationAmount: 240000.0, // 평가 금액(KRW) (보유 수량 * 현재가)
+    profitChange: 40000.0, // 손익등락(KRW)
+    returnRate: 20.0, // 수익률(%)
+  },
 ];
 
 export default function Holdings() {
@@ -52,7 +72,7 @@ export default function Holdings() {
         <h1 className="text-lg font-bold ml-1 mt-3 mb-2.5">보유종목</h1>
 
         {/* 정렬 기준 드롭다운 */}
-        <div className="relative">
+        <div className="relative text-sm">
           <button
             className="bg-gray-light px-4 py-2 rounded-lg font-bold text-blue-md flex items-center"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
