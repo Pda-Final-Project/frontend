@@ -13,7 +13,7 @@ export default function MyInfo() {
       const response = await fetch("https://api.example.com/accounts"); // 실제 API URL로 변경
       if (!response.ok) throw new Error("데이터를 불러오는 데 실패했습니다.");
       const data = await response.json();
-      
+
       if (data && data.length > 0) {
         setAccount(data[0]); // 첫 번째 계좌 정보 저장
       }
