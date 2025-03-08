@@ -54,7 +54,7 @@ export default function Holdings() {
         setHoldings(response.data.data);
       }
     } catch (error) {
-      console.error(error.message);
+      console.error("오류");
     }
   };
 
