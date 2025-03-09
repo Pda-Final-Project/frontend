@@ -92,7 +92,7 @@ export default function MainPage() {
                     ? "text-red-500"
                     : currentStock.change_rate?.toString().startsWith("-")
                     ? "text-blue-500"
-                    : "text-black"
+                    : ""
                 }
               >
                 {currentStock.change_rate}%

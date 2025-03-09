@@ -79,7 +79,7 @@ export default function DisclosureList({ ticker = "" }) {
   return (
     <div className="w-full flex flex-col gap-4 text-sm font-semibold">
       {/* 검색 필터 */}
-      <div className="bg-white p-4">
+      <div className="p-8 bg-white rounded-lg">
         <div className="flex flex-col justify-center items-center mt-3 mb-3">
           <h1 className="text-lg text-center font-bold mb-1">
             해외 공시 찾아보기{" "}
@@ -167,7 +167,7 @@ export default function DisclosureList({ ticker = "" }) {
       </div>
 
       {/* 공시 리스트 */}
-      <div className="bg-white p-4 py-8 rounded-lg">
+      <div className="p-4 py-8 bg-white rounded-lg">
         <h2 className="text-lg font-semibold mb-2 text-center">
           공시 검색 결과
         </h2>

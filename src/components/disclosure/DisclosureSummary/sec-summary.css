@@ -1,0 +1,74 @@
+Base styles .sec-summary-container {
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
+.sec-summary-content {
+  line-height: 1.7;
+}
+
+/* Headings */
+.sec-summary-content h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Table styles */
+.sec-summary-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.sec-summary-content th {
+  font-weight: 700;
+  text-align: left;
+  padding: 1.25rem 0rem;
+  font-size: 14px;
+  border-bottom: 1px solid #aab2bd;
+  background-color: #f6f7f9;
+}
+
+.sec-summary-content td {
+  padding: 1.5rem 0rem;
+  border-bottom: 1px solid #aab2bd;
+  vertical-align: top;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.sec-summary-content tr:last-child td {
+  border-bottom: none;
+}
+
+/* First column styling */
+.sec-summary-content td:first-child {
+  font-weight: 700;
+  width: 22%;
+}
+
+/* Text styling */
+.sec-summary-content .bold {
+  font-weight: 600;
+}
+
+.sec-summary-content .highlight {
+  background: linear-gradient(transparent 40%, rgba(255, 255, 137, 0.5) 40%);
+  padding: 0 0.2rem;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+/* Paragraph styling */
+.sec-summary-content p {
+  margin: 0;
+  padding: 2rem 2.5rem;
+  font-size: 14px;
+  background-color: #f6f7f9;
+  background-radius: 2px;
+}
+
+/* Emoji styling */
+.sec-summary-content td:first-child {
+  font-size: 14px;
+}
