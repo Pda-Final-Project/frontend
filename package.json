@@ -16,6 +16,7 @@
     "d3-format": "^3.1.0",
     "d3-time-format": "^4.1.0",
     "igniteui-react-charts": "^18.7.7",
+    "lucide-react": "^0.479.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^18.2.0",

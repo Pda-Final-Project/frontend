@@ -92,7 +92,7 @@ export default function MainPage() {
                     ? "text-red-500"
                     : currentStock.change_rate?.toString().startsWith("-")
                     ? "text-blue-500"
-                    : "text-black"
+                    : ""
                 }
               >
                 {currentStock.change_rate}%
@@ -101,6 +101,7 @@ export default function MainPage() {
           </div>
         </div>
       </div>
+      {/** 작게 보기, 크게보기 */}
       <div className="flex justify-between font-semibold text-xs mb-2">
         <div>
           <div
@@ -132,6 +133,7 @@ export default function MainPage() {
         </div>
       </div>
 
+      {/** 공시, 트레이딩 탭 */}
       <div
         className={`flex w-full h-full overflow-hidden transition-all duration-300 ${
           extend != "none" ? "" : "gap-8"
