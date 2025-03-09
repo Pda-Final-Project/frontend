@@ -28,8 +28,8 @@ const EarningsPage = () => {
   return (
     <div className="px-32 py-20 flex flex-col w-full">
       <div className="text-center">
-        <h1 className="text-3xl font-bold">실적 발표 및 어닝콜 정보</h1>
-        <h2 className="text-blue-md mt-2 mb-4 font-semibold text-[16px]">
+        <h1 className="text-lg font-bold">실적 발표 및 어닝콜 정보</h1>
+        <h2 className="text-blue-md mt-2 mb-4 font-semibold text-sm">
           기업의 실적 발표 일정을 한눈에 확인하고, 예상 EPS 및 매출과 실제
           실적을 비교해보세요.
         </h2>

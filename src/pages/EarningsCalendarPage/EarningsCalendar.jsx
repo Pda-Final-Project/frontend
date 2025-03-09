@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const earningsData = {
+const getNewYorkTime = () => {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).format(new Date());
+};
+
+const EarningsCalendar = () => {
+  const navigate = useNavigate();
+  const [nyTime, setNyTime] = useState(getNewYorkTime());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNyTime(getNewYorkTime());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleNavigate = (ticker) => {
+    navigate(`/earnings/${ticker}`);
+  };
+
+  const earningsData = {
     "3월": [
       { ticker: "ORCL", date: "10일 17:00" },
       { ticker: "ADBE", date: "12일 16:00" },
@@ -35,32 +63,30 @@ const earningsData = {
       { ticker: "AVGO", date: "10일 16:00" },
     ],
   };
-  
-
-const EarningsCalendar = () => {
-  const navigate = useNavigate();
-
-  const handleNavigate = (ticker) => {
-    navigate(`/earnings/${ticker}`);
-  };
 
   return (
     <div className="max-w-500 p-6 rounded-xl">
       
       <h2 className="items-center text-lg text-center font-bold mb-1">2025년 상반기 실적발표 일정</h2>
       
-      <p className="text-blue-md text-center font-semibold mb-4">
+      <p className="text-blue-md text-center text-sm font-semibold mb-4">
         종목을 클릭하여 해당 기업의 분기 실적 보고 예상치와 실제 발표치를 확인해보세요!
+      </p>
+      <div className="text-center text-sm font-bold p-2rounded-md mb-2">
+        뉴욕 현재 시간 {nyTime} (EDT/EST)
+      </div>
+      <p className="text-blue-md text-right font-semibold mb-2">
+      아래 일정은 뉴욕시간 기준이며, 매주 업데이트 됩니다.
       </p>
       <div className="grid grid-cols-4 gap-3 bg-blue-md p-3 rounded-xl">
         {Object.entries(earningsData).map(([month, companies]) => (
           <div key={month} className="bg-white p-4 rounded-xl shadow-md">
             <h3 className="text-sm font-semibold bg-blue-light py-2 text-center rounded-md">{month}</h3>
-            <div className="grid grid-cols-3 gap-4 mt-4">
+            <div className="grid grid-cols-4 gap-4 mt-4">
               {companies.map((company, index) => (
                 <div 
                   key={index} 
-                  className="flex flex-col items-center cursor-pointer"
+                  className="flex flex-col items-center cursor-pointer text-center"
                   onClick={() => handleNavigate(company.ticker)}
                 >
                   <img
