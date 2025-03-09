@@ -130,6 +130,12 @@ const Header = () => {
         </a>
         <a
           className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer"
+          onClick={() => navigate("/earnings")}
+        >
+          실적발표 캘린더
+        </a>
+        <a
+          className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer"
           onClick={() => navigate("/my_page")}
         >
           My계좌
