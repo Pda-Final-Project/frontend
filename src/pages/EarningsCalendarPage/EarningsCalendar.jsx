@@ -50,6 +50,10 @@ const EarningsCalendar = () => {
       { ticker: "MS", date: "11일 08:00" },
       { ticker: "JPM", date: "11일 08:00" },
       { ticker: "XOM", date: "03일 17:00" },
+      { ticker: "AAPL", date: "30일 06:00" },
+      { ticker: "LIN", date: "30일 06:00" },
+      { ticker: "KO", date: "28일 08:00" },
+      { ticker: "AMD", date: "28일 06:00" },
     ],
     "5월": [
       { ticker: "CRM", date: "27일 06:00" },
@@ -62,8 +66,9 @@ const EarningsCalendar = () => {
     "6월": [
       { ticker: "AVGO", date: "10일 16:00" },
     ],
-  };
 
+  };
+  
   return (
     <div className="max-w-500 p-6 rounded-xl">
       
