@@ -1,60 +1,69 @@
-const DUMMY_DISCLOSURES = [
+const dummy_fillings = [
   {
-    filling_id: "F202502191",
-    filling_title: "NVIDIA Q4 Earnings Report",
-    filling_type: "10-K",
-    filling_ticker: "NVDA",
-    creation_timestamp: "2025-02-19T12:00:00Z",
+    fillingId: "0000320193-25-000022",
+    fillingTitle: "내부자 거래 공시",
+    fillingType: "4",
+    fillingTicker: "AAPL",
+    fillingUrl:
+      "https://www.sec.gov/Archives/edgar/data/320193/000032019325000022/xslF345X05/wk-form4_1738712153.xml",
+    fillingFileType: "xml",
+    fillingTranslatedContentUrl:
+      "https://finpago-bucket.s3.amazonaws.com/fillings/0000320193-25-000022.html",
+    filling10qJsonUrl: null,
+    submitTimestamp: "2025-02-04",
   },
   {
-    filling_id: "F202502192",
-    filling_title: "Apple Annual Report",
-    filling_type: "10-Q",
-    filling_ticker: "AAPL",
-    creation_timestamp: "2025-02-19T11:30:00Z",
+    fillingId: "0000320193-25-000022",
+    fillingTitle: "내부자 거래 공시",
+    fillingType: "4",
+    fillingTicker: "AAPL",
+    fillingUrl:
+      "https://www.sec.gov/Archives/edgar/data/320193/000032019325000022/xslF345X05/wk-form4_1738712153.xml",
+    fillingFileType: "xml",
+    fillingTranslatedContentUrl:
+      "https://finpago-bucket.s3.amazonaws.com/fillings/0000320193-25-000022.html",
+    filling10qJsonUrl: null,
+    submitTimestamp: "2025-02-04",
   },
   {
-    filling_id: "F202502191",
-    filling_title: "NVIDIA Q4 Earnings Report",
-    filling_type: "10-K",
-    filling_ticker: "NVDA",
-    creation_timestamp: "2025-02-19T12:00:00Z",
+    fillingId: "0000320193-25-000022",
+    fillingTitle: "내부자 거래 공시",
+    fillingType: "4",
+    fillingTicker: "AAPL",
+    fillingUrl:
+      "https://www.sec.gov/Archives/edgar/data/320193/000032019325000022/xslF345X05/wk-form4_1738712153.xml",
+    fillingFileType: "xml",
+    fillingTranslatedContentUrl:
+      "https://finpago-bucket.s3.amazonaws.com/fillings/0000320193-25-000022.html",
+    filling10qJsonUrl: null,
+    submitTimestamp: "2025-02-04",
   },
   {
-    filling_id: "F202502192",
-    filling_title: "Apple Annual Report",
-    filling_type: "10-Q",
-    filling_ticker: "AAPL",
-    creation_timestamp: "2025-02-19T11:30:00Z",
+    fillingId: "0000320193-25-000022",
+    fillingTitle: "내부자 거래 공시",
+    fillingType: "4",
+    fillingTicker: "AAPL",
+    fillingUrl:
+      "https://www.sec.gov/Archives/edgar/data/320193/000032019325000022/xslF345X05/wk-form4_1738712153.xml",
+    fillingFileType: "xml",
+    fillingTranslatedContentUrl:
+      "https://finpago-bucket.s3.amazonaws.com/fillings/0000320193-25-000022.html",
+    filling10qJsonUrl: null,
+    submitTimestamp: "2025-02-04",
   },
   {
-    filling_id: "F202502193",
-    filling_title: "Tesla Financial Disclosure",
-    filling_type: "8-K",
-    filling_ticker: "TSLA",
-    creation_timestamp: "2025-02-19T10:45:00Z",
-  },
-  {
-    filling_id: "F202502194",
-    filling_title: "Amazon Investor Report",
-    filling_type: "10-K",
-    filling_ticker: "AMZN",
-    creation_timestamp: "2025-02-19T09:20:00Z",
-  },
-  {
-    filling_id: "F202502195",
-    filling_title: "Google Financial Update",
-    filling_type: "10-Q",
-    filling_ticker: "GOOGL",
-    creation_timestamp: "2025-02-19T08:10:00Z",
-  },
-  {
-    filling_id: "F202502196",
-    filling_title: "Meta Quarterly Report",
-    filling_type: "8-K",
-    filling_ticker: "META",
-    creation_timestamp: "2025-02-19T07:00:00Z",
+    fillingId: "0000320193-25-000022",
+    fillingTitle: "내부자 거래 공시",
+    fillingType: "4",
+    fillingTicker: "AAPL",
+    fillingUrl:
+      "https://www.sec.gov/Archives/edgar/data/320193/000032019325000022/xslF345X05/wk-form4_1738712153.xml",
+    fillingFileType: "xml",
+    fillingTranslatedContentUrl:
+      "https://finpago-bucket.s3.amazonaws.com/fillings/0000320193-25-000022.html",
+    filling10qJsonUrl: null,
+    submitTimestamp: "2025-02-04",
   },
 ];
 
-export default DUMMY_DISCLOSURES;
+export default dummy_fillings;
