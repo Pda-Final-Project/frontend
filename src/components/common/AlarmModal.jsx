@@ -1,7 +1,6 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
 import { timeAgo } from "../../utils/timeAgo";
 import { changeAlarmStatus, fetchAlarm } from "../../api/alarmApi";
-import Switch from "react-switch";
 
 const AlarmModal = ({ onClose }) => {
   const [alarms, setAlarms] = useState([]);
@@ -11,7 +10,7 @@ const AlarmModal = ({ onClose }) => {
     try {
       const response = await changeAlarmStatus(!isAlarmOn); // 상태를 반전시켜 보내기
       if (response.data.status === "OK") {
-        setIsAlarmOn(!isAlarmOn); // 상태를 반전시켜 설정
+        setIsAlarmOn(!isAlarmOn);
       }
     } catch (error) {
       console.error(error.message);
@@ -40,21 +39,19 @@ const AlarmModal = ({ onClose }) => {
         <div className="flex items-center">
           <h2 className="text-lg font-semibold p-3">알림</h2>
           {/* 알림 상태 toggle 버튼 추가 */}
-          <label>
-            <Switch
-              onChange={() => tryChangeAlarmStatus()}
-              checked={isAlarmOn}
-              onColor="#e5f3ff"
-              onHandleColor="#54b0fe"
-              handleDiameter={20}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-              height={20}
-              width={40}
-            />
-          </label>
+
+          <div
+            onClick={tryChangeAlarmStatus}
+            className={`relative w-12 h-6 flex items-center px-1 rounded-full cursor-pointer transition-all duration-300 ${
+              isAlarmOn ? "bg-blue-md" : "bg-gray-400"
+            }`}
+          >
+            <div
+              className={`w-4 h-4 bg-white rounded-full shadow-md transition-transform duration-300 ${
+                isAlarmOn ? "translate-x-6" : "translate-x-0"
+              }`}
+            ></div>
+          </div>
         </div>
 
         <button
