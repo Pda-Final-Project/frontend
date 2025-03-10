@@ -69,7 +69,7 @@ export default function TradeDetails() {
 
   const formatCurrency = format(",.0f");
   return (
-    <div className="mt-1 rounded-lg">
+    <div className="mt-1 rounded-lg h-[500px]">
       {/* 탭 메뉴 */}
       <div className="flex border-b border-gray-300 text-lg">
         <button
@@ -97,7 +97,7 @@ export default function TradeDetails() {
       {activeTab === "profit" ? (
         <div className="relative h-full">
           {/** 손익 내역 */}
-          <div className="bg-gray-light p-4 mt-2.5 rounded-lg h-[500px] overflow-y-auto no-scrollbar">
+          <div className="bg-gray-light p-4 mt-2.5 rounded-lg h-full overflow-y-auto no-scrollbar">
             {/* 요약 정보 */}
             <div className="grid grid-cols-2 gap-24 text-[14px] mb-2">
               <div className="flex justify-between">
@@ -185,7 +185,7 @@ export default function TradeDetails() {
                       <td className="p-2">
                         <span>{formatCurrency(trade.realizedProfit)} 원</span>{" "}
                         <br />
-                        {trade.returnRate}%
+                        {trade.returnRate.toFixed(2)}%
                       </td>
                       <td className="p-2">
                         {formatCurrency(trade.sellAveragePrice)} 원 <br />

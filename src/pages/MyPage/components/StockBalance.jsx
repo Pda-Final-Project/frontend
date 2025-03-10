@@ -23,6 +23,7 @@ export default function StockBalance() {
       const response = await fetchTotalHoldings();
       if (response.data.status == "OK") {
         setBalanceKrwData(response.data.data);
+        console.log(response.data.data);
       }
     } catch (error) {
       console.error(error.message);

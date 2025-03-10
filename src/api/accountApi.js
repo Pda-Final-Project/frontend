@@ -32,15 +32,24 @@ const fetchTradeProfitSum = () =>
   });
 
 //보유 종목들 세부 데이터
-const fetchHoldings = (params) =>
-  api.get("http://127.0.0.1:19092/v1/api/stocks/holding", {
-    params: params,
+const fetchHoldings = (sortBy) =>
+  api.get(`http://127.0.0.1:19092/v1/api/stocks?sortBy=${sortBy}`, {
     isAuthRequired: true,
   });
 
 //주문 목록 리스트에 있는 체결 내역 조회
 const fetchOrderTradeList = (filter) =>
   api.get(`http://127.0.0.1:19095/v1/api/execution/trades${filter}`, {
+    isAuthRequired: true,
+  });
+
+//환율 조회
+const fetchExchangeRate = () =>
+  api.get(`http://127.0.0.1:19099/v1/api/exchange-rate/TSLA`);
+
+//사용자 계좌 정보 조회
+const fetchAccountInfo = () =>
+  api.get("http://127.0.0.1:19092/v1/api/account/info", {
     isAuthRequired: true,
   });
 
@@ -52,4 +61,6 @@ export {
   fetchTradeProfitSum,
   fetchHoldings,
   fetchOrderTradeList,
+  fetchAccountInfo,
+  fetchExchangeRate,
 };
