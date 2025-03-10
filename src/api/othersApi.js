@@ -10,4 +10,7 @@ const fetchEarning = async (ticker) =>
     isAuthRequired: false,
   });
 
-export { news, fetchEarning };
+const fetchExchangeRate = async () =>
+  await api.get("환율 조회 api", { isAuthRequired: false });
+
+export { news, fetchEarning, fetchExchangeRate };

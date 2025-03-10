@@ -12,7 +12,7 @@ const ChartMini = ({ chartData }) => {
       <div className="container">
         <IgrFinancialChart
           width="100%"
-          height="300px"
+          height="270px"
           isToolbarVisible={false}
           chartType="Candle" // 캔들 차트
           zoomSliderType="None"
@@ -20,10 +20,10 @@ const ChartMini = ({ chartData }) => {
           yAxisMode="PercentChange" // Y축이 확대될 때 상대적 변화 반영 (봉 크기 확대 가능)
           isVerticalZoomEnabled={true} // 세로 확대 허용
           overlayBrushes="rgba(255, 255, 255, 0.5)" // 오버레이 스타일 설정
-          brushes={["#FF4A4A"]} // 상승 캔들 색상
-          outlines={["#FF4A4A"]} // 상승 캔들 테두리 색상
-          negativeBrushes={["#54b0fe"]} // 하락 캔들 색상
-          negativeOutlines={["#54b0fe"]} // 하락 캔들 테두리 색상
+          brushes={["#F04452"]} // 상승 캔들 색상
+          outlines={["#F04452"]} // 상승 캔들 테두리 색상
+          negativeBrushes={["#3182F6"]} // 하락 캔들 색상
+          negativeOutlines={["#3182F6"]} // 하락 캔들 테두리 색상
           yAxis={{
             name: "yAxis",
             labelLocation: "OutsideLeft",

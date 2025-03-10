@@ -65,63 +65,73 @@ const EarningsCalendar = () => {
       { ticker: "NVDA", date: "28일 16:00" },
       { ticker: "COST", date: "28일 16:00" },
     ],
-    "6월": [
-      { ticker: "AVGO", date: "10일 16:00" },
-    ],
+    "6월": [{ ticker: "AVGO", date: "10일 16:00" }],
   };
-  
+
   return (
-    
     <div className="max-w-500 p-6 rounded-xl">
-      <h2 className="items-center text-lg text-center font-bold mb-1">2025년 상반기 실적발표 일정</h2>
-      
+      <h2 className="items-center text-lg text-center font-bold mb-1">
+        2025년 상반기 실적발표 일정
+      </h2>
+
       <p className="text-blue-md text-center text-sm font-semibold mb-4">
-        종목을 클릭하여 해당 기업의 분기 실적 보고 예상치와 실제 발표치를 확인해보세요!
+        종목을 클릭하여 해당 기업의 분기 실적 보고 예상치와 실제 발표치를
+        확인해보세요!
       </p>
-      <p className="bg-blue-light mr-100 ml-100 text-center text-sm font-semibold p-2 rounded-md mb-2">
+      <p className="bg-blue-light mr-100 ml-100 text-center text-sm font-semibold p-2 rounded-xl mb-2">
         뉴욕 현재 시간 {nyTime} (EDT/EST)
       </p>
       <p className="text-blue-md text-right font-semibold mb-2">
-      아래 일정은 뉴욕시간 기준이며, 매주 업데이트 됩니다.
+        아래 일정은 뉴욕시간 기준이며, 매주 업데이트 됩니다.
       </p>
-      <div className="grid grid-cols-4 gap-3 bg-blue-md p-3 rounded-xl">
+      <div className="grid grid-cols-4 gap-3 bg-blue-md p-2.5 rounded-xl">
         {Object.entries(earningsData).map(([month, companies]) => (
-            
-          <div >
-            <h3 className="text-sm font-semibold bg-blue-light py-2 text-center rounded-md">{month}</h3>
-            <div className="bg-white p-4 rounded-xl shadow-md mt-3 h-100 overflow-y-auto">
-                
-            
-            <div className="grid grid-cols-3 gap-4 mt-4">
-              {companies.map((company, index) => (
-                <div 
-                  key={index} 
-                  className="flex flex-col items-center cursor-pointer text-center"
-                  onClick={() => handleNavigate(company.ticker)}
-                >
-                  <img
-                    src={`${import.meta.env.VITE_STOCK_LOGO_URL}${company.ticker}.png`}
-                    alt={company.ticker}
-                    className="w-12 h-12 rounded-full border border-gray-300 transition-transform duration-300 ease-in-out hover:scale-130"
-                  />
-                  <p className="text-sm mt-2">{company.date}</p>
-                  
+          <div key={month}>
+            <h3 className="text-sm font-semibold bg-blue-light py-2 text-center rounded-xl">
+              {month}
+            </h3>
+            <div className="relative">
+              <div className="bg-white p-4 rounded-xl shadow-md mt-3 h-100 overflow-y-auto no-scrollbar relative">
+                <div className="grid grid-cols-3 gap-4">
+                  {companies.map((company, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center cursor-pointer text-center"
+                      onClick={() => handleNavigate(company.ticker)}
+                    >
+                      <img
+                        src={`${
+                          import.meta.env.VITE_STOCK_LOGO_URL
+                        }${company.ticker}.png`}
+                        alt={company.ticker}
+                        className="w-12 h-12 rounded-full border border-gray-300 transition-transform duration-300 ease-in-out hover:scale-130"
+                      />
+                      <p className="text-sm mt-2">{company.date}</p>
+                    </div>
+                  ))}
                 </div>
-                
-              ))}
+              </div>
+
+              {month === "4월" && (
+                <>
+                  
+                  <div className="absolute bottom-0 left-0 w-full h-6 bg-gradient-to-t from-gray-300 rounded-b-xl to-transparent pointer-events-none z-10"></div>
+                </>
+              )}
             </div>
-            
-            </div>
-            
-        
           </div>
-          
-         
         ))}
       </div>
       <p className="text-center text-xs text-blue-md font-semibold bg-blue-light p-2 rounded-xl mt-2 mr-100 ml-100">
-  데이터 제공: <a href="https://finance.yahoo.com/calendar" target="_blank" className="underline">Yahoo! Finance Earnings Calendar</a>
-</p>
+        데이터 제공:{" "}
+        <a
+          href="https://finance.yahoo.com/calendar"
+          target="_blank"
+          className="underline"
+        >
+          Yahoo! Finance Earnings Calendar
+        </a>
+      </p>
     </div>
   );
 };

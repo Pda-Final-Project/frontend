@@ -77,13 +77,12 @@ export default function InsightBox({ fillingType, filling10qJsonUrl, ticker }) {
   }, [selectedFilling]);
 
   return (
-    <div>
-      <div className="font-semibold text-[16px] mb-4">오늘의 주식 날씨는?</div>
-      <div className="flex">
-        <div className="w-3/5">
-          <div className="font-semibold text-blue-md text-sm mb-4">
-            해당 분기의 작년과 올해 실적을 비교해보세요
-          </div>
+    <div className="w-full flex flex-col bg-white p-8 rounded-lg min-h-[400px]">
+      <div className="font-semibold text-[20px] mb-4 w-full ">
+        오늘의 주식 날씨는?
+      </div>
+      <div className="flex ">
+        <div className="w-3/5 h-[250px]">
           {fillingType === "10-Q" ? (
             <WeatherGraph10Q
               setSelectedFilling={setSelectedFilling}
@@ -93,9 +92,9 @@ export default function InsightBox({ fillingType, filling10qJsonUrl, ticker }) {
             <WeatherGraph8K setSelectedFilling={setSelectedFilling} />
           )}
         </div>
-        <div className="w-2/5">
-          <div className="font-semibold text-blue-md text-sm pl-8">
-            선택한 공시 시점의 일주일간의 주가를 확인하세요
+        <div className="w-2/5 h-[250px]">
+          <div className="font-semibold text-blue-md text-[14px] pl-8">
+            해당 공시 시점의 주가를 확인하세요
           </div>
           <ChartMini chartData={chartData} />
         </div>

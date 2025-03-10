@@ -80,11 +80,11 @@ export default function WeatherGraph10Q({
   }, [filling10qJsonUrl]);
 
   return (
-    <div className="relative w-full h-[300px]">
+    <div className="relative w-full h-full">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={chartData}
-          margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+          margin={{ top: 0, right: 0, left: -5, bottom: 0 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />

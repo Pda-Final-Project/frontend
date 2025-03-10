@@ -29,7 +29,7 @@ const CustomXAxisTick = (props) => {
       y={y}
       dy={10}
       textAnchor="middle"
-      fill="#000"
+      fill="#333d4b"
       className="text-sm hover:underline"
       style={{ cursor: "pointer", fontWeight: "bold" }}
       onClick={() => onClick(payload.value)}
@@ -45,9 +45,15 @@ export default function WeatherGraph8K({ setSelectedFilling }) {
   const [selectedBar, setSelectedBar] = useState(null);
 
   return (
-    <div className="relative w-full h-[300px]">
+    <div className="relative w-full h-full">
+      <div className="font-semibold text-blue-md text-[14px] mb-4">
+        수시 보고서가 나왔을 때의 매출 등락 추세를 확인하세요
+      </div>
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+        <BarChart
+          data={data}
+          margin={{ top: 0, right: 0, left: -5, bottom: 0 }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="name"
@@ -67,7 +73,7 @@ export default function WeatherGraph8K({ setSelectedFilling }) {
             ]}
           />
           <Tooltip />
-          <Legend />
+          {/* <Legend /> */}
           {data.map((d, index) => {
             let color = "";
             if (d.value < 0) color = "rgba(84, 176, 254, 0.3)";

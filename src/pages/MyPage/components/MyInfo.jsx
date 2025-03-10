@@ -13,7 +13,7 @@ export default function MyInfo() {
       const response = await fetch("https://api.example.com/accounts"); // 실제 API URL로 변경
       if (!response.ok) throw new Error("데이터를 불러오는 데 실패했습니다.");
       const data = await response.json();
-      
+
       if (data && data.length > 0) {
         setAccount(data[0]); // 첫 번째 계좌 정보 저장
       }
@@ -29,7 +29,7 @@ export default function MyInfo() {
   */
 
   return (
-    <div className="w-full flex justify-between items-center bg-gray-light p-3 rounded-lg text-black font-semibold">
+    <div className="w-full flex justify-between items-center bg-gray-light p-3 rounded-lg font-semibold">
       {/* 계좌번호 */}
       <span className="text-[16px]">{account.account_number}</span>
 
