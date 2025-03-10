@@ -75,8 +75,7 @@ const EarningsCalendar = () => {
       </h2>
 
       <p className="text-blue-md text-center text-sm font-semibold mb-4">
-        종목을 클릭하여 해당 기업의 분기 실적 보고 예상치와 실제 발표치를
-        확인해보세요!
+        종목을 클릭하여 해당 기업의 분기 실적 보고 예상치와 실제 발표치를 확인해보세요!
       </p>
       <p className="bg-blue-light mr-100 ml-100 text-center text-sm font-semibold p-2 rounded-xl mb-2">
         뉴욕 현재 시간 {nyTime} (EDT/EST)
@@ -90,8 +89,9 @@ const EarningsCalendar = () => {
             <h3 className="text-sm font-semibold bg-blue-light py-2 text-center rounded-xl">
               {month}
             </h3>
+
             <div className="relative">
-              <div className="bg-white p-4 rounded-xl shadow-md mt-3 h-100 overflow-y-auto no-scrollbar relative">
+              <div className="bg-white p-4 rounded-xl shadow-md mt-3 h-95 overflow-y-auto no-scrollbar relative">
                 <div className="grid grid-cols-3 gap-4">
                   {companies.map((company, index) => (
                     <div
@@ -99,6 +99,7 @@ const EarningsCalendar = () => {
                       className="flex flex-col items-center cursor-pointer text-center"
                       onClick={() => handleNavigate(company.ticker)}
                     >
+                      {/* 회사 로고 */}
                       <img
                         src={`${
                           import.meta.env.VITE_STOCK_LOGO_URL
@@ -106,7 +107,10 @@ const EarningsCalendar = () => {
                         alt={company.ticker}
                         className="w-12 h-12 rounded-full border border-gray-300 transition-transform duration-300 ease-in-out hover:scale-130"
                       />
-                      <p className="text-sm mt-2">{company.date}</p>
+                      {/* 추가된 티커명 */}
+                      <p className="text-sm font-semibold mt-2">{company.ticker}</p>
+                      {/* 실적 발표 일자 */}
+                      <p className="text-sm text-gray-600">{company.date}</p>
                     </div>
                   ))}
                 </div>
