@@ -22,14 +22,15 @@ export default function StocksSortedByVol() {
   return (
     <div className="w-full">
       <div
-        className="flex p-3 items-center cursor-pointer"
-        onClick={() => navigate("/stocks")}
+        className="flex p-3 items-center"
       >
-        <h1 className="text-[18px] font-bold hover:text-blue-md duration-300 inline-block w-fit mb-1">
+        <h1 className="text-[18px] cursor-pointer font-bold hover:text-blue-md duration-300 inline-block w-fit mb-1"
+        onClick={() => navigate("/stocks")}>
           해외 종목 <span className="font-bold text-blue-md">거래량 </span>
           Best 순위
         </h1>
-        <span className="text-blue-md text-center ml-2 font-semibold hover:underline">
+        <span className="text-blue-md text-center ml-2 font-semibold cursor-pointer hover:underline"
+        onClick={() => navigate("/stocks")}>
           {" "}
           더 많은 종목 보러가기
         </span>

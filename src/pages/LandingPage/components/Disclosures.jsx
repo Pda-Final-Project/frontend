@@ -20,17 +20,18 @@ export default function Disclosures() {
     <div className="w-full">
       {/* 제목 클릭 시 disclosures 페이지 이동 */}
       <div
-        className="flex p-3 items-center cursor-pointer"
-        onClick={() => navigate("/disclosures")}
+        className="flex p-3 items-center"
       >
-        <h1 className="text-[18px] font-bold hover:text-blue-md mb-1 mr-2">
+        <h1 className="text-[18px] font-bold hover:text-blue-md mb-1 mr-2 cursor-pointer"
+        onClick={() => navigate("/disclosures")}>
           실시간{" "}
           <span className={isYellow ? "text-yellow-500" : "text-blue-md"}>
             NEW
           </span>{" "}
           해외공시
         </h1>
-        <span className="text-blue-md text-center font-semibold hover:underline"> 더 많은 공시 보러가기</span>
+        <span className="text-blue-md text-center font-semibold hover:underline cursor-pointer"
+        onClick={() => navigate("/disclosures")}> 더 많은 공시 보러가기</span>
       </div>
       {/* 가로 스크롤 컨테이너 */}
       <div className="w-full overflow-auto no-scrollbar">
