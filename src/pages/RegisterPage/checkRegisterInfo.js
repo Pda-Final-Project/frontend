@@ -17,7 +17,7 @@ export const isRegisterInfoValid = (registerInfo, setError) => {
   }
   if (!validatePassword(registerInfo.userPassword)) {
     setError(
-      "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자를 포함해야 합니다."
+      "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자(@ $ ! % * ? &)를 포함해야 합니다."
     );
     return false;
   }
