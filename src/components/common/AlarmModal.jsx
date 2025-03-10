@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Component } from "react";
 import { timeAgo } from "../../utils/timeAgo";
 import { changeAlarmStatus, fetchAlarm } from "../../api/alarmApi";
+import Switch from "react-switch";
 
 const AlarmModal = ({ onClose }) => {
   const [alarms, setAlarms] = useState([]);
@@ -31,10 +32,31 @@ const AlarmModal = ({ onClose }) => {
   useEffect(() => {
     tryFetchAlarm();
   }, []);
+
   return (
     <div className="fixed top-12 right-0 m-4 w-92 bg-white shadow-lg rounded-lg p-3">
+      {/** 알람 모달 헤더 */}
       <div className="flex justify-between items-center pb-2 mb-2">
-        <h2 className="text-lg font-semibold p-3">알림</h2>
+        <div className="flex items-center">
+          <h2 className="text-lg font-semibold p-3">알림</h2>
+          {/* 알림 상태 toggle 버튼 추가 */}
+          <label>
+            <Switch
+              onChange={() => tryChangeAlarmStatus()}
+              checked={isAlarmOn}
+              onColor="#e5f3ff"
+              onHandleColor="#54b0fe"
+              handleDiameter={20}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+              height={20}
+              width={40}
+            />
+          </label>
+        </div>
+
         <button
           onClick={onClose}
           className="text-sm font-bold text-blue-md hover:text-gray-500 duration-300 p-3"
@@ -42,18 +64,7 @@ const AlarmModal = ({ onClose }) => {
           ✕
         </button>
       </div>
-      {/* 알림 상태 toggle 버튼 추가 */}
-      <div className="flex justify-between items-center mb-4">
-        <p className="font-semibold">알림 상태</p>
-        <button
-          onClick={() => tryChangeAlarmStatus()}
-          className={`${
-            isAlarmOn ? "bg-green-500" : "bg-red-500"
-          } text-white px-4 py-2 rounded-lg`}
-        >
-          {isAlarmOn ? "알림 끄기" : "알림 켜기"}
-        </button>
-      </div>
+      {/** 알람 모달 바디 */}
       <div className="space-y-4">
         {alarms.length > 0 ? (
           alarms.map((alarm, index) => (
