@@ -82,9 +82,9 @@ const EarningsCalendar = () => {
         뉴욕 현재 시간 {nyTime} (EDT/EST)
       </p>
       <p className="text-blue-md text-right font-semibold mb-2">
-        아래 일정은 뉴욕시간 기준이며, 매주 업데이트 됩니다.
+        아래 일정은 뉴욕시간 기준이며, 매달 업데이트 됩니다.
       </p>
-      <div className="grid grid-cols-4 gap-3 bg-blue-md p-2.5 rounded-xl">
+      <div className="grid grid-cols-4 gap-3 bg-gray-light p-3 rounded-xl">
         {Object.entries(earningsData).map(([month, companies]) => (
           <div key={month}>
             <h3 className="text-sm font-semibold bg-blue-light py-2 text-center rounded-xl">
@@ -110,19 +110,12 @@ const EarningsCalendar = () => {
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {month === "4월" && (
-                <>
-                  
-                  <div className="absolute bottom-0 left-0 w-full h-6 bg-gradient-to-t from-gray-300 rounded-b-xl to-transparent pointer-events-none z-10"></div>
-                </>
-              )}
+              </div>  
             </div>
           </div>
         ))}
       </div>
-      <p className="text-center text-xs text-blue-md font-semibold bg-blue-light p-2 rounded-xl mt-2 mr-100 ml-100">
+      <p className="text-center text-xs text-blue-md font-semibold bg-blue-light p-2 rounded-xl mt-3 mr-100 ml-100">
         데이터 제공:{" "}
         <a
           href="https://finance.yahoo.com/calendar"
