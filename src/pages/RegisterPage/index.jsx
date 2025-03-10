@@ -71,7 +71,7 @@ export default function Register() {
             <div>
               <input
                 type="text"
-                placeholder="전화번호"
+                placeholder="전화번호 (숫자만 입력)"
                 value={registerInfo.userPhone}
                 onChange={(e) => handleChange(e, "userPhone")}
                 className="input-style"
@@ -91,7 +91,7 @@ export default function Register() {
             <div>
               <input
                 type="password"
-                placeholder="계좌 비밀번호"
+                placeholder="간편 인증번호 (6자리)"
                 value={registerInfo.accountPassword}
                 onChange={(e) => handleChange(e, "accountPassword")}
                 className="input-style"

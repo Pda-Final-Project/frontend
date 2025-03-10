@@ -29,7 +29,7 @@ export default function Index() {
       return "전화번호는 10~11자리 숫자입니다.";
     }
     if (!validatePassword(loginData.userPassword)) {
-      return "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자를 포함해야 합니다.";
+      return "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자(@ $ ! % * ? &)를 포함해야 합니다.";
     }
     return null; // 유효성 통과
   };
