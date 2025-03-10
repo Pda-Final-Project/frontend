@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DUMMY_DISCLOSURES from "./data/dummyDisclosures";
 import { HiPlusCircle } from "react-icons/hi";
+import { fetchFillings } from "../../../api/disclosureApi";
 
 export default function Disclosures() {
   const navigate = useNavigate();
   const [isYellow, setIsYellow] = useState(true); // 색상 토글 상태 바꿔주는 useState 함수
+  const [fillings, setFillings] = useState(DUMMY_DISCLOSURES);
 
   // 1초 간격으로 색상 변경 (NEW 텍스트에 적용)
   useEffect(() => {
@@ -15,6 +17,17 @@ export default function Disclosures() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const tryFetchFillings = async () => {
+    try {
+      const response = await fetchFillings();
+      if (response.data.status == "FOUND") {
+        setFillings(response.data.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -30,7 +43,10 @@ export default function Disclosures() {
           </span>{" "}
           해외공시
         </h1>
-        <span className="text-blue-md text-center font-semibold"> 더 많은 공시 보러가기</span>
+        <span className="text-blue-md text-center font-semibold">
+          {" "}
+          더 많은 공시 보러가기
+        </span>
       </div>
       {/* 가로 스크롤 컨테이너 */}
       <div className="w-full overflow-auto no-scrollbar">
