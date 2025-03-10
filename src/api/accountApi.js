@@ -43,8 +43,6 @@ const fetchOrderTradeList = (filter) =>
     isAuthRequired: true,
   });
 
-
-
 //사용자 계좌 정보 조회
 const fetchAccountInfo = () =>
   api.get("http://127.0.0.1:19092/v1/api/account/info", {

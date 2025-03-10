@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "../../common/LikeButton";
 import { useStockSse } from "../../../hooks/useSseStockInfo";
+import { fetchHoldings } from "../../../api/accountApi";
 
 export default function HoldingStockTab() {
   const [stocks, setStocks] = useState([
@@ -29,13 +30,26 @@ export default function HoldingStockTab() {
   ]);
   const navigate = useNavigate();
 
+  const tryFetchHoldings = async () => {
+    try {
+      const response = await fetchHoldings("buyAmount");
+      if (response.data.status == "OK") {
+        setStocks(response.data.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const { isConnected, error } = useStockSse(
     `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
     stocks,
     setStocks
   );
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    tryFetchHoldings();
+  }, []);
 
   return (
     <div className="h-full w-100 bg-gray-light z-50 py-4 px-2 space-y-2">
