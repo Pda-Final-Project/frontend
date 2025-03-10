@@ -53,12 +53,12 @@ export default function Index() {
       <div className="bg-white flex flex-col">
         <img
           src="/images/logo.png"
-          className="w-48 cursor-pointer"
+          className="w-40 cursor-pointer"
           onClick={() => navigate("../")}
         />
         <img
           src="../../../public/images/login.jpg"
-          className="h-auto w-2xl absolute left-0 bottom-0"
+          className="h-auto w-lg absolute left-0 bottom-0"
         />
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
