@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaRegBell } from "react-icons/fa";
 import AlarmModal from "../common/AlarmModal";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchStocks } from "../../api/stockApi";
 import { formatNumber } from "../../utils/numberFormat";
 import { logout } from "../../api/authApi";
@@ -13,6 +13,7 @@ const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
 
   const navigate = useNavigate();
+  const location =useLocation();
 
   const handleSearch = async () => {
     try {
@@ -35,6 +36,17 @@ const Header = () => {
       setIsLogin(true);
     }
   }, []);
+  const menuItemsleft = [
+    { name: "해외공시", path: "/disclosures" },
+    { name: "해외종목", path: "/stocks" },
+   ];
+
+  const menuItemsright = [
+    { name: "공시 가이드", path: "/introduce_disclosures" },
+    { name: "실적발표 캘린더", path: "/earnings" },
+    { name: "My계좌", path: "/my_page" },
+  ];
+
 
   return (
     <header className="flex items-center justify-between px-4 py-2 bg-white relative">
@@ -47,22 +59,23 @@ const Header = () => {
           onClick={() => navigate("/")}
         />
       </div>
-
       {/* 네비게이션 */}
       <nav className="flex space-x-3 text-[14px] font-semibold items-center">
-        <a
-          className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer"
-          onClick={() => navigate("/disclosures")}
-        >
-          해외공시
-        </a>
-        <a
-          className="px-4 py-2 hover:text-blue-md duration-300 cursor-pointer"
-          onClick={() => navigate("/stocks")}
-        >
-          해외종목
-        </a>
-        {/* 검색창 */}
+        {menuItemsleft.map((item) => (
+          <a
+            key={item.path}
+            className={`px-4 py-2 cursor-pointer duration-300 ${
+              location.pathname === item.path
+                ? "text-blue-md"
+                : "text-gray-600 hover:text-blue-400"
+            }`}
+            onClick={() => navigate(item.path)}
+          >
+            {item.name}
+          </a>
+        ))}
+
+
         <div className="relative flex-grow w-80">
           <input
             type="text"
@@ -121,25 +134,20 @@ const Header = () => {
             </div>
           )}
         </div>
-        {/* 가이드 & My계좌 */}
-        <a
-          className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer"
-          onClick={() => navigate("/introduce_disclosures")}
-        >
-          공시 가이드
-        </a>
-        <a
-          className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer"
-          onClick={() => navigate("/earnings")}
-        >
-          실적발표 캘린더
-        </a>
-        <a
-          className="px-5 py-2 hover:text-blue-md duration-300 cursor-pointer"
-          onClick={() => navigate("/my_page")}
-        >
-          My계좌
-        </a>
+        {menuItemsright.map((item) => (
+          <a
+            key={item.path}
+            className={`px-4 py-2 cursor-pointer duration-300 ${
+              location.pathname === item.path
+                ? "text-blue-md"
+                : "text-gray-600 hover:text-blue-md"
+            }`}
+            onClick={() => navigate(item.path)}
+          >
+            {item.name}
+          </a>
+        ))}
+        
       </nav>
       {/* 알림 & 로그인*/}
       <div className="flex items-center space-x-4 relative">
@@ -159,7 +167,7 @@ const Header = () => {
         {/* 로그인 버튼 */}
       </div>
 
-      {/* 알람 모달 (showAlarm이 true일 때만 렌더링) */}
+      {/* 알람 모달 */}
       {showAlarm && <AlarmModal onClose={() => setShowAlarm(false)} />}
     </header>
   );
