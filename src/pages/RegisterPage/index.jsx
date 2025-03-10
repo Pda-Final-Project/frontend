@@ -81,7 +81,7 @@ export default function Register() {
             <div>
               <input
                 type="password"
-                placeholder="비밀번호()"
+                placeholder="비밀번호"
                 value={registerInfo.userPassword}
                 onChange={(e) => handleChange(e, "userPassword")}
                 className="input-style"
