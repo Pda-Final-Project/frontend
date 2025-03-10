@@ -5,7 +5,7 @@ import {
   fetchTradeProfitSum,
 } from "../../../api/accountApi";
 import { format } from "d3-format";
-import { formatDate } from "../../../utils/numberFormat";
+import { formatDateLong } from "../../../utils/numberFormat";
 
 const dummy_tradeProfits = [
   {
@@ -150,7 +150,7 @@ export default function TradeDetails() {
 
             {/* 매매 내역 테이블 */}
             <div className="bg-white p-2 mt-3 rounded-lg h-full ">
-              <table className="w-full border-collapse text-center text-lx">
+              <table className="w-full border-collapse text-center text-[14px]">
                 <thead>
                   <tr className="border-b border-blue-300 font-semibold bg-white">
                     <th className="p-2">매도일자</th>
@@ -175,8 +175,13 @@ export default function TradeDetails() {
 
                 <tbody>
                   {tradeProfits.map((trade, index) => (
-                    <tr key={index} className="border-b border-gray-200">
-                      <td className="p-2">{formatDate(trade.sellDateTime)}</td>
+                    <tr
+                      key={index}
+                      className="border-b border-gray-200 hover:bg-blue-light duration-300"
+                    >
+                      <td className="p-2">
+                        {formatDateLong(trade.sellDateTime)}
+                      </td>
                       <td className="p-2">
                         <span className="text-gray-500">
                           {trade.stockTicker}

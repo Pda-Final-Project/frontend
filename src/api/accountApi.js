@@ -43,9 +43,7 @@ const fetchOrderTradeList = (filter) =>
     isAuthRequired: true,
   });
 
-//환율 조회
-const fetchExchangeRate = () =>
-  api.get(`http://127.0.0.1:19099/v1/api/exchange-rate/TSLA`);
+
 
 //사용자 계좌 정보 조회
 const fetchAccountInfo = () =>
@@ -62,5 +60,4 @@ export {
   fetchHoldings,
   fetchOrderTradeList,
   fetchAccountInfo,
-  fetchExchangeRate,
 };

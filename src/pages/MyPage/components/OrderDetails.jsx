@@ -76,7 +76,7 @@ export default function OrderDetails() {
       </div>
 
       {/* 주문 내역 테이블 */}
-      <div className="bg-white p-2 rounded-lg mt-3 relative h-full overflow-y-auto no-scrollbar">
+      <div className="bg-white p-2 rounded-lg mt-3 relative overflow-y-auto no-scrollbar">
         <table className="w-full border-collapse text-center text-sm h-full">
           <thead>
             <tr className="border-b border-blue-md font-semibold bg-white">
@@ -105,7 +105,10 @@ export default function OrderDetails() {
           </thead>
           <tbody>
             {orders.map((order, index) => (
-              <tr key={index} className="border-b border-gray-200">
+              <tr
+                key={index}
+                className="border-b border-gray-200 hover:bg-blue-light duration-300"
+              >
                 <td className="p-2">
                   <span className="font-semibold">{order.stockTicker}</span>{" "}
                   <br />
