@@ -24,11 +24,7 @@ export default function Disclosures() {
       >
         <h1 className="text-[18px] font-bold hover:text-blue-md mb-1 mr-2 cursor-pointer"
         onClick={() => navigate("/disclosures")}>
-          실시간{" "}
-          <span className={isYellow ? "text-yellow-500" : "text-blue-md"}>
-            NEW
-          </span>{" "}
-          해외공시
+          실시간 NEW 해외공시
         </h1>
         <span className="text-blue-md text-center font-semibold hover:underline cursor-pointer"
         onClick={() => navigate("/disclosures")}> 더 많은 공시 보러가기</span>
