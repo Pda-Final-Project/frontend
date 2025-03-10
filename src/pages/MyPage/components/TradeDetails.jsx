@@ -73,9 +73,9 @@ export default function TradeDetails() {
       {/* 탭 메뉴 */}
       <div className="flex border-b border-gray-300 text-lg">
         <button
-          className={`p-2 w-1/4 text-center ${
+          className={`p-1 w-1/4 text-center text-[14px] ${
             activeTab === "profit"
-              ? "border-b-2 border-blue-md font-bold"
+              ? "border-b-2 border-blue-md text-blue-md font-bold"
               : "text-gray-md font-bold"
           }`}
           onClick={() => setActiveTab("profit")}
@@ -83,9 +83,9 @@ export default function TradeDetails() {
           손익 내역
         </button>
         <button
-          className={`p-2 w-1/4 text-center ${
+          className={`p-1 w-1/4 text-center text-[14px] ${
             activeTab === "order"
-              ? "border-b-2 border-blue-md font-bold"
+              ? "border-b-2 border-blue-md text-blue-md font-bold"
               : "text-gray-md font-bold"
           }`}
           onClick={() => setActiveTab("order")}

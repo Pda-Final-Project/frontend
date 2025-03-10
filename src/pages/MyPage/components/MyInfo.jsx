@@ -30,9 +30,13 @@ export default function MyInfo() {
 
   return (
     <div className="w-full flex justify-between items-center bg-gray-light p-3 rounded-lg font-semibold">
-      {/* 계좌번호 */}
+      <div>
+              {/* 계좌번호 */}
       <span className="text-[16px]">{account.account_number}</span>
-
+      <span className="bg-blue-100 p-2 rounded-lg ml-3 hover:cursor-pointer hover:bg-blue-md hover:text-white">
+        예수금 조회
+      </span>
+      </div>
       {/* 계좌 타입 & 사용자 이름 */}
       <div className="text-[16px] flex space-x-2">
         <span>{account.account_name}</span>
