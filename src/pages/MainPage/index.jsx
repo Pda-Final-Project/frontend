@@ -60,7 +60,7 @@ export default function MainPage() {
   const currentStock = stockInfo[0]; // 배열에서 첫 번째 요소 사용
 
   return (
-    <div className="flex flex-col w-full h-full bg-gray-light p-8">
+    <div className="flex flex-col w-full h-full bg-gray-light p-8 ">
       {/** 종목 기본 정보(로고, 종목명, 종목 코드, 현재가, 변동률) */}
       <div className="flex items-center gap-4 pb-4 font-semibold">
         <div>
