@@ -87,7 +87,7 @@ function TradingTab({ ticker, extend }) {
             <SellBox maxQuantity={availQuantity} orderStock={orderStock} />
           </div>
           <div className="w-full">
-            <MarketPriceList />
+            <MarketPriceList stockTicker={ticker} />
           </div>
         </div>
       )}

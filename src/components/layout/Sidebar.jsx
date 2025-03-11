@@ -50,11 +50,8 @@ export default function Sidebar() {
       {/* 내부 사이드바 - 선택된 경우만 표시 */}
       {isOpen && (
         <>
-          <div
-            className="fixed inset-0 z-50"
-            onClick={() => setIsOpen(false)}
-          ></div>
-          <div className="fixed left-16 top-0 h-full z-50">
+          <div className="fixed inset-0" onClick={() => setIsOpen(false)}></div>
+          <div className="fixed left-16 top-0 h-full">
             {currentSidebar === "interest" ? (
               <InterestStockTab closeTab={() => setIsOpen(false)} />
             ) : (

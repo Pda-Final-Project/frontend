@@ -5,7 +5,10 @@ import { fetchFillings } from "../../api/disclosureApi";
 const fillingTypeData = [
   { id: "10-Q", name: "분기 보고서 (10-Q)" },
   { id: "8-K", name: "수시 보고서 (8-K)" },
-  { id: "S-1", name: "증권 거래 신고서 (Form S-1)" },
+  {
+    id: "S-1",
+    name: `증권 거래 신고서 (Form S-1)`,
+  },
   { id: "4", name: "내부자 거래 보고서 (Form4)" },
   { id: "SC 13G", name: "지분율 5% 이상 변동 보고서 (Schedule 13D/13G)" },
 ];
@@ -132,24 +135,41 @@ export default function DisclosureList({ ticker = "" }) {
             {/* 오른쪽 (공시유형) */}
             <div className="flex flex-col w-full">
               <h2 className="text-md font-semibold mb-2">공시유형</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-2">
-                {fillingTypeData.map((type) => (
-                  <button
-                    key={type.id}
-                    className={`px-4 py-2 rounded-md font-semibold ${
-                      fillingType === type.id
-                        ? "bg-blue-md text-white"
-                        : "bg-white"
-                    }`}
-                    onClick={() => {
-                      fillingType == type.id
-                        ? setFillingType("")
-                        : setFillingType(type.id);
-                    }}
-                  >
-                    {type.name}
-                  </button>
-                ))}
+              <div className="flex-col space-y-2">
+                <div className="grid grid-cols-2 gap-2">
+                  {fillingTypeData.slice(0, 4).map((type) => (
+                    <button
+                      key={type.id}
+                      className={`px-4 py-2 rounded-md font-semibold ${
+                        fillingType === type.id
+                          ? "bg-blue-md text-white"
+                          : "bg-white"
+                      }`}
+                      onClick={() => {
+                        fillingType == type.id
+                          ? setFillingType("")
+                          : setFillingType(type.id);
+                      }}
+                    >
+                      {type.name}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  key={fillingTypeData[4].id}
+                  className={`px-4 py-2 rounded-md font-semibold w-full ${
+                    fillingType === fillingTypeData[4].id
+                      ? "bg-blue-md text-white"
+                      : "bg-white"
+                  }`}
+                  onClick={() => {
+                    fillingType == fillingTypeData[4].id
+                      ? setFillingType("")
+                      : setFillingType(fillingTypeData[4].id);
+                  }}
+                >
+                  {fillingTypeData[4].name}
+                </button>
               </div>
             </div>
           </div>

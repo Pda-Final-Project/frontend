@@ -38,7 +38,7 @@ export default function OrderDetails() {
     if (activeTab == "전체") {
       filter = "/all";
     } else if (activeTab == "미체결") {
-      filter = "/failed";
+      filter = "/unfilled";
     }
     try {
       const response = await fetchOrderTradeList(filter);
@@ -51,14 +51,13 @@ export default function OrderDetails() {
   };
 
   useEffect(() => {
-    console.log(activeTab);
     tryFetchOrders();
   }, [activeTab]);
 
   const formatCurrency = format(",.0f");
 
   return (
-    <div className="bg-gray-light p-4 mt-2.5 rounded-xl">
+    <div className="bg-gray-light p-4 mt-2.5 rounded-lg h-[500px]">
       {/* 탭 메뉴 */}
       <div className="flex gap-1 text-[14px] ">
         {["전체", "체결 완료", "미체결"].map((tab) => (
@@ -66,7 +65,7 @@ export default function OrderDetails() {
             key={tab}
             className={`cursor-pointer ${
               activeTab === tab
-                ? " min-w-12 text-center bg-blue-md px-2 py-1 text-white rounded"
+                ? " min-w-12 text-center bg-blue-md px-2 py-1 text-white rounded-lg"
                 : "text-gray-500 min-w-12 text-center px-2 py-1"
             }`}
             onClick={() => setActiveTab(tab)}
@@ -77,8 +76,8 @@ export default function OrderDetails() {
       </div>
 
       {/* 주문 내역 테이블 */}
-      <div className="bg-white p-2 rounded-xl mt-3">
-        <table className="w-full border-collapse text-center text-sm">
+      <div className="bg-white p-2 rounded-lg mt-3 relative overflow-y-auto no-scrollbar">
+        <table className="w-full border-collapse text-center text-sm h-full">
           <thead>
             <tr className="border-b border-blue-md font-semibold bg-white">
               <th className="p-2">
@@ -101,16 +100,15 @@ export default function OrderDetails() {
                 <br />
                 미체결수량
               </th>
-              <th className="p-2">
-                주문번호
-                <br />
-                주문일자
-              </th>
+              <th className="p-2">주문일자</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order, index) => (
-              <tr key={index} className="border-b border-gray-200">
+              <tr
+                key={index}
+                className="border-b border-gray-200 hover:bg-blue-light duration-300"
+              >
                 <td className="p-2">
                   <span className="font-semibold">{order.stockTicker}</span>{" "}
                   <br />
@@ -129,10 +127,7 @@ export default function OrderDetails() {
                   <br />
                   {order.unfilledQuantity}
                 </td>
-                <td className="p-2">
-                  {order.tradeNumber} <br />
-                  {formatDateLong(order.tradeDate)}
-                </td>
+                <td className="p-2">{formatDateLong(order.tradeDate)}</td>
               </tr>
             ))}
           </tbody>

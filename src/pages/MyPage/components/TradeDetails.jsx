@@ -5,7 +5,7 @@ import {
   fetchTradeProfitSum,
 } from "../../../api/accountApi";
 import { format } from "d3-format";
-import { formatDate } from "../../../utils/numberFormat";
+import { formatDateLong } from "../../../utils/numberFormat";
 
 const dummy_tradeProfits = [
   {
@@ -69,7 +69,7 @@ export default function TradeDetails() {
 
   const formatCurrency = format(",.0f");
   return (
-    <div className="mt-1 rounded-lg">
+    <div className="mt-1 rounded-lg h-[500px]">
       {/* 탭 메뉴 */}
       <div className="flex border-b border-gray-300 text-lg">
         <button
@@ -97,7 +97,7 @@ export default function TradeDetails() {
       {activeTab === "profit" ? (
         <div className="relative h-full">
           {/** 손익 내역 */}
-          <div className="bg-gray-light p-4 mt-2.5 rounded-lg h-[500px] overflow-y-auto no-scrollbar">
+          <div className="bg-gray-light p-4 mt-2.5 rounded-lg h-full overflow-y-auto no-scrollbar">
             {/* 요약 정보 */}
             <div className="grid grid-cols-2 gap-24 text-[14px] mb-2">
               <div className="flex justify-between">
@@ -150,7 +150,7 @@ export default function TradeDetails() {
 
             {/* 매매 내역 테이블 */}
             <div className="bg-white p-2 mt-3 rounded-lg h-full ">
-              <table className="w-full border-collapse text-center text-lx">
+              <table className="w-full border-collapse text-center text-[14px]">
                 <thead>
                   <tr className="border-b border-blue-300 font-semibold bg-white">
                     <th className="p-2">매도일자</th>
@@ -175,8 +175,13 @@ export default function TradeDetails() {
 
                 <tbody>
                   {tradeProfits.map((trade, index) => (
-                    <tr key={index} className="border-b border-gray-200">
-                      <td className="p-2">{formatDate(trade.sellDateTime)}</td>
+                    <tr
+                      key={index}
+                      className="border-b border-gray-200 hover:bg-blue-light duration-300"
+                    >
+                      <td className="p-2">
+                        {formatDateLong(trade.sellDateTime)}
+                      </td>
                       <td className="p-2">
                         <span className="text-gray-500">
                           {trade.stockTicker}
@@ -185,7 +190,7 @@ export default function TradeDetails() {
                       <td className="p-2">
                         <span>{formatCurrency(trade.realizedProfit)} 원</span>{" "}
                         <br />
-                        {trade.returnRate}%
+                        {trade.returnRate.toFixed(2)}%
                       </td>
                       <td className="p-2">
                         {formatCurrency(trade.sellAveragePrice)} 원 <br />

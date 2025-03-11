@@ -6,8 +6,6 @@ import LikeButton from "../../components/common/LikeButton";
 import { fetchStocks } from "../../api/stockApi";
 import { formatNumber } from "../../utils/numberFormat";
 import { useStockSse } from "../../hooks/useSseStockInfo";
-import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
-import { TbLayoutSidebarRightExpand } from "react-icons/tb";
 import { RiExpandLeftLine } from "react-icons/ri";
 import { RiExpandRightLine } from "react-icons/ri";
 
@@ -49,11 +47,7 @@ export default function MainPage() {
   }, [ticker]);
 
   // 실시간 시세 및 등락율 SSE 연결
-  const { isConnected, error } = useStockSse(
-    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
-    stockInfo,
-    setStockInfo
-  );
+  const { isConnected, error } = useStockSse(setStockInfo);
 
   useEffect(() => {
     console.log(extend);
