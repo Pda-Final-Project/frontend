@@ -99,7 +99,7 @@ export default function Register() {
             </div>
 
             {error && (
-              <div className="text-red-500 text-sm text-center">{error}</div>
+              <div className="text-red-md text-sm text-center">{error}</div>
             )}
           </div>
 

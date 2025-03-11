@@ -32,7 +32,7 @@ export default function MarketPriceList({ ticker }) {
             <div className="w-full text-left">{el.trade_price}</div>
             <div
               className={`w-full text-right  text-red-300${
-                el.trade_type == "BUY" ? "text-red-500" : "text-blue-500"
+                el.trade_type == "BUY" ? "text-red-md" : "text-blue-dark"
               }`}
             >
               {el.trade_quantity}

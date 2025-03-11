@@ -56,7 +56,7 @@ export default function StockBalance() {
   }, [currency, balanceKrwData, balanceUsdData]);
 
   const getColorClass = (value) =>
-    value >= 0 ? "text-red-500" : "text-blue-500";
+    value >= 0 ? "text-red-md" : "text-blue-dark";
 
   return (
     <div>

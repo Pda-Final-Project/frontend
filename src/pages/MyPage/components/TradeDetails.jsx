@@ -65,7 +65,7 @@ export default function TradeDetails() {
   }, []);
 
   const getColorClass = (value) =>
-    value >= 0 ? "text-red-500 font-semibold" : "text-blue-500 font-semibold";
+    value >= 0 ? "text-red-md font-semibold" : "text-blue-dark font-semibold";
 
   const formatCurrency = format(",.0f");
   return (

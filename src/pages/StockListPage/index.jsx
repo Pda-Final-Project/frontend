@@ -108,7 +108,7 @@ export default function StockListPage() {
                   <td className="py-4 px-8 flex items-center space-x-2">
                     <FaHeart
                       className={`${
-                        stock.isFavorite ? "text-red-500" : "text-gray-400"
+                        stock.isFavorite ? "text-red-md" : "text-gray-400"
                       }`}
                     />
                     <span className="w-12">
@@ -130,8 +130,8 @@ export default function StockListPage() {
                   <td
                     className={`p-3 ${
                       parseFloat(stock.change_rate) >= 0
-                        ? "text-red-500"
-                        : "text-blue-500"
+                        ? "text-red-md"
+                        : "text-blue-dark"
                     }`}
                   >
                     {stock.change_rate}

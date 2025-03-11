@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 export default function Layout() {
   return (
-    <div className="flex min-h-screen w-full overflow-x-hidden text-xs text-black">
+    <div className="flex min-h-screen w-full overflow-x-hidden text-xs text-black no-scrollbar">
       {/* 메인 컨텐츠 영역 */}
       <div className="flex flex-col flex-grow ml-16 relative ">
         {/* 헤더 */}

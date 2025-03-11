@@ -144,7 +144,7 @@ export default function Holdings() {
                   </p>
                   <div
                     className={`text-sm flex gap-1 ${
-                      stock.returnRate >= 0 ? "text-blue-500" : "text-red-500"
+                      stock.returnRate >= 0 ? "text-blue-dark" : "text-red-md"
                     }`}
                   >
                     <span>{stock.returnRate >= 0 ? "▲" : "▼"}</span>

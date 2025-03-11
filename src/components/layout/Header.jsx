@@ -13,7 +13,7 @@ const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
 
   const navigate = useNavigate();
-  const location =useLocation();
+  const location = useLocation();
 
   const handleSearch = async () => {
     try {
@@ -39,14 +39,13 @@ const Header = () => {
   const menuItemsleft = [
     { name: "해외공시", path: "/disclosures" },
     { name: "해외종목", path: "/stocks" },
-   ];
+  ];
 
   const menuItemsright = [
     { name: "공시 가이드", path: "/introduce_disclosures" },
     { name: "실적발표 캘린더", path: "/earnings" },
     { name: "My계좌", path: "/my_page" },
   ];
-
 
   return (
     <header className="flex items-center justify-between px-4 py-2 bg-white relative">
@@ -74,7 +73,6 @@ const Header = () => {
             {item.name}
           </a>
         ))}
-
 
         <div className="relative flex-grow w-80">
           <input
@@ -121,8 +119,8 @@ const Header = () => {
                       <span
                         className={`text-right ${
                           parseFloat(stock.change_rate) >= 0
-                            ? "text-red-500"
-                            : "text-blue-500"
+                            ? "text-red-md"
+                            : "text-blue-dark"
                         }`}
                       >
                         {stock.change_rate}
@@ -147,7 +145,6 @@ const Header = () => {
             {item.name}
           </a>
         ))}
-        
       </nav>
       {/* 알림 & 로그인*/}
       <div className="flex items-center space-x-4 relative">

@@ -64,7 +64,7 @@ export default function Summary({ summaryData }) {
               ></p>
             </div>
             {/* 리스크 요인 */}
-            <div className="w-full flex-col items-start p-4 space-y-2 border border-red-500 rounded-lg transition-transform hover:scale-105">
+            <div className="w-full flex-col items-start p-4 space-y-2 border border-red-md rounded-lg transition-transform hover:scale-105">
               <div className="flex items-center gap-2">
                 <FiAlertCircle className="h-[16px] w-[16px] text-red-700" />
                 <h4 className="font-semibold text-red-700">주요 리스크 요인</h4>

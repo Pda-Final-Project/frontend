@@ -70,8 +70,8 @@ export default function StocksSortedByRate() {
                 <td
                   className={`p-3 ${
                     parseFloat(stock.change_rate) >= 0
-                      ? "text-red-500"
-                      : "text-blue-500"
+                      ? "text-red-md"
+                      : "text-blue-dark"
                   }`}
                 >
                   {stock.change_rate}

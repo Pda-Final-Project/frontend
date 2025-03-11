@@ -83,9 +83,9 @@ export default function MainPage() {
               <span
                 className={
                   currentStock.change_rate?.toString().startsWith("+")
-                    ? "text-red-500"
+                    ? "text-red-md"
                     : currentStock.change_rate?.toString().startsWith("-")
-                    ? "text-blue-500"
+                    ? "text-blue-dark"
                     : ""
                 }
               >

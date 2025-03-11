@@ -5,7 +5,7 @@ const CompanyInfo = ({ earningData }) => {
   const { ticker } = useParams(); // URL에서 ticker 가져오기
 
   if (!ticker) {
-    return <p className="text-red-500">티커 정보를 찾을 수 없습니다.</p>;
+    return <p className="text-red-md">티커 정보를 찾을 수 없습니다.</p>;
   }
 
   // 현재 날짜 기준 가장 최근 실적 발표 데이터 찾기
@@ -25,8 +25,8 @@ const CompanyInfo = ({ earningData }) => {
 
   // 스타일 결정 함수
   const getTextColor = (value) => {
-    if (value > 0) return "text-red-500"; // 양수 → 빨간색
-    if (value < 0) return "text-blue-500"; // 음수 → 파란색
+    if (value > 0) return "text-red-md"; // 양수 → 빨간색
+    if (value < 0) return "text-blue-dark"; // 음수 → 파란색
     return "text-gray-700"; // 기본색
   };
 

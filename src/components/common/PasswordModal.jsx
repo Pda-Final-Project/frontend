@@ -77,7 +77,7 @@ export default function PasswordModal({ message, action, isOpen, setOpen }) {
             onChange={(e) => setPassword(e.target.value)}
             className="input-style"
           />
-          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+          {error && <div className="text-red-md text-sm mt-2">{error}</div>}
         </div>
 
         <div className="flex justify-between mt-4 gap-40">

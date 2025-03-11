@@ -14,8 +14,8 @@ const EarningsReport = ({ earningData }) => {
   };
 
   const getTextColor = (value) => {
-    if (value > 0) return "text-red-500";
-    if (value < 0) return "text-blue-500";
+    if (value > 0) return "text-red-md";
+    if (value < 0) return "text-blue-dark";
     return "text-gray-700";
   };
 
