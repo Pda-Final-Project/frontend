@@ -32,14 +32,13 @@ export default function News() {
   return (
     <div className="w-full">
       {/* 제목 */}
-      <div className="flex p-3 items-center">
-        <h1 className="text-[18px] font-bold mb-1 mr-2">글로벌 경제 뉴스</h1>
+      <div className="flex items-end mb-4">
+        <h1 className="text-[18px] font-bold mr-2">글로벌 경제 뉴스</h1>
         <a
           className="font-semibold text-blue-md text-center cursor-pointer hover:underline"
           href={NEWS_SITE_URL}
         >
-          {" "}
-          Investing.com 바로가기{" "}
+          Investing.com 바로가기
         </a>
       </div>
       {/* 데이터가 로딩되지 않았을 경우 표시 */}
@@ -53,7 +52,7 @@ export default function News() {
 
           <div className="overflow-auto no-scrollbar">
             {/* 가로 스크롤 적용 */}
-            <div className="flex space-x-4 p-4 rounded-lg max-w-screen-xl">
+            <div className="flex space-x-4 rounded-lg max-w-screen-xl">
               {newsData.slice(0, 10).map((article, index) => (
                 <a
                   key={index}

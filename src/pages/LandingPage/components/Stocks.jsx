@@ -4,7 +4,7 @@ import StocksSortedByVol from "./StocksSortedByVol";
 
 export default function Stocks() {
   return (
-    <div className="flex justify-between w-full gap-8">
+    <div className="flex justify-between w-full gap-16">
       <StocksSortedByVol />
       <StocksSortedByRate />
     </div>
