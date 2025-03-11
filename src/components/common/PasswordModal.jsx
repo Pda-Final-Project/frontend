@@ -49,10 +49,10 @@ export default function PasswordModal({ message, action, isOpen, setOpen }) {
       isOpen={isOpen}
       contentLabel="주문 확인"
       onRequestClose={() => setOpen(false)} // 함수로 수정
-      className="fixed inset-0 flex items-center justify-center z-50"
-      overlayClassName="fixed inset-0 backdrop-blur-md"
+      className="fixed inset-0 flex items-center justify-center z-100"
+      overlayClassName="fixed inset-0 z-[150] backdrop-blur-lg"
     >
-      <div className="bg-white p-6 rounded-lg max-w-sm w-full space-y-12 flex flex-col">
+      <div className="bg-white p-6 rounded-lg max-w-sm w-full space-y-12 flex flex-col z-200 shadow-md">
         <h2 className="text-xl font-semibold">주문 확인</h2>
         <div className="">
           <div className="flex justify-between mb-2">
