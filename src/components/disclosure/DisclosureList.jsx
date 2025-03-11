@@ -209,7 +209,7 @@ export default function DisclosureList({ ticker = "" }) {
               {currentReports.map((report, index) => (
                 <tr
                   key={index}
-                  className={`cursor-pointer hover:bg-blue-light rounded-lg ${
+                  className={`cursor-pointer hover:bg-blue-light duration-300 rounded-lg ${
                     index % 2 === 0 ? "bg-gray-light" : "bg-white"
                   }`}
                   onClick={() => handleClick(report.fillingId)}
