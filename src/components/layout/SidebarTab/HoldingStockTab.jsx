@@ -40,7 +40,8 @@ export default function HoldingStockTab() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 100); // 0.1초 후 나타나도록
+    setTimeout(() => setVisible(true), 100);
+    tryFetchHoldings();
   }, []);
 
   return (

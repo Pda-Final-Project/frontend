@@ -52,9 +52,11 @@ export default function DisclosureList({ ticker = "" }) {
     setCurrentPage(1);
     tryFetchDisclosures();
   };
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     tryFetchDisclosures();
+    setTimeout(() => setVisible(true), 100); // 컴포넌트가 나타날 때 0.1초 후에 애니메이션 효과 실행
   }, []);
 
   const indexOfLastReport = currentPage * reportsPerPage;
@@ -80,15 +82,18 @@ export default function DisclosureList({ ticker = "" }) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-4 text-sm font-semibold">
+    <div
+      className={`w-full flex flex-col gap-20 text-sm font-semibold transition-all duration-700 ease-out ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
       {/* 검색 필터 */}
-      <div className="p-8 bg-white rounded-lg">
-        <div className="flex flex-col justify-center items-center mt-3 mb-3">
+      <div className="bg-white rounded-lg">
+        <div className="flex flex-col justify-center items-center mb-4">
           <h1 className="text-lg text-center font-bold mb-1">
-            해외 공시 찾아보기{" "}
+            해외 공시 찾아보기
           </h1>
           <span className="text-blue-md text-center">
-            {" "}
             🔎 SEC Edgar 공시를 쉽고 간편하게 검색해 보세요
           </span>
         </div>
@@ -187,7 +192,7 @@ export default function DisclosureList({ ticker = "" }) {
       </div>
 
       {/* 공시 리스트 */}
-      <div className="p-4 py-8 bg-white rounded-lg">
+      <div className="bg-white rounded-lg">
         <h2 className="text-lg font-semibold mb-2 text-center">
           공시 검색 결과
         </h2>
