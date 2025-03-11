@@ -1,46 +1,37 @@
-import { useState, useEffect } from "react";
+import useSse from "./useSse";
 
-export default function useSSEPrice() {
-  const [prices, setPrices] = useState([]);
-  const maxCnt = 30;
-
-  useEffect(() => {
-    const eventSource = new EventSource(
-      "http://127.0.0.1:19095/v1/api/trades/stream"
-    ); //sse 연결을 생성해, 주어진 url의 데이터를 수신
-
-    eventSource.onmessage = (event) => {
-      //서버에서 메시지를 받으면 실행됨
-      const data = JSON.parse(event.data);
-
-      if (data?.LAST && data?.EVOL) {
-        //현재가와 체결량이 존재하는 경우
-        setPrices((prevPrices) => [
-          //새로운 데이터를 배열 앞쪽에 추가해 최신 데이터 maxCnt개 유지
+export default function useSsePrice(setPrices, ticker) {
+  // SSE 이벤트 핸들러 정의
+  const eventHandlers = {
+    priceUpdate: (data) => {
+      setPrices((prevPrices) => {
+        // 새로 들어온 체결 데이터를 리스트에 추가
+        const newPrices = [
           {
-            symbol: data.SYMB, // 종목 코드
-            lastPrice: data.LAST, // 체결가
-            changeRate: data.RATE, // 변동률
-            volume: data.EVOL, // 체결량
-            totalVolume: data.TVOL, // 누적 거래량
-            time: data.XHMS, // 현지 시간
+            trade_price: data.trade_price, // 거래 가격
+            trade_quantity: data.trade_quantity, // 거래 수량
+            trade_volume: data.trade_volume, // 거래량
+            trade_time: data.trade_time, // 거래 시간
+            trade_type: data.trade_type, // 매매 유형 (BUY/SELL)
           },
-          ...prevPrices.slice(0, maxCnt - 1),
-        ]);
-      }
-    };
+          ...(prevPrices || []), // 기존 가격 리스트와 합침
+        ];
 
-    eventSource.onerror = (error) => {
-      //에러 발생 시 콘솔 출력 후 종료
-      console.error("SSE Price Error:", error);
-      eventSource.close();
-    };
+        // 체결 내역이 20개를 초과하면 가장 오래된 항목을 삭제
+        if (newPrices.length > 20) {
+          newPrices.pop(); // 맨 마지막(가장 오래된)을 제거
+        }
 
-    return () => {
-      //컴포넌트가 언마운트되거나 url이 변경되면 sse 연결 해제
-      eventSource.close();
-    };
-  }, [url]);
+        // 해당 종목의 체결 내역만 업데이트
+        return newPrices;
+      });
+    },
+  };
 
-  return prices;
+  const { isConnected, error } = useSse(
+    `${import.meta.env.VITE_API_DATA_URL}/prices/stream?ticker=${ticker}`,
+    eventHandlers
+  );
+
+  return { isConnected, error };
 }

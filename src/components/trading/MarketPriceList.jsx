@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import useSSEPrice from "../../hooks/useSSEPrice";
+import React, { useState } from "react";
+import useSsePrice from "../../hooks/useSsePrice";
 
 //실시간 시세
-export default function MarketPriceList() {
-  const sseUrl = import.meta.env.VITE_PRICE_SSE_URL;
-  // 소켓 연결 시 대체
-  // const marketPrices = useSSEPrice(sseUrl);
-  const marketPrices = [
+export default function MarketPriceList({ ticker }) {
+  const [marketPrices, setMarketPrices] = useState([
     {
       trade_price: 1000,
       trade_quantity: 2,
       trade_volume: 2,
       trade_time: "12:57:38",
+      trade_type: "BUY",
     },
-  ];
+  ]);
+
+  const { isConnected, error } = useSsePrice(setMarketPrices, ticker);
   return (
     <div className="bg-white p-4 flex flex-col rounded-lg h-full text-sm overflow-y-hidden">
       <div className="text-lg font-semibold">실시간 시세</div>
@@ -30,7 +30,13 @@ export default function MarketPriceList() {
             className="grid grid-cols-4 gap-4 px-2 py-1 rounded-lg hover:bg-blue-light"
           >
             <div className="w-full text-left">{el.trade_price}</div>
-            <div className="w-full text-right">{el.trade_quantity}</div>
+            <div
+              className={`w-full text-right  text-red-300${
+                el.trade_type == "BUY" ? "text-red-500" : "text-blue-500"
+              }`}
+            >
+              {el.trade_quantity}
+            </div>
             <div className="w-full text-right">{el.trade_volume}</div>
             <div className="w-full text-right">{el.trade_time}</div>
           </div>

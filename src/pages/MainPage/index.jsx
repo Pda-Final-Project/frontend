@@ -6,8 +6,6 @@ import LikeButton from "../../components/common/LikeButton";
 import { fetchStocks } from "../../api/stockApi";
 import { formatNumber } from "../../utils/numberFormat";
 import { useStockSse } from "../../hooks/useSseStockInfo";
-import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
-import { TbLayoutSidebarRightExpand } from "react-icons/tb";
 import { RiExpandLeftLine } from "react-icons/ri";
 import { RiExpandRightLine } from "react-icons/ri";
 
