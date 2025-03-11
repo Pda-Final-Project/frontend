@@ -58,7 +58,7 @@ export default function ChartTab({ ticker }) {
   return (
     <div
       ref={containerRef}
-      className="bg-white flex flex-col rounded-lg py-4 px-4 text-sm h-full"
+      className="bg-white relative rounded-lg py-4 px-4 text-sm h-full"
     >
       {chartData.length && dimensions.width > 100 && dimensions.height > 100 ? (
         <CandleChart

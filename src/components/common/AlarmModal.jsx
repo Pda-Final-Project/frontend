@@ -34,7 +34,7 @@ const AlarmModal = ({ onClose }) => {
   }, []);
 
   return (
-    <div className="fixed top-12 right-0 m-4 w-96 bg-white shadow-lg rounded-lg p-3">
+    <div className="absolute top-12 right-0 m-4 w-96 bg-white shadow-lg rounded-lg p-3 z-100">
       {/* 알람 모달 헤더 */}
       <div className="flex justify-between items-center pb-2 mb-2">
         <div className="flex items-center">
