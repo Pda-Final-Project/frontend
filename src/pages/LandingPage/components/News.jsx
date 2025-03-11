@@ -35,7 +35,7 @@ export default function News() {
       <div className="flex p-3 items-center">
         <h1 className="text-[18px] font-bold mb-1 mr-2">글로벌 경제 뉴스</h1>
         <a
-          className="text-blue-md text-center cursor-pointer hover:underline font-semibold"
+          className="font-semibold text-blue-md text-center cursor-pointer hover:underline"
           href={NEWS_SITE_URL}
         >
           {" "}

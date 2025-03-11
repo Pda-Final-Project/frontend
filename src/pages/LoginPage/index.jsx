@@ -29,7 +29,7 @@ export default function Index() {
       return "전화번호는 10~11자리 숫자입니다.";
     }
     if (!validatePassword(loginData.userPassword)) {
-      return "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자를 포함해야 합니다.";
+      return "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자(@ $ ! % * ? &)를 포함해야 합니다.";
     }
     return null; // 유효성 통과
   };
@@ -53,12 +53,12 @@ export default function Index() {
       <div className="bg-white flex flex-col">
         <img
           src="/images/logo.png"
-          className="w-48 cursor-pointer"
+          className="w-40 cursor-pointer"
           onClick={() => navigate("../")}
         />
         <img
           src="../../../public/images/login.jpg"
-          className="h-auto w-2xl absolute left-0 bottom-0"
+          className="h-auto w-lg absolute left-0 bottom-0"
         />
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
