@@ -38,7 +38,7 @@ export default function OrderDetails() {
     if (activeTab == "전체") {
       filter = "/all";
     } else if (activeTab == "미체결") {
-      filter = "/failed";
+      filter = "/unfilled";
     }
     try {
       const response = await fetchOrderTradeList(filter);
