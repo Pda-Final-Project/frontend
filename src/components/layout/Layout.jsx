@@ -24,7 +24,7 @@ export default function Layout() {
         </footer>
       </div>
       {/* 사이드바 - 왼쪽에 고정 */}
-      <aside className="h-screen w-16 fixed left-0 top-0 z-5">
+      <aside className="h-screen w-16 fixed left-0 top-0 z-150">
         <Sidebar />
       </aside>
     </div>
