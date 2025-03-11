@@ -66,7 +66,7 @@ const Deposit = ({ isOpen, onClose }) => {
           <p className="text-center text-red-500">데이터를 불러올 수 없습니다.</p>
         )}
         <button
-          className="mt-4 w-full bg-blue-md text-white p-2 rounded-lg hover:bg-blue-light hover:text-black"
+          className="mt-4 w-full bg-blue-md text-white p-2 rounded-lg hover:bg-blue-light hover:text-black duration-300 ease-in-out"
           onClick={onClose}
         >
           닫기
