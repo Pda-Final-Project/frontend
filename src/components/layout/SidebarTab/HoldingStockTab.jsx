@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import LikeButton from "../../common/LikeButton";
 import { useStockSse } from "../../../hooks/useSseStockInfo";
 import { fetchHoldings } from "../../../api/accountApi";
+import { formatNumber } from "../../../utils/numberFormat";
 
 export default function HoldingStockTab() {
   const [stocks, setStocks] = useState([
     {
-      stockTicker: "NVDA",
-      currentPrice: 1000,
+      ticker: "NVDA",
+      current_price: 1000,
       returnRate: 1.23,
       holdingQuantity: 110,
     },
@@ -19,18 +20,21 @@ export default function HoldingStockTab() {
     try {
       const response = await fetchHoldings("buyAmount");
       if (response.data.status == "OK") {
-        setStocks(response.data.data);
+        const mappedStocks = response.data.data.map((stock) => ({
+          ticker: stock.stockTicker,
+          holdingQuantity: stock.holdingQuantity,
+          current_price: stock.currentPrice,
+          returnRate: stock.returnRate,
+        }));
+
+        setStocks(mappedStocks);
       }
     } catch (error) {
       console.error(error.message);
     }
   };
 
-  const { isConnected, error } = useStockSse(
-    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
-    stocks,
-    setStocks
-  );
+  const { isConnected, error } = useStockSse(setStocks);
 
   useEffect(() => {
     tryFetchHoldings();
@@ -50,29 +54,31 @@ export default function HoldingStockTab() {
       <div className="p-2 flex flex-col space-y-2">
         {stocks.map((stock) => (
           <div
-            key={stock.stockTicker}
+            key={stock.ticker}
             className="flex justify-between p-2 hover:bg-blue-light duration-300 rounded-lg cursor-pointer items-center"
             onClick={() => {
-              navigate(`/main/${stock.stockTicker}/all`);
+              navigate(`/main/${stock.ticker}/all`);
             }}
           >
             <div className="flex items-center space-x-2">
               <img
                 src={`${import.meta.env.VITE_STOCK_LOGO_URL}${
-                  stock.stockTicker
+                  stock.ticker
                 }.png`}
                 className="w-12 h-12 rounded-full"
               />
               <div>
-                <div className="font-semibold text-sm">{stock.stockTicker}</div>
+                <div className="font-semibold text-sm">{stock.ticker}</div>
                 <div className="">{stock.holdingQuantity}주</div>
               </div>
             </div>
             <div className="flex gap-4 items-center">
               <div className="flex flex-col items-end font-semibold">
-                <div>{stock.currentPrice}원</div>
+                <div className="text-[16px]">
+                  {formatNumber(parseFloat(stock.current_price))}원
+                </div>
                 <div
-                  className={`text-sm ${
+                  className={` ${
                     stock.returnRate > 0
                       ? "text-red-500"
                       : stock.returnRate < 0
@@ -80,7 +86,8 @@ export default function HoldingStockTab() {
                       : "text-black"
                   }`}
                 >
-                  {stock.returnRate.toFixed()}%
+                  수익률(
+                  {stock.returnRate.toFixed()}%)
                 </div>
               </div>
               <LikeButton ticker={stock.stockTicker} initState={stock.pinned} />

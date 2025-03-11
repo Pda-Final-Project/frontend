@@ -31,11 +31,7 @@ export default function InterestStockTab() {
   const navigate = useNavigate();
 
   //실시간 시세 및 등락율 sse 연결
-  const { isConnected, error } = useStockSse(
-    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
-    stocks,
-    setStocks
-  );
+  const { isConnected, error } = useStockSse(setStocks);
 
   return (
     <div className="h-full w-100 bg-gray-light py-4 px-2 space-y-2 shadow-md">
