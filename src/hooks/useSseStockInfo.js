@@ -6,7 +6,7 @@ import useSse from "./useSse"; // 위에서 만든 useSse를 가져옴
  * @param {string} url - SSE 이벤트를 구독할 서버 URL
  * @returns {Object}
  */
-export function useStockSse(url, stocks, setStocks) {
+export function useStockSse(setStocks) {
   // SSE 이벤트 핸들러 정의
   const eventHandlers = {
     stockUpdate: (data) => {
@@ -27,6 +27,9 @@ export function useStockSse(url, stocks, setStocks) {
     },
   };
 
-  const { isConnected, error } = useSse(url, eventHandlers);
+  const { isConnected, error } = useSse(
+    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
+    eventHandlers
+  );
   return { isConnected, error };
 }

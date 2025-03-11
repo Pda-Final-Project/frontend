@@ -12,11 +12,7 @@ export default function StockListPage() {
   const [sortBy, setSortBy] = useState(""); // 기본 정렬: 거래량 많은 순
   const stocksPerPage = 10;
 
-  const { isConnected, error } = useStockSse(
-    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
-    stocks,
-    setStocks
-  );
+  const { isConnected, error } = useStockSse(setStocks);
 
   // 더미 데이터 생성
   useEffect(() => {

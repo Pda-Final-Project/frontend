@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 
-export default function useSSEPrice(url) {
+export default function useSSEPrice() {
   const [prices, setPrices] = useState([]);
   const maxCnt = 30;
 
   useEffect(() => {
-    const eventSource = new EventSource(url); //sse 연결을 생성해, 주어진 url의 데이터를 수신
+    const eventSource = new EventSource(
+      "http://127.0.0.1:19095/v1/api/trades/stream"
+    ); //sse 연결을 생성해, 주어진 url의 데이터를 수신
 
     eventSource.onmessage = (event) => {
       //서버에서 메시지를 받으면 실행됨

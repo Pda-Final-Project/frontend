@@ -49,11 +49,7 @@ export default function MainPage() {
   }, [ticker]);
 
   // 실시간 시세 및 등락율 SSE 연결
-  const { isConnected, error } = useStockSse(
-    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
-    stockInfo,
-    setStockInfo
-  );
+  const { isConnected, error } = useStockSse(setStockInfo);
 
   useEffect(() => {
     console.log(extend);
