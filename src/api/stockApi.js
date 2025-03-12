@@ -36,16 +36,16 @@ const fetchChart = (params) =>
 
 //관심 종목 조회, 추가, 삭제
 const fetchLikeStocks = () =>
-  api.get("http://172.16.1.230:19092/v1/api/stocks/like", {
+  api.get("http://172.16.1.230:19092/v1/api/pinnedStocks/like", {
     isAuthRequired: true,
   });
 const removeLikeStock = (ticker) =>
-  api.delete(`http://172.16.1.230:19092/v1/api/stocks/like/${ticker}`, {
+  api.delete(`http://172.16.1.230:19092/v1/api/pinnedStocks/like/${ticker}`, {
     isAuthRequired: true,
   });
 const addLikeStock = (ticker) =>
   api.post(
-    "http://172.16.1.230:19092/v1/api/stocks/like",
+    "http://172.16.1.230:19092/v1/api/pinnedStocks/like",
     { ticker: ticker },
     { isAuthRequired: true }
   );
