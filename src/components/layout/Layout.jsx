@@ -2,8 +2,15 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Footer from "./Footer";
+import { useLikedStocksStore } from "../../hooks/useLikedStocksStore";
+import { useEffect } from "react";
 
 export default function Layout() {
+  const { fetchLikedStocks } = useLikedStocksStore();
+
+  useEffect(() => {
+    fetchLikedStocks();
+  }, []);
   return (
     <div className="flex min-h-screen w-full overflow-x-hidden text-xs text-black no-scrollbar">
       {/* 메인 컨텐츠 영역 */}

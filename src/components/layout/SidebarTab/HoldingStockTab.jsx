@@ -99,7 +99,7 @@ export default function HoldingStockTab() {
                   수익률({stock.returnRate.toFixed()}%)
                 </div>
               </div>
-              <LikeButton ticker={stock.ticker} initState={stock.pinned} />
+              <LikeButton ticker={stock.ticker} />
             </div>
           </div>
         ))}

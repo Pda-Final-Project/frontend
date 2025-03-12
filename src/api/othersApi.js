@@ -12,6 +12,6 @@ const fetchEarning = async (ticker) =>
 
 //환율 조회
 const fetchExchangeRate = () =>
-  api.get(`http://172.16.1.230:19099/v1/api/exchange-rate/AAPL`);
+  api.get(`http://172.16.1.230:19099/v1/api/exchange-rate/TSLA`);
 
 export { news, fetchEarning, fetchExchangeRate };

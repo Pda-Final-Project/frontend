@@ -29,7 +29,7 @@ const fetchAvailQuantityByStock = (ticker) =>
 
 //차트 조회
 const fetchChart = (params) =>
-  api.get("http://localhost:19099/v1/api/chart", {
+  api.get("http://172.16.1.230:19099/v1/api/chart", {
     params: params, // 빈 값 필터링하여 전달
     isAuthRequired: false,
   });

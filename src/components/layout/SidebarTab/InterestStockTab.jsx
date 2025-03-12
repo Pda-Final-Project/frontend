@@ -1,36 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "../../common/LikeButton";
 import { useStockSse } from "../../../hooks/useSseStockInfo";
 import { formatNumber } from "../../../utils/numberFormat";
+import { useLikedStocksStore } from "../../../hooks/useLikedStocksStore";
+import { fetchLikeStocks } from "../../../api/stockApi";
 
 export default function InterestStockTab() {
-  const [stocks, setStocks] = useState([
-    {
-      ticker: "NVDA",
-      name: "엔비디아",
-      current_price: 1000,
-      change_rate: 1.23,
-      pinned: true,
-    },
-    {
-      ticker: "TSLA",
-      name: "테슬라",
-      current_price: 1000,
-      change_rate: 1.23,
-      pinned: true,
-    },
-    {
-      ticker: "GOOGL",
-      name: "구글",
-      current_price: 1000,
-      change_rate: 1.23,
-      pinned: true,
-    },
-  ]);
   const navigate = useNavigate();
+  const { likedStocks } = useLikedStocksStore();
+  const [stocks, setStocks] = useState(likedStocks);
 
-  // 실시간 시세 및 등락율 sse 연결
+  useEffect(() => {
+    tryFetchLikes();
+  }, []);
+
+  const tryFetchLikes = async () => {
+    try {
+      const response = await fetchLikeStocks();
+      if (response.data.status == "OK") {
+        const updatedStocks = Array.from(response.data.data).map((stock) => ({
+          ticker: stock.ticker,
+          name: stock.name, // 실제 주식 이름을 API에서 가져와야 함
+          current_price: stock.price, // 실시간 데이터를 받아와야 함
+          change_rate: stock.change,
+        }));
+
+        setStocks(updatedStocks);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    tryFetchLikes();
+    console.log(likedStocks);
+  }, [likedStocks]);
+
+  // 실시간 시세 및 등락율 SSE 연결
   const { isConnected, error } = useStockSse(setStocks);
 
   // 컴포넌트가 마운트될 때 애니메이션 시작
@@ -56,23 +64,28 @@ export default function InterestStockTab() {
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
-        {stocks.map((stock) => (
-          <div
-            key={stock.ticker}
-            className="flex justify-between p-2 hover:bg-blue-light duration-300 rounded-lg cursor-pointer"
-            onClick={() => {
-              navigate(`/main/${stock.ticker}/all`);
-            }}
-          >
-            <div className="flex items-center space-x-2">
-              <img
-                src={`${import.meta.env.VITE_STOCK_LOGO_URL}${
-                  stock.ticker
-                }.png`}
-                className="w-12 h-12 rounded-full"
-              />
-              <div className="font-semibold text-sm">{stock.name}</div>
-            </div>
+        {stocks.length === 0 ? (
+          <div className="text-center text-gray-500 mt-20 text-sm">
+            관심 주식이 없습니다.
+          </div>
+        ) : (
+          stocks.map((stock) => (
+            <div
+              key={stock.ticker}
+              className="flex justify-between p-2 hover:bg-blue-light duration-300 rounded-lg cursor-pointer"
+              onClick={() => {
+                navigate(`/main/${stock.ticker}/all`);
+              }}
+            >
+              <div className="flex items-center space-x-2">
+                <img
+                  src={`${import.meta.env.VITE_STOCK_LOGO_URL}${
+                    stock.ticker
+                  }.png`}
+                  className="w-12 h-12 rounded-full"
+                />
+                <div className="font-semibold text-sm">{stock.name}</div>
+              </div>
 
             <div className="flex gap-4 items-center">
               <div className="flex flex-col items-end font-semibold">
@@ -93,8 +106,8 @@ export default function InterestStockTab() {
               </div>
               <LikeButton ticker={stock.ticker} initState={stock.pinned} />
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

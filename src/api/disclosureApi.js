@@ -8,7 +8,7 @@ const fetchFillingInfo = (filling_id) =>
   });
 
 const fetchFillings = (params) =>
-  api.get("http://localhost:19098/v1/api/fillings", {
+  api.get("http://172.16.1.230:19098/v1/api/fillings", {
     params: params, // 빈 값 필터링하여 전달
     isAuthRequired: false,
     validateStatus: (status) => status >= 200 && status < 400,
