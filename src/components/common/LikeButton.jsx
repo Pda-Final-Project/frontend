@@ -7,10 +7,10 @@ export default function LikeButton({ ticker, initState }) {
   const changeLikeState = () => {
     if (isLiked) {
       //관심 종목에서 삭제
-      //   tryRemoveLikeStock();
+      tryRemoveLikeStock();
     } else {
       //관심 종목에 추가
-      //   tryAddLikeStock();
+      tryAddLikeStock();
     }
     setIsLiked(!isLiked);
   };

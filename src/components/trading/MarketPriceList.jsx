@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import useSsePrice from "../../hooks/useSsePrice";
+import { useParams } from "react-router-dom";
 
 //실시간 시세
-export default function MarketPriceList({ ticker }) {
+export default function MarketPriceList() {
   const [marketPrices, setMarketPrices] = useState([
     {
       trade_price: 1000,
@@ -12,6 +13,7 @@ export default function MarketPriceList({ ticker }) {
       trade_type: "BUY",
     },
   ]);
+  const { ticker } = useParams();
 
   const { isConnected, error } = useSsePrice(setMarketPrices, ticker);
   return (

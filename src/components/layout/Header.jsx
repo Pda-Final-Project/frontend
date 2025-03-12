@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FaRegBell } from "react-icons/fa";
 import AlarmModal from "../common/AlarmModal";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -14,6 +14,9 @@ const Header = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const searchRef = useRef(null);
+  const alarmRef = useRef(null);
 
   const handleSearch = async () => {
     try {
@@ -36,6 +39,25 @@ const Header = () => {
       setIsLogin(true);
     }
   }, []);
+
+  useEffect(() => {
+    // Close dropdown when clicking outside the search dropdown
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setSearchResult([]);
+      }
+      if (alarmRef.current && !alarmRef.current.contains(event.target)) {
+        setShowAlarm(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const menuItemsleft = [
     { name: "해외공시", path: "/disclosures" },
     { name: "해외종목", path: "/stocks" },
@@ -74,7 +96,7 @@ const Header = () => {
           </a>
         ))}
 
-        <div className="relative flex-grow w-80">
+        <div ref={searchRef} className="relative flex-grow w-80">
           <input
             type="text"
             placeholder="종목명 or 종목 코드로 검색"
@@ -161,11 +183,14 @@ const Header = () => {
             로그인
           </button>
         )}
-        {/* 로그인 버튼 */}
       </div>
 
       {/* 알람 모달 */}
-      {showAlarm && <AlarmModal onClose={() => setShowAlarm(false)} />}
+      {showAlarm && (
+        <div ref={alarmRef}>
+          <AlarmModal onClose={() => setShowAlarm(false)} />
+        </div>
+      )}
     </header>
   );
 };
