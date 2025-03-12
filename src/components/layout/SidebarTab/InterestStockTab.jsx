@@ -4,35 +4,42 @@ import LikeButton from "../../common/LikeButton";
 import { useStockSse } from "../../../hooks/useSseStockInfo";
 import { formatNumber } from "../../../utils/numberFormat";
 import { useLikedStocksStore } from "../../../hooks/useLikedStocksStore";
+import { fetchLikeStocks } from "../../../api/stockApi";
 
 export default function InterestStockTab() {
   const navigate = useNavigate();
-  const { likedStocks, fetchLikedStocks } = useLikedStocksStore(); // 좋아요 리스트 불러오기
-  const [stocks, setStocks] = useState([]);
+  const { likedStocks } = useLikedStocksStore();
+  const [stocks, setStocks] = useState(likedStocks);
 
-  // 컴포넌트가 처음 마운트될 때 좋아요한 종목 리스트 가져오기
   useEffect(() => {
-    fetchLikedStocks();
+    tryFetchLikes();
   }, []);
 
-  // likedStocks가 변경될 때 stocks 상태 업데이트
-  useEffect(() => {
-    if (likedStocks.size > 0) {
-      // 좋아요한 종목 리스트를 stocks 상태에 반영
-      const updatedStocks = Array.from(likedStocks).map((ticker) => ({
-        ticker,
-        name: ticker, // 실제 주식 이름을 API에서 가져와야 함
-        current_price: 0, // 실시간 데이터를 받아와야 함
-        change_rate: 0,
-      }));
+  const tryFetchLikes = async () => {
+    try {
+      const response = await fetchLikeStocks();
+      if (response.data.status == "OK") {
+        const updatedStocks = Array.from(response.data.data).map((stock) => ({
+          ticker: stock.ticker,
+          name: stock.name, // 실제 주식 이름을 API에서 가져와야 함
+          current_price: stock.price, // 실시간 데이터를 받아와야 함
+          change_rate: stock.change,
+        }));
 
-      setStocks(updatedStocks);
+        setStocks(updatedStocks);
+      }
+    } catch (error) {
+      console.error(error.message);
     }
+  };
+
+  useEffect(() => {
+    tryFetchLikes();
+    console.log(likedStocks);
   }, [likedStocks]);
 
   // 실시간 시세 및 등락율 SSE 연결
   const { isConnected, error } = useStockSse(setStocks);
-
   return (
     <div className="h-full w-100 bg-gray-light py-4 px-2 space-y-2 shadow-md">
       {/* 내부 사이드바 헤더 */}
@@ -68,12 +75,13 @@ export default function InterestStockTab() {
                 <div className="font-semibold text-sm">{stock.name}</div>
               </div>
 
-            <div className="flex gap-4 items-center">
-              <div className="flex flex-col items-end font-semibold">
-                <div>{formatNumber(parseFloat(stock.current_price))}원</div>
-                <div className="text-sm">{stock.change_rate}</div>
+              <div className="flex gap-4 items-center">
+                <div className="flex flex-col items-end font-semibold">
+                  <div>{formatNumber(parseFloat(stock.current_price))}원</div>
+                  <div className="text-sm">{stock.change_rate}</div>
+                </div>
+                <LikeButton ticker={stock.ticker} />
               </div>
-              <LikeButton ticker={stock.ticker} initState={stock.pinned} />
             </div>
           ))
         )}
