@@ -90,7 +90,7 @@ export default function HoldingStockTab() {
                   {stock.returnRate.toFixed()}%)
                 </div>
               </div>
-              <LikeButton ticker={stock.stockTicker} initState={stock.pinned} />
+              <LikeButton ticker={stock.ticker} />
             </div>
           </div>
         ))}

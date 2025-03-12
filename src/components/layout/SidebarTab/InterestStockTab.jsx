@@ -1,38 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "../../common/LikeButton";
 import { useStockSse } from "../../../hooks/useSseStockInfo";
 import { formatNumber } from "../../../utils/numberFormat";
+import { useLikedStocksStore } from "../../../hooks/useLikedStocksStore";
+import { fetchLikeStocks } from "../../../api/stockApi";
 
 export default function InterestStockTab() {
-  const [stocks, setStocks] = useState([
-    {
-      ticker: "NVDA",
-      name: "엔비디아",
-      current_price: 1000,
-      change_rate: 1.23,
-      pinned: true,
-    },
-    {
-      ticker: "TSLA",
-      name: "테슬라",
-      current_price: 1000,
-      change_rate: 1.23,
-      pinned: true,
-    },
-    {
-      ticker: "GOOGL",
-      name: "구글",
-      current_price: 1000,
-      change_rate: 1.23,
-      pinned: true,
-    },
-  ]);
   const navigate = useNavigate();
+  const { likedStocks } = useLikedStocksStore();
+  const [stocks, setStocks] = useState(likedStocks);
 
-  //실시간 시세 및 등락율 sse 연결
+  useEffect(() => {
+    tryFetchLikes();
+  }, []);
+
+  const tryFetchLikes = async () => {
+    try {
+      const response = await fetchLikeStocks();
+      if (response.data.status == "OK") {
+        const updatedStocks = Array.from(response.data.data).map((stock) => ({
+          ticker: stock.ticker,
+          name: stock.name, // 실제 주식 이름을 API에서 가져와야 함
+          current_price: stock.price, // 실시간 데이터를 받아와야 함
+          change_rate: stock.change,
+        }));
+
+        setStocks(updatedStocks);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    tryFetchLikes();
+    console.log(likedStocks);
+  }, [likedStocks]);
+
+  // 실시간 시세 및 등락율 SSE 연결
   const { isConnected, error } = useStockSse(setStocks);
-
   return (
     <div className="h-full w-100 bg-gray-light py-4 px-2 space-y-2 shadow-md">
       {/* 내부 사이드바 헤더 */}
@@ -45,33 +52,39 @@ export default function InterestStockTab() {
 
       {/* 내부 콘텐츠 */}
       <div className="p-2 flex flex-col space-y-2">
-        {stocks.map((stock) => (
-          <div
-            key={stock.ticker}
-            className="flex justify-between p-2 hover:bg-blue-light duration-300 rounded-lg cursor-pointer"
-            onClick={() => {
-              navigate(`/main/${stock.ticker}/all`);
-            }}
-          >
-            <div className="flex items-center space-x-2">
-              <img
-                src={`${import.meta.env.VITE_STOCK_LOGO_URL}${
-                  stock.ticker
-                }.png`}
-                className="w-12 h-12 rounded-full"
-              />
-              <div className="font-semibold text-sm">{stock.name}</div>
-            </div>
-
-            <div className="flex gap-4 items-center">
-              <div className="flex flex-col items-end font-semibold">
-                <div>{formatNumber(parseFloat(stock.current_price))}원</div>
-                <div className="text-sm">{stock.change_rate}</div>
-              </div>
-              <LikeButton ticker={stock.ticker} initState={stock.pinned} />
-            </div>
+        {stocks.length === 0 ? (
+          <div className="text-center text-gray-500 mt-20 text-sm">
+            관심 주식이 없습니다.
           </div>
-        ))}
+        ) : (
+          stocks.map((stock) => (
+            <div
+              key={stock.ticker}
+              className="flex justify-between p-2 hover:bg-blue-light duration-300 rounded-lg cursor-pointer"
+              onClick={() => {
+                navigate(`/main/${stock.ticker}/all`);
+              }}
+            >
+              <div className="flex items-center space-x-2">
+                <img
+                  src={`${import.meta.env.VITE_STOCK_LOGO_URL}${
+                    stock.ticker
+                  }.png`}
+                  className="w-12 h-12 rounded-full"
+                />
+                <div className="font-semibold text-sm">{stock.name}</div>
+              </div>
+
+              <div className="flex gap-4 items-center">
+                <div className="flex flex-col items-end font-semibold">
+                  <div>{formatNumber(parseFloat(stock.current_price))}원</div>
+                  <div className="text-sm">{stock.change_rate}</div>
+                </div>
+                <LikeButton ticker={stock.ticker} />
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
