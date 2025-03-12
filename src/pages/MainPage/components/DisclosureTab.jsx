@@ -1,13 +1,18 @@
 import React from "react";
-import DisclosureDetailPage from "../../DisclosureDetailPage";
-import DisclosureListPage from "../../DisclosureListPage";
+import DisclosureDetail from "../../../components/disclosure/DisclosureDetail";
+import DisclosureList from "../../../components/disclosure/DisclosureList";
 import { useParams } from "react-router-dom";
 
-export default function DisclosureTab() {
+function DisclosureTab({ ticker }) {
   const { filling_id } = useParams();
   return (
-    <div className="h-full">
-      {filling_id == "all" ? <DisclosureListPage /> : <DisclosureDetailPage />}
+    <div className="">
+      {filling_id == "all" ? (
+        <DisclosureList ticker={ticker} />
+      ) : (
+        <DisclosureDetail />
+      )}
     </div>
   );
 }
+export default React.memo(DisclosureTab);

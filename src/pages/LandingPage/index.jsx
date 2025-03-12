@@ -7,7 +7,7 @@ export default function Index() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="flex flex-col w-full p-4">
+    <div className="flex flex-col w-full px-32 py-20 space-y-20">
       {" "}
       {/* 좌우 여백 추가 */}
       {/** 실시간 공시 정보 */}
@@ -15,11 +15,11 @@ export default function Index() {
         <Disclosures />
       </div>
       {/** 해외 경제 뉴스 */}
-      <div className="flex flex-col w-full mt-4">
+      <div className="">
         <News />
       </div>
       {/** 해외 종목 순위 */}
-      <div className="flex mt-4 w-full">
+      <div className="flex w-full">
         <Stocks />
       </div>
     </div>

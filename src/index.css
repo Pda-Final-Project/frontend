@@ -1,13 +1,20 @@
 @import "tailwindcss";
+@plugin 'tailwind-scrollbar-hide';
 
+@plugin 'tailwind-scrollbar' {
+  nocompatible: true;
+}
 @theme {
   --font-sans: "sans-serif";
   --color-gray-light: #f6f7f9;
   --color-gray-md: #aab2bd;
   --color-blue-md: #54b0fe;
   --color-blue-light: #e5f3ff;
-  --color-red: "#FF0000";
+  --color-red-md: #ff0000;
+  --color-black: #333d4b;
+  --color-gray-dark: #4e5968;
 }
+
 .input-style {
   @apply border bg-white border-gray-md px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full;
 }
@@ -16,4 +23,13 @@
 }
 .white-button-style {
   @apply text-center cursor-pointer bg-white px-2 py-1 border-1 border-gray-md font-semibold rounded-lg w-full hover:bg-blue-md duration-300;
+}
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

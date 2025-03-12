@@ -11,9 +11,10 @@ const register = (userData) =>
     isAuthRequired: false,
   });
 
-const logout = () => {
+const logout = (setIsLogin) => {
   sessionStorage.removeItem("accessToken");
-  console.log("로그아웃 완료!");
+  setIsLogin(false);
+  alert("로그아웃 완료!");
 };
 
 export { login, register, logout };

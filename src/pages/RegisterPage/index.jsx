@@ -45,18 +45,18 @@ export default function Register() {
     <div className="grid grid-cols-2 w-full h-screen">
       <div className="bg-white flex flex-col">
         <img
-          src="../../../public/images/logo.png"
+          src="/images/logo.png"
           className="w-48 cursor-pointer"
           onClick={() => navigate("../")}
         />
         <img
-          src="../../../public/images/login.jpg"
+          src="/public/images/login.jpg"
           className="h-auto w-2xl absolute left-0 bottom-0"
         />
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
         <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
-          <h1 className="font-bold text-3xl">FinPago 함께하기</h1>
+          <h1 className="font-bold text-2xl">FinPago 함께하기</h1>
           <div className="flex flex-col space-y-4 w-full">
             <div>
               <input
@@ -71,7 +71,7 @@ export default function Register() {
             <div>
               <input
                 type="text"
-                placeholder="전화번호"
+                placeholder="전화번호 (숫자만 입력)"
                 value={registerInfo.userPhone}
                 onChange={(e) => handleChange(e, "userPhone")}
                 className="input-style"
@@ -91,7 +91,7 @@ export default function Register() {
             <div>
               <input
                 type="password"
-                placeholder="계좌 비밀번호"
+                placeholder="간편 인증번호 (6자리)"
                 value={registerInfo.accountPassword}
                 onChange={(e) => handleChange(e, "accountPassword")}
                 className="input-style"

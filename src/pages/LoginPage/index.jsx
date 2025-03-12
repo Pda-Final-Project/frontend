@@ -29,7 +29,7 @@ export default function Index() {
       return "전화번호는 10~11자리 숫자입니다.";
     }
     if (!validatePassword(loginData.userPassword)) {
-      return "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자를 포함해야 합니다.";
+      return "비밀번호는 최소 8자, 하나 이상의 문자, 숫자, 특수문자(@ $ ! % * ? &)를 포함해야 합니다.";
     }
     return null; // 유효성 통과
   };
@@ -52,18 +52,25 @@ export default function Index() {
     <div className="grid grid-cols-2 w-full h-screen">
       <div className="bg-white flex flex-col">
         <img
-          src="../../../public/images/logo.png"
-          className="w-48 cursor-pointer"
+          src="/images/logo.png"
+          className="w-40 cursor-pointer"
           onClick={() => navigate("../")}
         />
         <img
           src="../../../public/images/login.jpg"
-          className="h-auto w-2xl absolute left-0 bottom-0"
+          className="h-auto w-lg absolute left-0 bottom-0"
         />
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
         <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
-          <h1 className="font-bold text-3xl">FinPago 시작하기</h1>
+          <h1 className="font-bold text-2xl mb-5">FinPago 시작하기</h1>
+          <span className="text-blue-md text-sm mb-1 font-semibold">
+            실시간 해외 공시 번역·요약부터 매매까지,
+          </span>
+          <span className="text-blue-md text-sm mb-10 font-semibold">
+            {" "}
+            지금 만나보세요!
+          </span>
           <div className="flex flex-col space-y-4 w-full">
             {/* 전화번호 입력 */}
             <input

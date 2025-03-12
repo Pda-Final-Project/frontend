@@ -1,45 +1,74 @@
-import React, { useState } from "react";
-import Chart from "./Chart";
-import { chartData } from "./sampleStockData";
-
-const chart_type = [
-  { id: "d", title: "일" },
-  { id: "w", title: "주" },
-  { id: "m", title: "월" },
-];
+import React, { useEffect, useRef, useState } from "react";
+import CandleChart from "./CandleChart";
+import { fetchChart } from "../../api/stockApi";
 
 export default function ChartTab({ ticker }) {
-  const [currentChartType, setCurrentChartType] = useState("d");
-  // const [chartData, setChartData] = useState([]);
+  const [chartType, setChartType] = useState("D");
+  const [chartData, setChartData] = useState([]);
+  const containerRef = useRef(null);
+  const [dimensions, setDimensions] = useState({ width: 900, height: 350 });
 
-  const getChartData = (type) => {
-    /** To do: 해당 타입에 따른 chartData 요청 */
+  // 차트 데이터 가져오기
+  useEffect(() => {
+    getChartData();
+  }, [chartType, ticker]);
+
+  const getChartData = async () => {
+    const params = { ticker, chartType };
+    try {
+      const response = await fetchChart(params);
+      if (response.data.status === "OK") {
+        setChartData(
+          response.data.data.map((item) => ({
+            date: new Date(item.date),
+            open: item.open,
+            high: item.high,
+            low: item.low,
+            close: item.close,
+            volume: item.volume,
+          }))
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  // ResizeObserver를 사용하여 컨테이너 크기를 지속적으로 업데이트
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width, height } = entry.contentRect;
+        setDimensions({ width, height });
+      }
+    });
+
+    resizeObserver.observe(container);
+
+    return () => {
+      if (container) {
+        resizeObserver.unobserve(container);
+      }
+    };
+  }, []);
+
   return (
-    <div className="bg-white flex flex-col rounded-lg py-4 text-sm">
-      {/** 주식 종류 탭 */}
-      <div className="flex w-full justify-end px-4">
-        <div className="flex gap-2">
-          {chart_type.map((el) => (
-            <button
-              key={el.id}
-              onClick={() => {
-                setCurrentChartType(el.id);
-                getChartData(el.id);
-              }}
-              className={`${
-                currentChartType == el.id ? "!bg-blue-md text-white " : ""
-              } white-button-style`}
-            >
-              {el.title}
-            </button>
-          ))}
-        </div>
-      </div>
-      {/** 주식 차트 */}
-      <div className="z-0 ">
-        <Chart chartData={chartData} />
-      </div>
+    <div
+      ref={containerRef}
+      className="bg-white relative rounded-lg py-4 px-4 text-sm h-full"
+    >
+      {chartData.length && dimensions.width > 100 && dimensions.height > 100 ? (
+        <CandleChart
+          chartData={chartData}
+          width={Math.max(0, dimensions.width - 20)}
+          height={Math.max(0, dimensions.height - 20)}
+        />
+      ) : (
+        <div className="animate-skeleton h-[500px] bg-gray-200"></div>
+      )}
     </div>
   );
 }

@@ -20,7 +20,7 @@ export default function Sidebar() {
   return (
     <>
       {/* 바깥 사이드바 */}
-      <div className="fixed left-0 top-0 h-full w-16 bg-gray-light p-4 px-2  text-gray-md">
+      <div className="fixed left-0 top-0 h-full w-16 bg-gray-light p-4 px-2 text-gray-md shadow-md">
         <div className="space-y-4">
           <div
             onClick={() => handleSidebar("interest")}
@@ -31,7 +31,7 @@ export default function Sidebar() {
             }`}
           >
             <FaHeart className="text-xl" />
-            <div className="text-xs">관심주식</div>
+            <div className="text-xs">관심종목</div>
           </div>
           <div
             onClick={() => handleSidebar("holding")}
@@ -42,7 +42,7 @@ export default function Sidebar() {
             }`}
           >
             <GoGraph className="text-xl" />
-            <div className="text-xs">보유주식</div>
+            <div className="text-xs">보유종목</div>
           </div>
         </div>
       </div>
@@ -50,12 +50,8 @@ export default function Sidebar() {
       {/* 내부 사이드바 - 선택된 경우만 표시 */}
       {isOpen && (
         <>
-          <div
-            className="fixed inset-0 z-50"
-            a
-            onClick={() => setIsOpen(false)}
-          ></div>
-          <div className="fixed left-16 top-0 h-full w-80 bg-white z-50">
+          <div className="fixed inset-0" onClick={() => setIsOpen(false)}></div>
+          <div className="fixed left-16 top-0 h-full">
             {currentSidebar === "interest" ? (
               <InterestStockTab closeTab={() => setIsOpen(false)} />
             ) : (

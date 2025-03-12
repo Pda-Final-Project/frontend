@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "../../common/LikeButton";
 import { useStockSse } from "../../../hooks/useSseStockInfo";
+import { formatNumber } from "../../../utils/numberFormat";
 import { useLikedStocksStore } from "../../../hooks/useLikedStocksStore";
 
 export default function InterestStockTab() {
@@ -30,19 +31,15 @@ export default function InterestStockTab() {
   }, [likedStocks]);
 
   // 실시간 시세 및 등락율 SSE 연결
-  const { isConnected, error } = useStockSse(
-    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
-    stocks,
-    setStocks
-  );
+  const { isConnected, error } = useStockSse(setStocks);
 
   return (
-    <div className="h-full w-100 bg-gray-light z-50 py-4 px-2 space-y-2">
+    <div className="h-full w-100 bg-gray-light py-4 px-2 space-y-2 shadow-md">
       {/* 내부 사이드바 헤더 */}
       <div className="p-4 flex flex-col justify-between border-b-1 border-gray-md">
-        <h2 className="text-lg font-semibold w-full">My 관심주식</h2>
+        <h2 className="text-lg font-semibold w-full">My 관심종목</h2>
         <div className="text-sm mt-1 text-blue-md">
-          나의 관심 주식을 모아보세요
+          나의 관심 종목을 모아보세요
         </div>
       </div>
 
@@ -71,13 +68,12 @@ export default function InterestStockTab() {
                 <div className="font-semibold text-sm">{stock.name}</div>
               </div>
 
-              <div className="flex gap-4 items-center">
-                <div className="flex flex-col items-end font-semibold">
-                  <div>{stock.current_price}원</div>
-                  <div className="text-sm">{stock.change_rate}</div>
-                </div>
-                <LikeButton ticker={stock.ticker} />
+            <div className="flex gap-4 items-center">
+              <div className="flex flex-col items-end font-semibold">
+                <div>{formatNumber(parseFloat(stock.current_price))}원</div>
+                <div className="text-sm">{stock.change_rate}</div>
               </div>
+              <LikeButton ticker={stock.ticker} initState={stock.pinned} />
             </div>
           ))
         )}
