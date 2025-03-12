@@ -87,24 +87,25 @@ export default function InterestStockTab() {
                 <div className="font-semibold text-sm">{stock.name}</div>
               </div>
 
-            <div className="flex gap-4 items-center">
-              <div className="flex flex-col items-end font-semibold">
-                <div className="text-[16px] mb-0.5">
-                  {formatNumber(parseFloat(stock.current_price))}원
+              <div className="flex gap-4 items-center">
+                <div className="flex flex-col items-end font-semibold">
+                  <div className="text-[16px] mb-0.5">
+                    {formatNumber(parseFloat(stock.current_price))}원
+                  </div>
+                  <div
+                    className={`${
+                      stock.change_rate > 0
+                        ? "text-red-md"
+                        : stock.change_rate < 0
+                        ? "text-blue-dark"
+                        : "text-black"
+                    }`}
+                  >
+                    {stock.change_rate}%
+                  </div>
                 </div>
-                <div
-                  className={`${
-                    stock.change_rate > 0
-                      ? "text-red-md"
-                      : stock.change_rate < 0
-                      ? "text-blue-dark"
-                      : "text-black"
-                  }`}
-                >
-                  {stock.change_rate}%
-                </div>
+                <LikeButton ticker={stock.ticker} initState={stock.pinned} />
               </div>
-              <LikeButton ticker={stock.ticker} initState={stock.pinned} />
             </div>
           ))
         )}

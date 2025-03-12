@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchBalanceDetail } from "../../../api/accountApi";
 
-const dummyData = {
-  availableBalance: 400000, // 예수금
-  d1Balance: 365000, // 예수금 D+1
-  batchBalance: 400000, // 예수금 D+2
-  balance: 300000, // 출금 가능 금액
-};
-
 const Deposit = ({ isOpen, onClose }) => {
-  const [depositData, setDepositData] = useState(dummyData);
+  const [depositData, setDepositData] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -20,10 +13,12 @@ const Deposit = ({ isOpen, onClose }) => {
 
   const fetchDepositData = async () => {
     setLoading(true);
+
     try {
       const response = await fetchBalanceDetail(); // 실제 API 엔드포인트로 변경
-      if (response.data.status === 200) {
+      if (response.data.status === "OK") {
         setDepositData(response.data.data);
+        console.log(response.data.data);
       }
     } catch (error) {
       console.error("예수금 조회 실패:", error);
