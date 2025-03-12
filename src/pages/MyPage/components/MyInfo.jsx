@@ -32,7 +32,7 @@ export default function MyInfo() {
         {/* 계좌번호 */}
         <span className="text-[16px]">{account.accountNumber}</span>
         <button 
-          className="bg-blue-100 p-2 rounded-lg ml-3 hover:cursor-pointer hover:bg-blue-md hover:text-white"
+          className="bg-blue-100 p-2 px-3 rounded-lg ml-3 hover:cursor-pointer hover:bg-blue-md hover:text-white duration-300 ease-in-out"
           onClick={() => setIsDepositOpen(true)}
         >
           예수금 조회

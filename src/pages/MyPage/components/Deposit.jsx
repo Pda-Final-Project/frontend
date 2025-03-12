@@ -73,7 +73,7 @@ const Deposit = ({ isOpen, onClose }) => {
           </p>
         )}
         <button
-          className="mt-4 w-full bg-blue-md text-white p-2 rounded-lg hover:bg-blue-light hover:text-black"
+          className="mt-4 w-full bg-blue-md text-white p-2 rounded-lg hover:bg-blue-light hover:text-black duration-300 ease-in-out"
           onClick={onClose}
         >
           닫기
