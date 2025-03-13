@@ -29,7 +29,6 @@ export default function PasswordModal({ isOpen, onClose, action }) {
     // 3. 성공 시
     setPassword("");
     action(); // 인증 상태 업데이트
-    onClose();
   };
 
   const isPasswordMatch = async (password) => {

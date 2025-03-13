@@ -7,35 +7,10 @@ import {
 import { format } from "d3-format";
 import { formatDateLong } from "../../../utils/numberFormat";
 
-const dummy_tradeProfits = [
-  {
-    sellDateTime: "20250305", //매도날짜
-    stockTicker: "TSLA", //종목티커
-    realizedProfit: 500000.0, //실현손익(KRW)
-    returnRate: 10.5, //손익률(%)
-    sellAveragePrice: 850.0, // 매도 평균가(KRW)
-    buyAveragePrice: 800.0, // 매수 평균가(KRW)
-    sellAmount: 8500.0, // 매도 금액(KRW)
-    buyAmount: 8000.0, // 매수 금액(KRW)
-    sellQuantity: 10, //매도수량
-    buyQuantity: 10, //매수수량
-    sellExchangeRate: 1.2, //매도환율
-    buyExchangeRate: 1.15, //매수환율
-  },
-];
-
-const dummy_tradeProfitInfo = {
-  realizedProfit: 500000.0, // 실현 손익(KRW) : 매매손익+환차손익
-  sellbuyProfit: 350000.0, //매매손익(KRW) : 매도금액-매수금액
-  sellAmount: 20000000.0, // 매도 금액(KRW)
-  buyAmount: 19650000.0, // 매수 금액(KRW)
-  fxProfit: 150000.0, // 환차손익(KRW)
-};
-
 export default function TradeDetails() {
   const [activeTab, setActiveTab] = useState("profit");
-  const [tradeProfitInfo, setTradeProfitInfo] = useState(dummy_tradeProfitInfo);
-  const [tradeProfits, setTradeProfits] = useState(dummy_tradeProfits);
+  const [tradeProfitInfo, setTradeProfitInfo] = useState();
+  const [tradeProfits, setTradeProfits] = useState();
 
   const tryFetchTradeProfitInfo = async () => {
     try {
@@ -105,10 +80,10 @@ export default function TradeDetails() {
                   <p className="font-semibold">실현 손익</p>
                   <p
                     className={`text-right ${getColorClass(
-                      tradeProfitInfo.realizedProfit
+                      tradeProfitInfo?.realizedProfit
                     )}`}
                   >
-                    {formatCurrency(tradeProfitInfo.realizedProfit.toFixed())}
+                    {formatCurrency(tradeProfitInfo?.realizedProfit.toFixed())}
                     <span>원</span>
                   </p>
                 </div>
@@ -116,10 +91,10 @@ export default function TradeDetails() {
                   <p className="font-semibold">매도 금액</p>
                   <p
                     className={`text-right ${getColorClass(
-                      tradeProfitInfo.sellAmount
+                      tradeProfitInfo?.sellAmount
                     )}`}
                   >
-                    {formatCurrency(tradeProfitInfo.sellAmount.toFixed())}
+                    {formatCurrency(tradeProfitInfo?.sellAmount.toFixed())}
                     <span>원</span>
                   </p>
                 </div>
@@ -129,10 +104,10 @@ export default function TradeDetails() {
                   <p className="font-semibold ">매매 손익</p>
                   <p
                     className={`text-right  ${getColorClass(
-                      tradeProfitInfo.sellbuyProfit
+                      tradeProfitInfo?.sellbuyProfit
                     )}`}
                   >
-                    {formatCurrency(tradeProfitInfo.sellbuyProfit.toFixed())}
+                    {formatCurrency(tradeProfitInfo?.sellbuyProfit.toFixed())}
                     <span>원</span>
                   </p>
                 </div>
@@ -140,10 +115,10 @@ export default function TradeDetails() {
                   <p className="font-semibold ">환차 손익</p>
                   <p
                     className={`text-right  ${getColorClass(
-                      tradeProfitInfo.fxProfit
+                      tradeProfitInfo?.fxProfit
                     )}`}
                   >
-                    {formatCurrency(tradeProfitInfo.fxProfit.toFixed())}
+                    {formatCurrency(tradeProfitInfo?.fxProfit.toFixed())}
                     <span>원</span>
                   </p>
                 </div>
@@ -179,7 +154,7 @@ export default function TradeDetails() {
                 </thead>
 
                 <tbody>
-                  {tradeProfits.map((trade, index) => (
+                  {tradeProfits?.map((trade, index) => (
                     <tr
                       key={index}
                       className="border-b border-gray-200 hover:bg-blue-light duration-300"

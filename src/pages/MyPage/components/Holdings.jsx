@@ -1,64 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { fetchHoldings } from "../../../api/accountApi";
 import { format } from "d3-format";
-// 가짜 데이터 (보유 종목)
-const DUMMY_HOLDINGS = [
-  {
-    stockTicker: "TSLA", // 종목 코드
-    buyAmount: 1000000000.0, // 매수 금액(KRW)
-    buyAveragePrice: 50000.0, // 매수 평균가(KRW)
-    currentPrice: 60000.0, // 현재가(KRW)
-    holdingQuantity: 4, // 보유 수량
-    evaluationAmount: 240000.0, // 평가 금액(KRW) (보유 수량 * 현재가)
-    profitChange: 40000.0, // 손익등락(KRW)
-    returnRate: 20.0, // 수익률(%)
-  },
-  {
-    stockTicker: "TSLA", // 종목 코드
-    buyAmount: 1000000000.0, // 매수 금액(KRW)
-    buyAveragePrice: 50000.0, // 매수 평균가(KRW)
-    currentPrice: 60000.0, // 현재가(KRW)
-    holdingQuantity: 4, // 보유 수량
-    evaluationAmount: 240000.0, // 평가 금액(KRW) (보유 수량 * 현재가)
-    profitChange: 40000.0, // 손익등락(KRW)
-    returnRate: 20.0, // 수익률(%)
-  },
-  {
-    stockTicker: "TSLA", // 종목 코드
-    buyAmount: 1000000000.0, // 매수 금액(KRW)
-    buyAveragePrice: 50000.0, // 매수 평균가(KRW)
-    currentPrice: 60000.0, // 현재가(KRW)
-    holdingQuantity: 4, // 보유 수량
-    evaluationAmount: 240000.0, // 평가 금액(KRW) (보유 수량 * 현재가)
-    profitChange: 40000.0, // 손익등락(KRW)
-    returnRate: 20.0, // 수익률(%)
-  },
-  {
-    stockTicker: "TSLA", // 종목 코드
-    buyAmount: 1000000000.0, // 매수 금액(KRW)
-    buyAveragePrice: 50000.0, // 매수 평균가(KRW)
-    currentPrice: 60000.0, // 현재가(KRW)
-    holdingQuantity: 4, // 보유 수량
-    evaluationAmount: 240000.0, // 평가 금액(KRW) (보유 수량 * 현재가)
-    profitChange: 40000.0, // 손익등락(KRW)
-    returnRate: 20.0, // 수익률(%)
-  },
-  {
-    stockTicker: "TSLA", // 종목 코드
-    buyAmount: 1000000000.0, // 매수 금액(KRW)
-    buyAveragePrice: 50000.0, // 매수 평균가(KRW)
-    currentPrice: 60000.0, // 현재가(KRW)
-    holdingQuantity: 4, // 보유 수량
-    evaluationAmount: 240000.0, // 평가 금액(KRW) (보유 수량 * 현재가)
-    profitChange: 40000.0, // 손익등락(KRW)
-    returnRate: 20.0, // 수익률(%)
-  },
-];
 
 export default function Holdings() {
   const [sortBy, setSortBy] = useState("profit"); // 기본 정렬: 수익률 순
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 드롭다운 열림/닫힘 상태
-  const [holdings, setHoldings] = useState(DUMMY_HOLDINGS);
+  const [holdings, setHoldings] = useState();
 
   // 정렬 기준 목록
   const sortOptions = [
@@ -123,7 +70,7 @@ export default function Holdings() {
       {/* 보유 종목 리스트 */}
       <div className="relative h-full">
         <div className="bg-gray-light p-4 mt-1 rounded-lg flex flex-col space-y-4 h-[500px] overflow-y-auto no-scrollbar">
-          {holdings.map((stock, id) => (
+          {holdings?.map((stock, id) => (
             <div key={id} className="bg-white p-4 rounded-lg">
               {/* 종목명 & 수익금액 */}
               <div className="flex justify-between items-center border-b border-gray-md pb-2">

@@ -3,35 +3,9 @@ import { format } from "d3-format";
 import { formatDateLong } from "../../../utils/numberFormat";
 import { fetchOrderTradeList } from "../../../api/accountApi";
 
-const orders_dummy = [
-  {
-    stockTicker: "TSLA",
-    executionType: "현금매도", //종목명
-    offerPrice: 607,
-    orderQuantity: 1,
-    tradePrice: 607,
-    tradeQuantity: 0,
-    unfilledQuantity: 1,
-    tradeStatus: "SUCCESS",
-    tradeNumber: "005961af-1427-446b-9b16-e95a60b47478",
-    tradeDate: "2025-03-07T09:46:47.396585",
-  },
-  {
-    stockTicker: "TSLA",
-    offerPrice: 607,
-    orderQuantity: 1,
-    tradePrice: 607,
-    tradeQuantity: 0,
-    unfilledQuantity: 1,
-    tradeStatus: "FAILED",
-    tradeNumber: "0a4fa6e0-319e-4ae5-8f21-0adcd3b52723",
-    tradeDate: "2025-03-07T09:43:32.66654",
-  },
-];
-
 export default function OrderDetails() {
   const [activeTab, setActiveTab] = useState("전체"); // 기본값: 전체
-  const [orders, setOrders] = useState(orders_dummy);
+  const [orders, setOrders] = useState();
 
   const tryFetchOrders = async () => {
     let filter = "";
@@ -105,7 +79,7 @@ export default function OrderDetails() {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
+              {orders?.map((order, index) => (
                 <tr
                   key={index}
                   className="border-b border-gray-200 hover:bg-blue-light duration-300"
