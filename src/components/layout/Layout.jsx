@@ -15,7 +15,7 @@ export default function Layout() {
   }, []);
 
   return (
-    <div className="flex min-h-screen w-full overflow-x-hidden text-xs">
+    <div className="flex min-h-screen w-full overflow-x-hidden text-xs text-black">
       {/* 사이드바 */}
       <aside className="h-screen w-16 fixed left-0 top-0 z-150">
         <Sidebar />

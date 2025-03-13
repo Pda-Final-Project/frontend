@@ -17,4 +17,9 @@ const logout = (setIsLogin) => {
   alert("로그아웃 완료!");
 };
 
-export { login, register, logout };
+const checkAccountPassword = (pin) =>
+  api.post("http://172.16.1.230:19092/v1/api/account/verify-pin", pin, {
+    isAuthRequired: true,
+  });
+
+export { login, register, logout, checkAccountPassword };
