@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { fil_introduce_data } from "./introduceInfo";
 import { IoDocumentTextSharp } from "react-icons/io5";
@@ -18,72 +18,78 @@ const icons = {
 };
 
 export default function IntroduceDisclosure() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    arrows: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 100);
+  }, []);
 
   return (
-    <div className="h-full flex flex-col items-center justify-center px-10 py-20">
-      <div className="w-full flex flex-col items-center pb-4">
-        <div className="flex items-center mb-2 w-full justify-center">
-          <div className="text-lg font-bold">공시 가이드 with</div>
-          <img src="/images/logo.png" className="h-10 mb-2" />
+    <div
+      className={`w-full h-full flex flex-col justify-center items-center px-32 py-20 transition-all duration-700 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
+      <div className="w-full max-w-7xl">
+        {/* 부모 요소의 넓이를 제한 */}
+        <div className="text-center mb-6">
+          <div className="flex justify-center items-center mb-1">
+            <div className="text-[18px] font-bold mr-2">공시 가이드 with</div>
+            <img src="/images/logo.png" alt="Logo" className="h-10" />
+          </div>
+          <p className="text-blue-md text-center text-[14px] font-semibold">
+            투자에 필요한 중요한 공시 정보, 핵심만 쏙쏙 알려드립니다!
+          </p>
         </div>
-
-        <span className="text-blue-md text-center mb-2 font-semibold">
-          투자에 필요한 중요한 공시 정보, 핵심만 쏙쏙 알려드립니다!
-        </span>
-        <div className="w-full border-t-1 border-gray-md mt-4"></div>
-      </div>
-
-      <div className="w-full max-w-5xl">
-        <Slider {...settings}>
-          {fil_introduce_data.map((fil, index) => (
-            <div key={index} className="p-4">
-              {/* 고정된 높이 (h-80) 설정 */}
-              <div className="bg-white p-6 shadow-md rounded-lg flex flex-col justify-between h-80 transition-transform duration-300 ease-in-out hover:scale-105">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <div className="mb-3 text-sm">{fil.type}</div>
-                    <div className="text-2xl font-semibold mb-2">{fil.title}</div>
-                    <div className="text-blue-md">{fil.subtitle}</div>
+        <div className="w-full">
+          <Slider
+            className="w-full"
+            {...{
+              dots: true,
+              infinite: true,
+              speed: 500,
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              arrows: true,
+              autoplay: true,
+              autoplaySpeed: 3000,
+              responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                  },
+                },
+                {
+                  breakpoint: 600,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                  },
+                },
+              ],
+            }}
+          >
+            {fil_introduce_data.map((item, index) => (
+              <div key={index} className="p-4">
+                <div className="w-full bg-white p-6 shadow-md rounded-lg flex flex-col justify-between h-80 transition-transform duration-300 ease-in-out hover:scale-105">
+                  <div className="flex justify-between">
+                    <div>
+                      <div className="text-lg font-bold">{item.title}</div>
+                      <div className="text-blue-md">{item.subtitle}</div>
+                    </div>
+                    <div className="text-5xl text-blue-md">
+                      {icons[item.id] || <IoDocumentTextSharp />}
+                    </div>
                   </div>
-                  <div className="text-5xl text-blue-md">
-                    {icons[fil.id] || <IoDocumentTextSharp />}
+                  <div className="text-sm text-gray-600">
+                    {item.description}
                   </div>
-                </div>
-
-                {/* 텍스트 넘침 방지 및 하단 정렬 */}
-                <div className="mt-8 text-sm text-gray-800 overflow-hidden">
-                  {fil.description}
                 </div>
               </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        </div>
       </div>
     </div>
   );
