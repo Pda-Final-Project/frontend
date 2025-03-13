@@ -7,6 +7,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { dummySummaryData } from "./dummySummaryData";
 import { MdGTranslate } from "react-icons/md";
 import { IoDocumentTextSharp } from "react-icons/io5";
+import { mapFilingType } from "../../utils/mappingFillingType";
 
 export default function DisclosureDetail() {
   const { filling_id } = useParams();
@@ -68,15 +69,15 @@ export default function DisclosureDetail() {
 
         {/* 공시 타입에 대한 팁 */}
         <div className="flex w-full bg-gray-light p-4 rounded-lg text-[14px] text-gray-dark mt-8">
-          {getFillingTypeTip(filling.fillingType)}
+          {getFillingTypeTip(mapFilingType(filling.fillingType))}
         </div>
       </div>
 
       {/* 공시 추가 인사이트 */}
-      {filling.fillingType == "10-Q" || filling.fillingType == "8-K" ? (
+      {mapFilingType(filling.fillingType) == "10-Q" ? (
         <InsightBox
           ticker={filling.fillingTicker}
-          fillingType={filling.fillingType}
+          fillingType={mapFilingType(filling.fillingType)}
           filling10qJsonUrl={filling.filling10qJsonUrl}
         />
       ) : (
@@ -84,7 +85,10 @@ export default function DisclosureDetail() {
       )}
       {/* 공시 요약본 */}
       <div className="w-full h-full flex flex-col bg-white rounded-lg overflow-hidden">
-        <DisclosureSummary summaryData={dummySummaryData} />
+        <DisclosureSummary
+          summaryData={dummySummaryData}
+          fillingId={filling_id}
+        />
       </div>
 
       {/* 공시 원문 */}

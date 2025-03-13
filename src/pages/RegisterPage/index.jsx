@@ -46,7 +46,7 @@ export default function Register() {
         navigate("../login");
       }
     } catch (error) {
-      toast("😀 회원가입에 실패했습니다.", {
+      toast("😣 회원가입에 실패했습니다.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
