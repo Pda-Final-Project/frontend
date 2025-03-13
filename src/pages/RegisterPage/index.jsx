@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isRegisterInfoValid } from "./checkRegisterInfo";
 import { register } from "../../api/authApi";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -32,12 +33,30 @@ export default function Register() {
     try {
       const response = await register(registerInfo);
       if (response.data.status === "CREATED") {
-        alert(response.data.data);
+        toast("😀 회원가입에 성공했습니다!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         navigate("../login");
       }
     } catch (error) {
-      alert("회원가입에 실패했습니다...");
-      console.log(error);
+      toast("😀 회원가입에 실패했습니다.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.error(error.message);
     }
   };
 

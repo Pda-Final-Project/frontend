@@ -35,7 +35,6 @@ export default function InterestStockTab() {
 
   useEffect(() => {
     tryFetchLikes();
-    console.log(likedStocks);
   }, [likedStocks]);
 
   // 실시간 시세 및 등락율 SSE 연결

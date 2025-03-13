@@ -72,10 +72,6 @@ export default function InsightBox({ fillingType, filling10qJsonUrl, ticker }) {
     }
   };
 
-  useEffect(() => {
-    console.log(selectedFilling);
-  }, [selectedFilling]);
-
   return (
     <div className="w-full flex flex-col bg-white p-8 rounded-lg min-h-[400px]">
       <div className="font-semibold text-[20px] mb-4 w-full ">

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ReactModal from "react-modal";
 import { validateAccountPassword } from "../../utils/userValid";
 import { checkAccountPassword } from "../../api/authApi";
+import { toast } from "react-toastify";
+
 ReactModal.setAppElement("#root"); // 접근성을 위해 추가
 
 export default function PasswordModal({ isOpen, onClose, action }) {
@@ -35,7 +37,16 @@ export default function PasswordModal({ isOpen, onClose, action }) {
     try {
       const response = await checkAccountPassword(password);
       if (response.data.status == "OK") {
-        alert("인증에 성공했습니다!");
+        toast("😀 계좌 인증에 성공했습니다!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         return true;
       }
     } catch (error) {

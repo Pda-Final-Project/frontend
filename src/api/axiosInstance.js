@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -32,7 +33,16 @@ api.interceptors.response.use(
     }
 
     if (error.response && error.response.status === 403) {
-      alert("로그인 후 이용해주세요");
+      toast("😣 로그인 후 시도해주세요.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
     return Promise.reject(error);
   }

@@ -25,7 +25,6 @@ const logout = (setIsLogin) => {
     progress: undefined,
     theme: "light",
   });
-  alert("로그아웃 완료!");
 };
 
 const checkAccountPassword = (pin) =>

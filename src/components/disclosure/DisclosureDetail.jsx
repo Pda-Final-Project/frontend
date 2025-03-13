@@ -22,13 +22,9 @@ export default function DisclosureDetail() {
       const response = await fetchFillingInfo(filling_id);
       if (response.data.status == "FOUND") {
         setFilling(response.data.data);
-        console.log(response.data.data);
-      } else {
-        alert(response.data.message);
       }
     } catch (error) {
       console.error(error.message);
-      alert("서버 내부 오류가 발생했습니다..");
     }
   };
 
@@ -69,7 +65,7 @@ export default function DisclosureDetail() {
             <div>제출일자: {filling.submitTimestamp}</div>
           </div>
         </div>
-        
+
         {/* 공시 타입에 대한 팁 */}
         <div className="flex w-full bg-gray-light p-4 rounded-lg text-[14px] text-gray-dark mt-8">
           {getFillingTypeTip(filling.fillingType)}

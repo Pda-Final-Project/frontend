@@ -6,6 +6,7 @@ import MarketPriceList from "../../../components/trading/MarketPriceList";
 import { fetchAvailBalance } from "../../../api/accountApi";
 import { postOrder } from "../../../api/tradeApi";
 import { fetchAvailQuantityByStock } from "../../../api/stockApi";
+import { toast } from "react-toastify";
 
 function TradingTab({ ticker, extend }) {
   const [availBalance, setAvailBalance] = useState(0);
@@ -48,13 +49,42 @@ function TradingTab({ ticker, extend }) {
         stockTicker: ticker,
       });
       if (response.data.status === "CREATED") {
-        console.log(response.data.message);
         tryFetchAvailQuantity();
         tryFetchAvailBalance();
-        alert(`주문이 정상적으로 접수되었습니다!`);
+        toast("😀 주문이 정상적으로 접수되었습니다!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast("😣 주문 중 오류가 발생했습니다.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
       console.error("주문 중 오류 발생: ", error.message);
+      toast("😣 주문 중 오류가 발생했습니다.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 

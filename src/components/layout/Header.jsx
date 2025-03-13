@@ -23,8 +23,6 @@ const Header = () => {
       const response = await fetchStocks("", searchParam);
       if (response.data.status === "OK") {
         setSearchResult(response.data.data);
-      } else {
-        alert(response.data.message);
       }
     } catch (error) {
       console.error(error.message);

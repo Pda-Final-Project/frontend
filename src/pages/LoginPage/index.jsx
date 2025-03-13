@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validatePassword, validatePhoneNumber } from "../../utils/userValid";
 import { login } from "../../api/authApi";
+import { toast } from "react-toastify";
 
 export default function Index() {
   const [loginData, setLoginData] = useState({
@@ -40,11 +41,29 @@ export default function Index() {
       const response = await login(loginData);
       if (response.data.status === "OK") {
         sessionStorage.setItem("accessToken", response.data.data);
-        alert(response.data.message);
+        toast("😀 로그인에 성공했습니다!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         navigate("../");
       }
     } catch (error) {
-      alert("로그인에 실패했습니다...");
+      toast("😣 로그인에 실패했습니다.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
