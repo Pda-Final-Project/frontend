@@ -29,7 +29,7 @@ export default function DisclosureList({ ticker = "" }) {
 
   const tryFetchDisclosures = async () => {
     const params = {
-      tickerParam,
+      ticker: tickerParam,
       fillingType,
       startDate,
       endDate,
