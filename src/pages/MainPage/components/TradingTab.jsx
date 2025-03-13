@@ -33,7 +33,6 @@ function TradingTab({ ticker, extend }) {
       const response = await fetchAvailQuantityByStock(ticker);
       if (response.data.status === "OK") {
         setAvailQuantity(response.data.data);
-        console.log(response.data.data);
       }
     } catch (error) {
       console.error("사용 가능 주수 조회 중 오류 발생: ", error.message);

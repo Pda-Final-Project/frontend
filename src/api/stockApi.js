@@ -46,7 +46,7 @@ const removeLikeStock = (ticker) =>
 const addLikeStock = (ticker) =>
   api.post(
     "http://172.16.1.230:19092/v1/api/stocks/like",
-    { ticker: ticker },
+    { stockTicker: ticker },
     { isAuthRequired: true }
   );
 

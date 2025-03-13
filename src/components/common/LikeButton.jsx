@@ -5,7 +5,6 @@ import { useLikedStocksStore } from "../../hooks/useLikedStocksStore";
 export default function LikeButton({ ticker }) {
   const { likedStocks, toggleLike } = useLikedStocksStore();
   const isLiked = likedStocks?.some((stock) => stock === ticker);
-  console.log(likedStocks);
   return (
     <div
       className={`${
