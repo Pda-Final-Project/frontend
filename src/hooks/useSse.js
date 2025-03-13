@@ -48,13 +48,13 @@ export default function useSse(url, eventHandlers = {}, token = "") {
 
     Object.entries(eventHandlers).forEach(([eventName, callback]) => {
       eventSource.addEventListener(eventName, (event) => {
+        let parsedData;
         try {
-          const parsedData = JSON.parse(event.data);
-          console.log(`📩 ${eventName} 이벤트 수신:`, parsedData);
-          callback(parsedData);
+          parsedData = JSON.parse(event.data);
         } catch (err) {
-          console.error("❌ SSE JSON 파싱 오류:", err);
+          parsedData = event.data;
         }
+        callback(parsedData);
       });
     });
   };

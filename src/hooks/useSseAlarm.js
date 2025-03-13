@@ -5,7 +5,7 @@ export default function useSseAlarm() {
   const eventHandlers = {
     notification: (data) => {
       console.log("🔔 수신된 알림 데이터:", data);
-      // TODO: 알림을 상태에 추가하거나 UI에 표시
+      alert(data);
     },
   };
 
