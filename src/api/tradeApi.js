@@ -6,4 +6,9 @@ const postOrder = (orderData) =>
     isAuthRequired: true,
   });
 
-export { postOrder };
+const fetchInitMarketPrice = (ticker) =>
+  api.get(`http://172.16.1.230:19095/v1/api/trades/latest?symbol=${ticker}`, {
+    isAuthRequired: false,
+  });
+
+export { postOrder, fetchInitMarketPrice };

@@ -16,6 +16,7 @@ const fetchStocks = (sortBy = "", searchParam = "") =>
 const fetchHoldingStocks = (ticker) =>
   api.get(`http://172.16.1.230:19092/v1/api/stocks/holdings/${ticker}`, {
     isAuthRequired: true,
+    skipInterceptor: true,
   });
 
 //특정 종목에 대한 사용가능 주수 조회
@@ -24,6 +25,7 @@ const fetchAvailQuantityByStock = (ticker) =>
     `http://172.16.1.230:19092/v1/api/stocks/available-stocks/${ticker}`,
     {
       isAuthRequired: true,
+      skipInterceptor: true,
     }
   );
 
@@ -38,6 +40,7 @@ const fetchChart = (params) =>
 const fetchLikeStocks = () =>
   api.get("http://172.16.1.230:19092/v1/api/stocks/like", {
     isAuthRequired: true,
+    skipInterceptor: true,
   });
 const removeLikeStock = (ticker) =>
   api.delete(`http://172.16.1.230:19092/v1/api/stocks/like/${ticker}`, {

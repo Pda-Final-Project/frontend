@@ -90,7 +90,7 @@ export default function InterestStockTab() {
               <div className="flex gap-4 items-center">
                 <div className="flex flex-col items-end font-semibold">
                   <div className="text-[16px] mb-0.5">
-                    {formatNumber(parseFloat(stock.current_price))}원
+                    {formatNumber(parseInt(stock.current_price))}원
                   </div>
                   <div
                     className={`${

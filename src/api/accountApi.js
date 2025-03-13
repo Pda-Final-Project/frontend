@@ -5,12 +5,14 @@ import api from "./axiosInstance";
 const fetchBalance = () =>
   api.get("http://172.16.1.230:19092/v1/api/account/balance", {
     isAuthRequired: true,
+    skipInterceptor: true,
   });
 
 //사용 가능 예수금 조회
 const fetchAvailBalance = () =>
   api.get("http://172.16.1.230:19092/v1/api/account/available-balance", {
     isAuthRequired: true,
+    skipInterceptor: true,
   });
 
 //해외 주식 잔고 조회
@@ -35,6 +37,7 @@ const fetchTradeProfitSum = () =>
 const fetchHoldings = (sortBy) =>
   api.get(`http://172.16.1.230:19092/v1/api/stocks?sortBy=${sortBy}`, {
     isAuthRequired: true,
+    skipInterceptor: true,
   });
 
 //주문 목록 리스트에 있는 체결 내역 조회

@@ -10,6 +10,7 @@ export default function useSsePrice(setPrices, ticker) {
           {
             trade_price: data.currentPrice,
             trade_quantity: data.volume,
+            trade_volume: data.trade_volume === 0 ? "-" : data.trade_volume,
             trade_time: data.time,
             trade_type: data.orderType,
           },

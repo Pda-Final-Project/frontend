@@ -60,7 +60,7 @@ export default function News() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="overflow-hidden rounded-lg hover:shadow-md transition-shadow w-72 flex flex-col duration-300 h-60">
+                  <div className="overflow-x-hidden rounded-lg  w-72 flex flex-col duration-300 h-60">
                     {/* 뉴스 이미지 */}
                     <img
                       src={article.news_img.replace(/S\.jpg$/, "L.jpg")}

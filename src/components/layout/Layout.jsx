@@ -8,7 +8,7 @@ import useSseAlarm from "../../hooks/useSseAlarm";
 
 export default function Layout() {
   const { fetchLikedStocks } = useLikedStocksStore();
-  const { isConnected, error } = useSseAlarm();
+  useSseAlarm();
 
   useEffect(() => {
     fetchLikedStocks();

@@ -18,8 +18,10 @@ const logout = (setIsLogin) => {
 };
 
 const checkAccountPassword = (pin) =>
-  api.post("http://172.16.1.230:19092/v1/api/account/verify-pin", pin, {
-    isAuthRequired: true,
-  });
+  api.post(
+    "http://172.16.1.230:19092/v1/api/account/verify-pin",
+    pin, // request body
+    { isAuthRequired: true } // config (headers, params 등)
+  );
 
 export { login, register, logout, checkAccountPassword };
