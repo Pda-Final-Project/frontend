@@ -11,7 +11,7 @@ export default function useSseAlarm() {
   };
   if (token) {
     const { isConnected, error } = useSse(
-      `${import.meta.env.VITE_API_USER_URL}/sse/subscribe`,
+      `sse/subscribe`,
       eventHandlers,
       token // token을 전달
     );
