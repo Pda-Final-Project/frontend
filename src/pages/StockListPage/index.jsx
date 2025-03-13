@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
 import { useStockSse } from "../../hooks/useSseStockInfo";
 import { fetchStocks } from "../../api/stockApi";
 import { formatNumber } from "../../utils/numberFormat";
+import LikeButton from "../../components/common/LikeButton";
 
 export default function StockListPage() {
   const navigate = useNavigate();
@@ -11,12 +11,12 @@ export default function StockListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState(""); // 기본 정렬: 거래량 많은 순
   const stocksPerPage = 10;
-
+  const [visible, setVisible] = useState(false);
   const { isConnected, error } = useStockSse(setStocks);
 
-  // 더미 데이터 생성
   useEffect(() => {
     tryFetchStocks("");
+    setTimeout(() => setVisible(true), 100);
   }, []);
 
   // 주식 조회 API 함수
@@ -37,7 +37,11 @@ export default function StockListPage() {
   const currentStocks = stocks.slice(indexOfFirstStock, indexOfLastStock);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center px-32 py-20">
+    <div
+      className={`w-full h-full flex flex-col justify-center px-32 py-20 transition-all duration-700 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
       <div>
         <div className="flex items-center space-x-2 mb-2">
           <h1 className="text-lg font-bold mb-2">해외 주식 순위 </h1>
@@ -49,34 +53,37 @@ export default function StockListPage() {
         {/* 정렬 버튼 */}
         <div className="flex space-x-4 mb-5">
           <button
-            className={`px-4 py-2 font-bold rounded-lg text-blue-md ${
+            className={`px-4 py-2 font-bold rounded-lg text-blue-md hover:bg-blue-light duration-300 ${
               sortBy === "volume" ? "bg-blue-light" : "bg-gray-light"
             }`}
             onClick={() => {
               setSortBy("volume");
               tryFetchStocks("vol");
+              setCurrentPage(1);
             }}
           >
             거래량
           </button>
           <button
-            className={`px-4 py-2 font-bold rounded-lg text-blue-md ${
+            className={`px-4 py-2 font-bold rounded-lg text-blue-md hover:bg-blue-light duration-300 ${
               sortBy === "rate" ? "bg-blue-light" : "bg-gray-light"
             }`}
             onClick={() => {
               setSortBy("rate");
               tryFetchStocks("rate");
+              setCurrentPage(1);
             }}
           >
             급상승
           </button>
           <button
-            className={`px-4 py-2 font-bold rounded-lg text-blue-md ${
+            className={`px-4 py-2 font-bold rounded-lg text-blue-md hover:bg-blue-light duration-300 ${
               sortBy === "" ? "bg-blue-light" : "bg-gray-light"
             }`}
             onClick={() => {
               setSortBy("");
               tryFetchStocks("");
+              setCurrentPage(1);
             }}
           >
             인기
@@ -100,17 +107,13 @@ export default function StockListPage() {
               {currentStocks.map((stock, index) => (
                 <tr
                   key={index}
-                  className={`cursor-pointer hover:bg-blue-light rounded-lg ${
+                  className={`cursor-pointer hover:bg-blue-light rounded-lg duration-300 ${
                     index % 2 === 0 ? "bg-gray-light" : "bg-white"
                   }`}
                   onClick={() => navigate(`../main/${stock.ticker}/all`)}
                 >
                   <td className="py-4 px-8 flex items-center space-x-2">
-                    <FaHeart
-                      className={`${
-                        stock.isFavorite ? "text-red-500" : "text-gray-400"
-                      }`}
-                    />
+                    <LikeButton ticker={stock.ticker} />
                     <span className="w-12">
                       {index + 1 + (currentPage - 1) * stocksPerPage}
                     </span>
@@ -125,16 +128,16 @@ export default function StockListPage() {
                   </td>
 
                   <td className="p-3">
-                    {formatNumber(parseFloat(stock.current_price))}원
+                    {formatNumber(parseInt(stock.current_price))}원
                   </td>
                   <td
                     className={`p-3 ${
                       parseFloat(stock.change_rate) >= 0
-                        ? "text-red-500"
-                        : "text-blue-500"
+                        ? "text-red-md"
+                        : "text-blue-dark"
                     }`}
                   >
-                    {stock.change_rate}
+                    {stock.change_rate}%
                   </td>
 
                   <td className="p-3">

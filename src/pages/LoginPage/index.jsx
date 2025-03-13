@@ -97,7 +97,7 @@ export default function Index() {
             />
             {/* 에러 메시지 */}
             {error && (
-              <div className="text-red-500 text-center text-sm">{error}</div>
+              <div className="text-red-md text-center text-sm">{error}</div>
             )}
           </div>
 

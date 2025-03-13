@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/layout/Layout";
-
+import ProtectedRoute from "../components/common/ProtectedRoute";
 import LandingPage from "../pages/LandingPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
@@ -18,7 +18,14 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <LandingPage /> },
-      { path: "/my_page", element: <MyPage /> },
+      {
+        path: "/my_page",
+        element: (
+          <ProtectedRoute>
+            <MyPage />
+          </ProtectedRoute>
+        ),
+      },
       { path: "/stocks", element: <StockListPage /> },
       { path: "/disclosures", element: <DisclosureListPage /> },
       { path: "/earnings/:ticker", element: <EarningsPage /> },

@@ -19,7 +19,7 @@ export default function MainPage() {
       current_price: 0,
       change_rate: 0,
     },
-  ]); // 초기값을 배열([])로 설정
+  ]);
 
   const tryFetchStock = async () => {
     try {
@@ -28,7 +28,6 @@ export default function MainPage() {
         const filteredStock = response.data.data
           .flat()
           .find((stock) => stock.ticker === ticker);
-
         if (filteredStock) {
           setStockInfo([filteredStock]);
         } else {
@@ -49,12 +48,8 @@ export default function MainPage() {
   // 실시간 시세 및 등락율 SSE 연결
   const { isConnected, error } = useStockSse(setStockInfo);
 
-  useEffect(() => {
-    console.log(extend);
-  }, [extend]);
-
   if (stockInfo.length === 0) {
-    return <div className="text-center text-gray-500">로딩 중...</div>;
+    return <div className="text-center">로딩 중...</div>;
   }
 
   const currentStock = stockInfo[0]; // 배열에서 첫 번째 요소 사용
@@ -77,15 +72,15 @@ export default function MainPage() {
           </div>
           <div className="flex items-end gap-2">
             <div className="text-2xl">
-              {formatNumber(parseFloat(currentStock.current_price))}원
+              {formatNumber(parseInt(currentStock.current_price))}원
             </div>
             <div className="text-sm">
               <span
                 className={
                   currentStock.change_rate?.toString().startsWith("+")
-                    ? "text-red-500"
+                    ? "text-red-md"
                     : currentStock.change_rate?.toString().startsWith("-")
-                    ? "text-blue-500"
+                    ? "text-blue-dark"
                     : ""
                 }
               >

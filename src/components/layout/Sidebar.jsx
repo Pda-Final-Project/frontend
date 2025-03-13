@@ -24,7 +24,7 @@ export default function Sidebar() {
         <div className="space-y-4">
           <div
             onClick={() => handleSidebar("interest")}
-            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-blue-light rounded-lg font-semibold space-y-2 ${
+            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-blue-light rounded-lg duration-300 font-semibold space-y-2 ${
               currentSidebar == "interest" && isOpen
                 ? "text-blue-md bg-blue-light"
                 : ""
@@ -35,7 +35,7 @@ export default function Sidebar() {
           </div>
           <div
             onClick={() => handleSidebar("holding")}
-            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-blue-light rounded-lg font-semibold space-y-2 ${
+            className={`flex flex-col justify-center items-center cursor-pointer text-center py-2 text-3xl hover:text-blue-md hover:bg-blue-light rounded-lg duration-300 font-semibold space-y-2 ${
               currentSidebar == "holding" && isOpen
                 ? "text-blue-md bg-blue-light"
                 : ""

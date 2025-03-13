@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PasswordModal from "../common/PasswordModal";
 
 const percents = [
   { id: 0.1, name: "10%" },
@@ -13,12 +12,6 @@ export default function BuyBox({ withHolding, orderStock }) {
   const [buyQuantity, setBuyQuantity] = useState();
   const [buyPrice, setBuyPrice] = useState(0);
   const [maxQuantity, setMaxQuantity] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState({
-    price: "",
-    quantity: "",
-    type: "주문",
-  });
 
   //지정가에 대해 구매 가능한 최대 주수
   useEffect(() => {
@@ -37,25 +30,10 @@ export default function BuyBox({ withHolding, orderStock }) {
     }
   };
 
-  const totalOrderPrice = Math.floor(buyPrice * buyQuantity);
-
-  const openModal = () => {
-    setModalMessage({
-      price: totalOrderPrice,
-      quantity: buyQuantity,
-      type: "주문",
-    });
-    setIsModalOpen(true);
-  };
+  const totalOrderPrice = Math.floor(buyPrice * buyQuantity) || 0;
 
   return (
     <div className="bg-white p-4 flex flex-col rounded-lg text-xs">
-      <PasswordModal
-        isOpen={isModalOpen}
-        setOpen={setIsModalOpen}
-        action={() => orderStock("BUY", buyQuantity, buyPrice)} // action을 함수로 수정
-        message={modalMessage}
-      />
       {/** 제목 */}
       <div className="font-semibold text-[16px] flex items-end justify-between">
         주문하기<span className="text-xs">사용가능 예수금: {withHolding}</span>
@@ -101,7 +79,7 @@ export default function BuyBox({ withHolding, orderStock }) {
       </div>
       <button
         className="button-style"
-        onClick={() => openModal()}
+        onClick={() => orderStock("BUY", buyQuantity, buyPrice)}
         disabled={
           buyQuantity <= 0 || buyQuantity > maxQuantity || totalOrderPrice <= 0
         }

@@ -41,6 +41,7 @@ export const useLikedStocksStore = create((set, get) => ({
     set({ likedStocks: newLikedStocks });
 
     try {
+      console.log(ticker);
       if (isLiked) {
         await removeLikeStock(ticker);
       } else {

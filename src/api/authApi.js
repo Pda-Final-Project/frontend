@@ -2,19 +2,37 @@
 import api from "./axiosInstance";
 
 const login = (userData) =>
-  api.post("http://172.16.1.230:19092/v1/api/auth/login", userData, {
+  api.post(`auth/login`, userData, {
     isAuthRequired: false,
   });
 
 const register = (userData) =>
-  api.post("http://172.16.1.230:19092/v1/api/auth/join", userData, {
+  api.post(`auth/join`, userData, {
     isAuthRequired: false,
   });
 
 const logout = (setIsLogin) => {
   sessionStorage.removeItem("accessToken");
   setIsLogin(false);
+  // toast("😀 로그아웃에 성공했습니다!", {
+  //   position: "top-right",
+  //   autoClose: 5000,
+  //   hideProgressBar: false,
+  //   closeOnClick: false,
+  //   pauseOnHover: true,
+  //   draggable: true,
+  //   progress: undefined,
+  //   theme: "light",
+  //   transition: Bounce,
+  // });
   alert("로그아웃 완료!");
 };
 
-export { login, register, logout };
+const checkAccountPassword = (pin) =>
+  api.post(
+    `account/verify-pin`,
+    pin, // request body
+    { isAuthRequired: true } // config (headers, params 등)
+  );
+
+export { login, register, logout, checkAccountPassword };

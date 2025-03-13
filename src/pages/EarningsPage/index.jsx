@@ -8,6 +8,7 @@ import { fetchEarning } from "../../api/othersApi";
 const EarningsPage = () => {
   const { ticker } = useParams();
   const [earningData, setEarningData] = useState([]);
+  const [visible, setVisible] = useState(false);
 
   const tryFetchEarning = async () => {
     try {
@@ -24,9 +25,15 @@ const EarningsPage = () => {
   useEffect(() => {
     tryFetchEarning();
   }, [ticker]);
-
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 100);
+  }, []);
   return (
-    <div className="px-32 py-20 flex flex-col w-full">
+    <div
+      className={`w-full h-full flex flex-col justify-center px-32 py-20 transition-all duration-700 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
       <div className="text-center">
         <h1 className="text-lg font-bold">실적 발표 및 어닝콜 정보</h1>
         <h2 className="text-blue-md mt-2 mb-4 font-semibold text-sm">

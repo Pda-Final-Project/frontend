@@ -6,17 +6,7 @@ import { fetchFillings } from "../../../api/disclosureApi";
 
 export default function Disclosures() {
   const navigate = useNavigate();
-  const [isYellow, setIsYellow] = useState(false); // 색상 토글 상태 바꿔주는 useState 함수
   const [fillings, setFillings] = useState(dummy_fillings); // 초기값을 더미 데이터로 설정
-
-  // 1초 간격으로 색상 변경 (NEW 텍스트에 적용)
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setIsYellow((prev) => !prev);
-  //   }, 1000); // 1초 간격
-
-  //   return () => clearInterval(interval);
-  // }, []);
 
   useEffect(() => {
     tryFetchFillings();
@@ -38,12 +28,9 @@ export default function Disclosures() {
   return (
     <div className="w-full">
       {/* 제목 클릭 시 disclosures 페이지 이동 */}
-      <div className="flex p-3 items-center">
-        <h1
-          className="text-[18px] font-bold hover:text-blue-md mb-1 mr-2 cursor-pointer"
-          onClick={() => navigate("/disclosures")}
-        >
-          실시간 NEW 해외공시
+      <div className="flex mb-4 items-end">
+        <h1 className="text-[18px] font-bold mr-2 ">
+          실시간 <span className="text-blue-md">NEW</span> 해외 공시
         </h1>
         <span
           className="text-blue-md text-center font-semibold hover:underline cursor-pointer"
@@ -93,7 +80,7 @@ export default function Disclosures() {
                 </div>
               ))
             ) : (
-              <p>로딩 중...</p> // fillings 데이터가 없을 때 로딩 표시
+              <p>로딩 중...</p>
             )}
 
             {/* 더보기 버튼 */}

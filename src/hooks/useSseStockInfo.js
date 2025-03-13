@@ -5,6 +5,7 @@ export function useStockSse(setStocks) {
   // SSE 이벤트 핸들러 정의
   const eventHandlers = {
     stockUpdate: (data) => {
+      console.log(data);
       setStocks((prevStocks) => {
         if (!Array.isArray(prevStocks)) {
           return []; // prevStocks가 배열이 아니면 빈 배열 반환
@@ -23,7 +24,7 @@ export function useStockSse(setStocks) {
   };
 
   const { isConnected, error } = useSse(
-    `${import.meta.env.VITE_API_DATA_URL}/stocks/stream`,
+    `${import.meta.env.VITE_API_BASE_URL}/stocks/stream`,
     eventHandlers
   );
   return { isConnected, error };

@@ -2,8 +2,13 @@
 import api from "./axiosInstance";
 
 const postOrder = (orderData) =>
-  api.post("http://172.16.1.230:19093/v1/api/order/create", orderData, {
+  api.post("order/create", orderData, {
     isAuthRequired: true,
   });
 
-export { postOrder };
+const fetchInitMarketPrice = (ticker) =>
+  api.get(`trades/latest?symbol=${ticker}`, {
+    isAuthRequired: false,
+  });
+
+export { postOrder, fetchInitMarketPrice };

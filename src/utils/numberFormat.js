@@ -9,6 +9,12 @@ function formatDate(dateStr) {
     const day = dateStr.slice(6, 8);
     return `${year}.${month}.${day}`;
   }
+  if (dateStr && dateStr.length === 6) {
+    const h = dateStr.slice(0, 2);
+    const m = dateStr.slice(2, 4);
+    const s = dateStr.slice(4, 6);
+    return `${h}:${m}:${s}`;
+  }
   return dateStr;
 }
 
