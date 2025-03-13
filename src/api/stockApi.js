@@ -14,7 +14,7 @@ const fetchStocks = (sortBy = "", searchParam = "") =>
 
 //특정 종목에 대한 주수 조회
 const fetchHoldingStocks = (ticker) =>
-  api.get(`http://172.16.1.230:19092/v1/api/stocks/holdings/${ticker}`, {
+  api.get(`http://172.16.1.230:19092/v1/api/stocks/holdingStocks/${ticker}`, {
     isAuthRequired: true,
     skipInterceptor: true,
   });
@@ -22,7 +22,7 @@ const fetchHoldingStocks = (ticker) =>
 //특정 종목에 대한 사용가능 주수 조회
 const fetchAvailQuantityByStock = (ticker) =>
   api.get(
-    `http://172.16.1.230:19092/v1/api/stocks/available-stocks/${ticker}`,
+    `http://172.16.1.230:19092/v1/api/holdingStocks/available-stocks/${ticker}`,
     {
       isAuthRequired: true,
       skipInterceptor: true,
@@ -38,17 +38,17 @@ const fetchChart = (params) =>
 
 //관심 종목 조회, 추가, 삭제
 const fetchLikeStocks = () =>
-  api.get("http://172.16.1.230:19092/v1/api/stocks/like", {
+  api.get("http://172.16.1.230:19092/v1/api/pinnedStocks/like", {
     isAuthRequired: true,
     skipInterceptor: true,
   });
 const removeLikeStock = (ticker) =>
-  api.delete(`http://172.16.1.230:19092/v1/api/stocks/like/${ticker}`, {
+  api.delete(`http://172.16.1.230:19092/v1/api/pinnedStocks/like/${ticker}`, {
     isAuthRequired: true,
   });
 const addLikeStock = (ticker) =>
   api.post(
-    "http://172.16.1.230:19092/v1/api/stocks/like",
+    "http://172.16.1.230:19092/v1/api/pinnedStocks/like",
     { stockTicker: ticker },
     { isAuthRequired: true }
   );

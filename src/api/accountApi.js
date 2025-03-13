@@ -35,7 +35,7 @@ const fetchTradeProfitSum = () =>
 
 //보유 종목들 세부 데이터
 const fetchHoldings = (sortBy) =>
-  api.get(`http://172.16.1.230:19092/v1/api/stocks?sortBy=${sortBy}`, {
+  api.get(`http://172.16.1.230:19092/v1/api/holdingStocks?sortBy=${sortBy}`, {
     isAuthRequired: true,
     skipInterceptor: true,
   });
