@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
@@ -16,6 +17,19 @@ export default function Layout() {
 
   return (
     <div className="flex min-h-screen w-full overflow-x-hidden text-xs text-black">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       {/* 사이드바 */}
       <aside className="h-screen w-16 fixed left-0 top-0 z-150">
         <Sidebar />

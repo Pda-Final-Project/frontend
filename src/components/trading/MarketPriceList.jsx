@@ -73,7 +73,7 @@ export default function MarketPriceList() {
                 el.trade_type == "BUY" ? "text-red-md" : "text-blue-dark"
               }`}
             >
-              {el.trade_quantity}
+              {el.trade_quantity.toLocaleString()}
             </div>
             <div className="w-full text-right">{el.trade_volume}%</div>
             <div className="w-full text-right">{formatDate(el.trade_time)}</div>
