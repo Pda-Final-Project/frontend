@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import useSsePrice from "../../hooks/useSsePrice";
 import { useParams } from "react-router-dom";
 import { fetchInitMarketPrice } from "../../api/tradeApi";
+import { formatDate } from "../../utils/numberFormat";
 
 //실시간 시세
 export default function MarketPriceList() {
@@ -60,10 +61,12 @@ export default function MarketPriceList() {
         {marketPrices.map((el, id) => (
           <div
             key={id}
-            className="grid grid-cols-4 gap-4 px-2 py-1 rounded-lg hover:bg-blue-light"
+            className={`grid grid-cols-4 gap-4 px-2 py-2 rounded-lg hover:bg-blue-light ${
+              id % 2 == 0 ? "bg-white" : "bg-gray-light"
+            }`}
           >
             <div className="w-full text-left">
-              {el.trade_price.toLocaleString()}
+              {parseInt(el.trade_price).toLocaleString()} 원
             </div>
             <div
               className={`w-full text-right ${
@@ -72,8 +75,8 @@ export default function MarketPriceList() {
             >
               {el.trade_quantity}
             </div>
-            <div className="w-full text-right">{el.trade_volume}</div>
-            <div className="w-full text-right">{el.trade_time}</div>
+            <div className="w-full text-right">{el.trade_volume}%</div>
+            <div className="w-full text-right">{formatDate(el.trade_time)}</div>
           </div>
         ))}
       </div>
