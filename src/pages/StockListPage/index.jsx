@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
 import { useStockSse } from "../../hooks/useSseStockInfo";
 import { fetchStocks } from "../../api/stockApi";
 import { formatNumber } from "../../utils/numberFormat";
+import LikeButton from "../../components/common/LikeButton";
 
 export default function StockListPage() {
   const navigate = useNavigate();
@@ -113,11 +113,7 @@ export default function StockListPage() {
                   onClick={() => navigate(`../main/${stock.ticker}/all`)}
                 >
                   <td className="py-4 px-8 flex items-center space-x-2">
-                    <FaHeart
-                      className={`${
-                        stock.isFavorite ? "text-red-md" : "text-gray-400"
-                      }`}
-                    />
+                    <LikeButton ticker={stock.ticker} />
                     <span className="w-12">
                       {index + 1 + (currentPage - 1) * stocksPerPage}
                     </span>

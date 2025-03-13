@@ -94,17 +94,19 @@ export default function InterestStockTab() {
                   </div>
                   <div
                     className={`${
-                      stock.change_rate > 0
-                        ? "text-red-md"
-                        : stock.change_rate < 0
-                        ? "text-blue-dark"
-                        : "text-black"
+                      stock.change_rate
+                        ? stock.change_rate.startsWith("+")
+                          ? "text-red-md"
+                          : stock.change_rate.startsWith("-")
+                          ? "text-blue-dark"
+                          : "text-black"
+                        : ""
                     }`}
                   >
-                    {stock.change_rate}%
+                    {stock.change_rate}
                   </div>
                 </div>
-                <LikeButton ticker={stock.ticker} initState={stock.pinned} />
+                <LikeButton ticker={stock.ticker} />
               </div>
             </div>
           ))
