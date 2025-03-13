@@ -42,6 +42,7 @@ export default function DisclosureList({ ticker = "" }) {
 
       if (response.data.status === "FOUND") {
         setFillings(response.data.data.content);
+        console.log(response.data.data);
       }
     } catch (error) {
       console.error(error);
@@ -200,9 +201,10 @@ export default function DisclosureList({ ticker = "" }) {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b-1 border-gray-md text-gray-md">
-                <th className="p-3">지수 종류</th>
-                <th className="p-3">보고서명</th>
-                <th className="p-3">발행 일시</th>
+                <th className="p-3 w-1/6">지수 종류</th>
+                <th className="p-3 w-1/6">종목</th>
+                <th className="p-3 w-1/2">보고서명</th>
+                <th className="p-3 w-1/6">발행 일시</th>
               </tr>
             </thead>
             <tbody>
@@ -214,9 +216,10 @@ export default function DisclosureList({ ticker = "" }) {
                   }`}
                   onClick={() => handleClick(report.fillingId)}
                 >
-                  <td className="p-3">{report.fillingType}</td>
-                  <td className="p-3">{report.fillingTitle}</td>
-                  <td className="p-3">{report.submitTimestamp}</td>
+                  <td className="p-3 w-1/6">{report.fillingType}</td>
+                  <td className="p-3 w-1/6">{report.fillingTicker}</td>
+                  <td className="p-3 w-1/3">{report.fillingTitle}</td>
+                  <td className="p-3 w-1/3">{report.submitTimestamp}</td>
                 </tr>
               ))}
             </tbody>
