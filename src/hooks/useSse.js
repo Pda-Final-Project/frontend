@@ -1,61 +1,75 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { EventSourcePolyfill } from "event-source-polyfill"; // named export 사용
 
-/**
- * SSE(Server-Sent Events) 훅
- * @param {string} url - SSE 이벤트를 구독할 서버 URL
- * @param {Object} eventHandlers - { eventName: callback } 형태의 이벤트 핸들러 객체
- * @returns {Object} { isConnected, error, closeConnection }
- */
-export default function useSse(url, eventHandlers = {}) {
+export default function useSse(url, eventHandlers = {}, token = "") {
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState(null);
-  let eventSource = null;
+  const eventSourceRef = useRef(null); // ✅ 기존처럼 useRef 사용
 
-  useEffect(() => {
+  const connectSSE = () => {
     if (!url) return;
 
-    // SSE 연결
-    eventSource = new EventSource(url);
+    // 기존 SSE 연결 종료 (중복 방지)
+    if (eventSourceRef.current) {
+      console.log("🔌 기존 SSE 연결 해제됨:", url);
+      eventSourceRef.current.close();
+      eventSourceRef.current = null;
+    }
 
-    // 연결 성공 시
+    console.log("🔗 SSE 연결 시도:", url);
+
+    const eventSourceOptions = token
+      ? {
+          headers: { Authorization: `Bearer ${token}` },
+          heartbeatTimeout: 60000,
+        }
+      : {};
+
+    const eventSource = new EventSourcePolyfill(url, eventSourceOptions);
+    eventSourceRef.current = eventSource; // ✅ 새 객체 저장
+
     eventSource.onopen = () => {
-      console.log("SSE 연결됨:", url);
+      console.log("✅ SSE 연결 성공:", url);
       setIsConnected(true);
+      setError(null);
     };
 
-    // 기본 메시지 핸들러
-    eventSource.onmessage = (event) => {
-      console.log("📡 기본 메시지 수신:", event.data);
+    eventSource.onerror = (err) => {
+      console.error("⚠️ SSE 오류 발생. 5초 후 재연결 시도...", err);
+      setError(err);
+      setIsConnected(false);
+
+      // 기존 연결 해제 후 5초 후 재연결 시도
+      setTimeout(() => {
+        console.log("🔄 SSE 재연결 중...");
+        connectSSE();
+      }, 5000);
     };
 
-    // 특정 이벤트 리스너 추가
     Object.entries(eventHandlers).forEach(([eventName, callback]) => {
       eventSource.addEventListener(eventName, (event) => {
         try {
           const parsedData = JSON.parse(event.data);
-          console.log(parsedData);
+          console.log(`📩 ${eventName} 이벤트 수신:`, parsedData);
           callback(parsedData);
         } catch (err) {
-          console.error("SSE JSON 파싱 오류:", err);
+          console.error("❌ SSE JSON 파싱 오류:", err);
         }
       });
     });
+  };
 
-    // 에러 핸들링
-    eventSource.onerror = (err) => {
-      console.error("SSE 오류:", err);
-      setError(err);
-      setIsConnected(false);
-      eventSource.close();
-    };
+  useEffect(() => {
+    if (!url) return; // URL이 없으면 실행 X
+    connectSSE();
 
-    // 정리 함수 (컴포넌트 언마운트 시 연결 해제)
     return () => {
-      eventSource.close();
-      console.log("SSE 연결 해제됨:", url);
-      setIsConnected(false);
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+        console.log("🔌 SSE 연결 해제됨:", url);
+      }
     };
-  }, [url]);
+  }, [url, token ? true : false]); // ⚠️ token이 undefined/null이면 의존성에서 제외
 
   return { isConnected, error };
 }

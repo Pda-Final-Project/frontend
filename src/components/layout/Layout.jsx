@@ -4,9 +4,11 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useLikedStocksStore } from "../../hooks/useLikedStocksStore";
 import { useEffect } from "react";
+import useSseAlarm from "../../hooks/useSseAlarm";
 
 export default function Layout() {
   const { fetchLikedStocks } = useLikedStocksStore();
+  const { isConnected, error } = useSseAlarm();
 
   useEffect(() => {
     fetchLikedStocks();
