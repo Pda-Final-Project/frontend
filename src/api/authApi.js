@@ -1,5 +1,6 @@
 //로그인, 회원가입
 import api from "./axiosInstance";
+import { toast } from "react-toastify";
 
 const login = (userData) =>
   api.post(`${import.meta.env.VITE_API_USER_URL}/auth/login`, userData, {
@@ -23,7 +24,6 @@ const logout = (setIsLogin) => {
     draggable: true,
     progress: undefined,
     theme: "light",
-    transition: Bounce,
   });
   alert("로그아웃 완료!");
 };

@@ -187,7 +187,7 @@ const Header = () => {
 
       {/* 알람 모달 */}
       {showAlarm && (
-        <div ref={alarmRef}>
+        <div ref={alarmRef} className="fixed right-4 top-0 z-50">
           <AlarmModal onClose={() => setShowAlarm(false)} />
         </div>
       )}
