@@ -24,7 +24,7 @@ export default function StockBalance() {
     try {
       const response = await fetchExchangeRate();
       if (response.data.status === "OK") {
-        setExchangeRate(response.data.data);
+        setExchangeRate(response.data.data.exchangeRate);
       }
     } catch (error) {
       console.error("Error fetching exchange rate:", error.message);
@@ -42,11 +42,11 @@ export default function StockBalance() {
         evaluationAmount: (
           balanceKrwData.evaluationAmount / exchangeRate
         ).toFixed(2),
-        profitChange: (balanceKrwData.profitChange / exchangeRate).toFixed(2),
+        profitChange: balanceKrwData.profitChange / exchangeRate,
         returnRate: balanceKrwData.returnRate,
-        buyAmount: (balanceKrwData.buyAmount / exchangeRate).toFixed(2),
-        tradeProfit: (balanceKrwData.tradeProfit / exchangeRate).toFixed(2),
-        fxProfit: (balanceKrwData.fxProfit / exchangeRate).toFixed(2),
+        buyAmount: balanceKrwData.buyAmount / exchangeRate,
+        tradeProfit: balanceKrwData.tradeProfit / exchangeRate,
+        fxProfit: balanceKrwData.fxProfit / exchangeRate,
       });
     }
   }, [balanceKrwData, exchangeRate]);
@@ -94,10 +94,12 @@ export default function StockBalance() {
                 balanceData.evaluationAmount
               )}`}
             >
-              {Number(balanceData.evaluationAmount).toLocaleString()} {currency}
+              {parseInt(balanceData.evaluationAmount).toLocaleString()}
+              {currency == "KRW" ? " 원" : " $"}
             </p>
             <p className={`text-sm ${getColorClass(balanceData.profitChange)}`}>
-              ▲ {Number(balanceData.profitChange).toLocaleString()} (
+              ▲ {parseInt(balanceData.profitChange).toLocaleString()}
+              {currency == "KRW" ? "원" : "$"} (
               {balanceData.returnRate.toFixed(2)}%)
             </p>
           </div>
@@ -106,7 +108,8 @@ export default function StockBalance() {
             <p className="font-semibold w-full flex justify-between">
               <span className="text-gray-500">매수금액</span>
               <span>
-                {Number(balanceData.buyAmount).toLocaleString()} {currency}
+                {parseInt(balanceData.buyAmount).toLocaleString()}{" "}
+                {currency == "KRW" ? " 원" : " $"}
               </span>
             </p>
             <p
@@ -116,7 +119,8 @@ export default function StockBalance() {
             >
               <span className="text-gray-500">매매손익</span>
               <span>
-                {Number(balanceData.tradeProfit).toLocaleString()} {currency}
+                {parseInt(balanceData.tradeProfit).toLocaleString()}{" "}
+                {currency == "KRW" ? " 원" : " $"}
               </span>
             </p>
             <p
@@ -126,7 +130,8 @@ export default function StockBalance() {
             >
               <span className="text-gray-500">환차손익</span>
               <span>
-                {Number(balanceData.fxProfit).toLocaleString()} {currency}
+                {parseInt(balanceData.fxProfit).toLocaleString()}{" "}
+                {currency == "KRW" ? " 원" : " $"}
               </span>
             </p>
           </div>

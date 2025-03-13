@@ -132,7 +132,7 @@ export default function StockListPage() {
                   </td>
 
                   <td className="p-3">
-                    {formatNumber(parseFloat(stock.current_price))}원
+                    {formatNumber(parseInt(stock.current_price))}원
                   </td>
                   <td
                     className={`p-3 ${
