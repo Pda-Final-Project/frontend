@@ -5,10 +5,7 @@ import { fetchFillings } from "../../api/disclosureApi";
 const fillingTypeData = [
   { id: "10-Q", name: "분기 보고서 (10-Q)" },
   { id: "8-K", name: "수시 보고서 (8-K)" },
-  {
-    id: "S-1",
-    name: `증권 거래 신고서 (Form S-1)`,
-  },
+  { id: "S-1", name: `증권 거래 신고서 (Form S-1)` },
   { id: "4", name: "내부자 거래 보고서 (Form4)" },
   { id: "SC 13G", name: "지분율 5% 이상 변동 보고서 (Schedule 13D/13G)" },
 ];
@@ -23,50 +20,46 @@ export default function DisclosureList({ ticker = "" }) {
   const [endDate, setEndDate] = useState("");
   const [fillingType, setFillingType] = useState("");
 
+  // 페이지네이션 관련 상태
   const [fillings, setFillings] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const reportsPerPage = 10;
 
-  const tryFetchDisclosures = async () => {
+  const tryFetchDisclosures = async (page = 0) => {
     const params = {
       ticker: tickerParam,
       fillingType,
       startDate,
       endDate,
+      page,
+      size: reportsPerPage,
     };
     const filteredParams = Object.fromEntries(
       Object.entries(params).filter(([_, value]) => value !== "")
     );
     try {
       const response = await fetchFillings(filteredParams);
-
       if (response.data.status === "FOUND") {
         setFillings(response.data.data.content);
-        console.log(response.data.data);
+        setTotalPages(response.data.data.totalPages);
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleSearch = () => {
-    setCurrentPage(1);
-    tryFetchDisclosures();
-  };
-  const [visible, setVisible] = useState(false);
-
   useEffect(() => {
-    tryFetchDisclosures();
-    setTimeout(() => setVisible(true), 100); // 컴포넌트가 나타날 때 0.1초 후에 애니메이션 효과 실행
-  }, []);
+    tryFetchDisclosures(currentPage);
+  }, [currentPage]);
 
-  const indexOfLastReport = currentPage * reportsPerPage;
-  const indexOfFirstReport = indexOfLastReport - reportsPerPage;
-  const currentReports = fillings.slice(indexOfFirstReport, indexOfLastReport);
+  const handleSearch = () => {
+    setCurrentPage(0);
+    tryFetchDisclosures(0);
+  };
 
   const handleClick = (fillingId) => {
     const currentPath = location.pathname;
-
     if (currentPath.startsWith("/main") && currentPath.endsWith("/all")) {
       navigate(currentPath.replace("/all", `/${fillingId}`));
     } else {
@@ -75,19 +68,15 @@ export default function DisclosureList({ ticker = "" }) {
   };
 
   const resetSearch = () => {
-    setCurrentPage(1);
-    setEndDate("");
-    setStartDate("");
-    setFillingType("");
     setTickerParam("");
+    setStartDate("");
+    setEndDate("");
+    setFillingType("");
+    setCurrentPage(0);
   };
 
   return (
-    <div
-      className={`w-full flex flex-col gap-20 text-sm font-semibold transition-all duration-700 ease-out ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-      }`}
-    >
+    <div className="w-full flex flex-col gap-20 text-sm font-semibold transition-all duration-700 ease-out">
       {/* 검색 필터 */}
       <div className="bg-white rounded-lg">
         <div className="flex flex-col justify-center items-center mb-4">
@@ -101,20 +90,17 @@ export default function DisclosureList({ ticker = "" }) {
 
         <div className="bg-gray-light p-5 rounded-lg flex flex-col justify-center items-center">
           <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-12 w-full">
-            {/* 왼쪽 (종목명 + 기간) */}
+            {/* 종목 검색 */}
             <div className="flex flex-col gap-3 w-full">
-              {/* 종목 검색 */}
               <div className="flex items-center mt-6">
                 <h2 className="text-md font-semibold w-1/6">종목</h2>
-                <div className="w-5/6">
-                  <input
-                    type="text"
-                    placeholder="종목코드를 입력하세요"
-                    className="input-style"
-                    value={tickerParam}
-                    onChange={(e) => setTickerParam(e.target.value)}
-                  />
-                </div>
+                <input
+                  type="text"
+                  placeholder="종목코드를 입력하세요"
+                  className="input-style w-5/6"
+                  value={tickerParam}
+                  onChange={(e) => setTickerParam(e.target.value)}
+                />
               </div>
 
               {/* 기간 선택 */}
@@ -138,54 +124,41 @@ export default function DisclosureList({ ticker = "" }) {
               </div>
             </div>
 
-            {/* 오른쪽 (공시유형) */}
+            {/* 공시유형 */}
             <div className="flex flex-col w-full">
               <h2 className="text-md font-semibold mb-2">공시유형</h2>
-              <div className="flex-col space-y-2">
-                <div className="grid grid-cols-2 gap-2">
-                  {fillingTypeData.slice(0, 4).map((type) => (
-                    <button
-                      key={type.id}
-                      className={`px-4 py-2 rounded-md font-semibold ${
-                        fillingType === type.id
-                          ? "bg-blue-md text-white"
-                          : "bg-white"
-                      }`}
-                      onClick={() => {
-                        fillingType == type.id
-                          ? setFillingType("")
-                          : setFillingType(type.id);
-                      }}
-                    >
-                      {type.name}
-                    </button>
-                  ))}
-                </div>
-                <button
-                  key={fillingTypeData[4].id}
-                  className={`px-4 py-2 rounded-md font-semibold w-full ${
-                    fillingType === fillingTypeData[4].id
-                      ? "bg-blue-md text-white"
-                      : "bg-white"
-                  }`}
-                  onClick={() => {
-                    fillingType == fillingTypeData[4].id
-                      ? setFillingType("")
-                      : setFillingType(fillingTypeData[4].id);
-                  }}
-                >
-                  {fillingTypeData[4].name}
-                </button>
+              <div className="grid grid-cols-2 gap-2">
+                {fillingTypeData.map((type) => (
+                  <button
+                    key={type.id}
+                    className={`px-4 py-2 rounded-md font-semibold ${
+                      fillingType === type.id
+                        ? "bg-blue-md text-white"
+                        : "bg-white"
+                    }`}
+                    onClick={() =>
+                      setFillingType(fillingType === type.id ? "" : type.id)
+                    }
+                  >
+                    {type.name}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
 
           {/* 검색 버튼 */}
-          <div className="flex flex-col sm:flex-row mt-8 w-100 gap-8 justify-center">
-            <button className="button-style" onClick={handleSearch}>
+          <div className="flex mt-8 gap-8">
+            <button
+              className="text-center bg-blue-md px-4 py-2 rounded-lg w-60 text-white hover:bg-blue-light hover:text-black cursor-pointer duration-300"
+              onClick={handleSearch}
+            >
               검색하기
             </button>
-            <button className="white-button-style" onClick={resetSearch}>
+            <button
+              className="text-center cursor-pointer bg-white px-2 py-1 border-1 border-gray-md font-semibold rounded-lg w-60 hover:bg-blue-md duration-300"
+              onClick={resetSearch}
+            >
               초기화
             </button>
           </div>
@@ -197,49 +170,42 @@ export default function DisclosureList({ ticker = "" }) {
         <h2 className="text-lg font-semibold mb-2 text-center">
           공시 검색 결과
         </h2>
-        <div className="rounded-lg bg-white p-2">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b-1 border-gray-md text-gray-md">
-                <th className="p-3 w-1/6">지수 종류</th>
-                <th className="p-3 w-1/6">종목</th>
-                <th className="p-3 w-1/2">보고서명</th>
-                <th className="p-3 w-1/6">발행 일시</th>
+        <table className="w-full text-left">
+          <thead>
+            <tr className="border-b-1 border-gray-md text-gray-md">
+              <th className="p-3 w-1/6">공시 유형</th>
+              <th className="p-3 w-1/6">종목</th>
+              <th className="p-3 w-1/2">보고서명</th>
+              <th className="p-3 w-1/6">발행 일시</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fillings.map((report) => (
+              <tr
+                key={report.fillingId}
+                className="cursor-pointer hover:bg-blue-light duration-300 rounded-lg"
+                onClick={() => handleClick(report.fillingId)}
+              >
+                <td className="p-3">{report.fillingType}</td>
+                <td className="p-3">{report.fillingTicker}</td>
+                <td className="p-3">{report.fillingTitle}</td>
+                <td className="p-3">{report.submitTimestamp}</td>
               </tr>
-            </thead>
-            <tbody>
-              {currentReports.map((report, index) => (
-                <tr
-                  key={index}
-                  className={`cursor-pointer hover:bg-blue-light duration-300 rounded-lg ${
-                    index % 2 === 0 ? "bg-gray-light" : "bg-white"
-                  }`}
-                  onClick={() => handleClick(report.fillingId)}
-                >
-                  <td className="p-3 w-1/6">{report.fillingType}</td>
-                  <td className="p-3 w-1/6">{report.fillingTicker}</td>
-                  <td className="p-3 w-1/3">{report.fillingTitle}</td>
-                  <td className="p-3 w-1/3">{report.submitTimestamp}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
 
         {/* 페이지네이션 */}
         <div className="flex justify-center mt-8">
-          {Array.from(
-            { length: Math.ceil(fillings.length / reportsPerPage) },
-            (_, i) => i + 1
-          ).map((page) => (
+          {Array.from({ length: totalPages }, (_, i) => (
             <button
-              key={page}
+              key={i}
               className={`mx-1 px-3 py-1 rounded-md ${
-                currentPage === page ? "bg-blue-md text-white" : "bg-gray-light"
+                currentPage === i ? "bg-blue-md text-white" : "bg-gray-light"
               }`}
-              onClick={() => setCurrentPage(page)}
+              onClick={() => setCurrentPage(i)}
             >
-              {page}
+              {i + 1}
             </button>
           ))}
         </div>
