@@ -3,7 +3,7 @@ import api from "./axiosInstance";
 
 //알림 조회
 const fetchAlarm = () =>
-  api.get("http://172.16.1.230:19092/v1/api/notification", {
+  api.get(`${import.meta.env.VITE_API_USER_URL}/notification`, {
     isAuthRequired: true,
     skipInterceptor: true,
   });
@@ -11,7 +11,9 @@ const fetchAlarm = () =>
 //알림 켜고 끄기
 const changeAlarmStatus = (enabled) =>
   api.patch(
-    `http://172.16.1.230:19092/v1/api/notification/switch?enabled=${enabled}`,
+    `${
+      import.meta.env.VITE_API_USER_URL
+    }/notification/switch?enabled=${enabled}`,
     null,
     { isAuthRequired: true, skipInterceptor: true }
   );

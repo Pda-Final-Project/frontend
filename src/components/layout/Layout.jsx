@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Bounce } from "react-toastify";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
