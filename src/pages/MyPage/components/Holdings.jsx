@@ -88,8 +88,8 @@ export default function Holdings() {
   return (
     <div className="h-full flex flex-col">
       {/* 헤더 */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-lg font-bold ml-1 mt-3 mb-2.5">보유종목</h1>
+      <div className="flex justify-between items-center h-16">
+        <h1 className="text-lg font-bold">보유종목</h1>
 
         {/* 정렬 기준 드롭다운 */}
         <div className="relative text-sm">
