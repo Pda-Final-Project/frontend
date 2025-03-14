@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import CandleChart from "./CandleChart";
 import { fetchChart } from "../../api/stockApi";
 
-export default function ChartTab({ ticker }) {
+export default function ChartTab({ ticker, height }) {
   const [chartType, setChartType] = useState("D");
   const [chartData, setChartData] = useState([]);
   const containerRef = useRef(null);
-  const [dimensions, setDimensions] = useState({ width: 900, height: 350 });
+  const [dimensions, setDimensions] = useState({ width: 900, height: height });
 
   // 차트 데이터 가져오기
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function ChartTab({ ticker }) {
         <CandleChart
           chartData={chartData}
           width={Math.max(0, dimensions.width - 20)}
-          height={Math.max(0, dimensions.height - 20)}
+          height={height}
         />
       ) : (
         <div className="animate-skeleton h-[500px] bg-gray-200"></div>

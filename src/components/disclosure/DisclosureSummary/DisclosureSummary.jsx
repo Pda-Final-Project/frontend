@@ -47,11 +47,11 @@ export default function Summary({ summaryData, fillingId }) {
     <div className="p-8">
       <div className="summary-container text-[14px] w-full flex-col">
         <h1 className="text-[18px] font-semibold mb-3">SEC 공시 요약</h1>
-        <div className="mb-16">
+        <div className="flex justify-between gap-4">
           {/* 공시 정보 동적 처리 */}
           {infoEntries.map(([key, value]) => (
             <section
-              className="bg-gray-light rounded-lg p-6 mb-4 border border-gray-200"
+              className="bg-gray-light rounded-lg p-6 mb-4 border border-gray-200 w-full"
               key={key}
             >
               <h2 className="text-[16px] font-bold mb-2">{key}</h2>
@@ -61,7 +61,7 @@ export default function Summary({ summaryData, fillingId }) {
         </div>
 
         {/* 동적 탭 생성 (content 키) */}
-        <div className="flex border-b border-gray-light mb-4">
+        <div className="flex border-b border-gray-md mb-4">
           {contentTabs.map((tab) => (
             <button
               key={tab}

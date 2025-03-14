@@ -68,7 +68,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="flex items-center justify-between px-4 py-2 bg-white relative">
+    <header className="flex items-center justify-between px-4 py-2 bg-white relative h-[62px]">
       {/* 로고 */}
       <div className="flex items-center space-x-2">
         <img

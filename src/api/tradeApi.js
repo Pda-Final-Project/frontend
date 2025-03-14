@@ -2,7 +2,7 @@
 import api from "./axiosInstance";
 
 const postOrder = (orderData) =>
-  api.post("order/create", orderData, {
+  api.post("http://172.16.1.230:19093/v1/api/order/create", orderData, {
     isAuthRequired: true,
   });
 
