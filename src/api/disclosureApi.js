@@ -2,7 +2,7 @@
 import api from "./axiosInstance";
 
 const fetchFillingInfo = (filling_id) =>
-  api.get(`${import.meta.env.VITE_API_FILL_URL}/fillings/${filling_id}`, {
+  api.get(`fillings/${filling_id}`, {
     isAuthRequired: false,
     validateStatus: (status) => status >= 200 && status < 400,
   });

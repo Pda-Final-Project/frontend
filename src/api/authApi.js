@@ -3,12 +3,12 @@ import api from "./axiosInstance";
 import { toast } from "react-toastify";
 
 const login = (userData) =>
-  api.post(`${import.meta.env.VITE_API_USER_URL}/auth/login`, userData, {
+  api.post(`auth/login`, userData, {
     isAuthRequired: false,
   });
 
 const register = (userData) =>
-  api.post(`${import.meta.env.VITE_API_USER_URL}/auth/join`, userData, {
+  api.post(`auth/join`, userData, {
     isAuthRequired: false,
   });
 
@@ -29,7 +29,7 @@ const logout = (setIsLogin) => {
 
 const checkAccountPassword = (pin) =>
   api.post(
-    `${import.meta.env.VITE_API_USER_URL}/account/verify-pin`,
+    `account/verify-pin`,
     pin, // request body
     { isAuthRequired: true } // config (headers, params 등)
   );

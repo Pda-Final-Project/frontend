@@ -3,7 +3,7 @@ import api from "./axiosInstance";
 
 //알림 조회
 const fetchAlarm = () =>
-  api.get(`${import.meta.env.VITE_API_USER_URL}/notification`, {
+  api.get(`notification`, {
     isAuthRequired: true,
     skipInterceptor: true,
   });

@@ -12,7 +12,7 @@ const fetchEarning = async (ticker) =>
 
 //환율 조회
 const fetchExchangeRate = () =>
-  api.get(`${import.meta.env.VITE_API_DATA_URL}/exchange-rate/TSLA`, {
+  api.get(`exchange-rate/TSLA`, {
     isAuthRequired: false,
   });
 

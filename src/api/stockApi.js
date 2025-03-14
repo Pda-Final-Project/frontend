@@ -14,25 +14,17 @@ const fetchStocks = (sortBy = "", searchParam = "") =>
 
 //특정 종목에 대한 주수 조회
 const fetchHoldingStocks = (ticker) =>
-  api.get(
-    `${import.meta.env.VITE_API_USER_URL}/stocks/holdingStocks/${ticker}`,
-    {
-      isAuthRequired: true,
-      skipInterceptor: true,
-    }
-  );
+  api.get(`stocks/holdingStocks/${ticker}`, {
+    isAuthRequired: true,
+    skipInterceptor: true,
+  });
 
 //특정 종목에 대한 사용가능 주수 조회
 const fetchAvailQuantityByStock = (ticker) =>
-  api.get(
-    `${
-      import.meta.env.VITE_API_USER_URL
-    }/holdingStocks/available-stocks/${ticker}`,
-    {
-      isAuthRequired: true,
-      skipInterceptor: true,
-    }
-  );
+  api.get(`/holdingStocks/available-stocks/${ticker}`, {
+    isAuthRequired: true,
+    skipInterceptor: true,
+  });
 
 //차트 조회
 const fetchChart = (params) =>
@@ -43,20 +35,17 @@ const fetchChart = (params) =>
 
 //관심 종목 조회, 추가, 삭제
 const fetchLikeStocks = () =>
-  api.get(`${import.meta.env.VITE_API_USER_URL}/pinnedStocks/like`, {
+  api.get(`pinnedStocks/like`, {
     isAuthRequired: true,
     skipInterceptor: true,
   });
 const removeLikeStock = (ticker) =>
-  api.delete(
-    `${import.meta.env.VITE_API_USER_URL}/pinnedStocks/like/${ticker}`,
-    {
-      isAuthRequired: true,
-    }
-  );
+  api.delete(`pinnedStocks/like/${ticker}`, {
+    isAuthRequired: true,
+  });
 const addLikeStock = (ticker) =>
   api.post(
-    `${import.meta.env.VITE_API_USER_URL}/pinnedStocks/like`,
+    `pinnedStocks/like`,
     { stockTicker: ticker },
     { isAuthRequired: true }
   );
