@@ -43,7 +43,7 @@ export default function Disclosures() {
         {/* 오른쪽 끝에 고정된 그림자 추가 */}
         <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-[rgba(255,255,255,0.8)] to-transparent pointer-events-none z-10"></div>
         <div className="w-full overflow-x-scroll relative no-scrollbar">
-          <div className="flex space-x-4 rounded-lg max-w-screen-xl whitespace-nowrap shadow-lg">
+          <div className="flex space-x-4 rounded-lg max-w-xl whitespace-nowrap shadow-lg">
             {/* fillings 배열이 제대로 있는지 확인하고, 없다면 로딩 중 표시 */}
             {Array.isArray(fillings) && fillings.length > 0 ? (
               fillings?.map((item, index) => (
