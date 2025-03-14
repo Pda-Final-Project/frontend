@@ -36,12 +36,15 @@ export default function BuyBox({ withHolding, orderStock }) {
     <div className="bg-white p-4 flex flex-col rounded-lg text-xs">
       {/** 제목 */}
       <div className="font-semibold text-[16px] flex items-end justify-between">
-        주문하기<span className="text-xs">사용가능 예수금: {withHolding}</span>
+        매수하기
+        <span className="text-xs">
+          사용가능 예수금: {withHolding.toLocaleString()}원
+        </span>
       </div>
       {/** 판매 입력 */}
       <div className="flex flex-col space-y-2 py-2 border-b-1 border-gray-md">
         <div className="flex items-center">
-          <div className="font-semibold w-1/5">주문가격</div>
+          <div className="font-semibold w-1/5">매수가격</div>
           <input
             type="number"
             className="input-style text-sm"
@@ -50,7 +53,7 @@ export default function BuyBox({ withHolding, orderStock }) {
           />
         </div>
         <div className="flex items-start">
-          <div className="font-semibold w-1/5 mt-3">주문수량</div>
+          <div className="font-semibold w-1/5 mt-3">매수수량</div>
           <div className="w-full flex flex-col space-y-2">
             <input
               type="number"
@@ -74,8 +77,10 @@ export default function BuyBox({ withHolding, orderStock }) {
         </div>
       </div>
       <div className="flex items-center justify-between py-2">
-        <div className="font-semibold">총 주문 금액</div>
-        <div className="font-semibold">{totalOrderPrice}원</div>
+        <div className="font-semibold">총 매수 금액</div>
+        <div className="font-semibold">
+          {totalOrderPrice.toLocaleString()}원
+        </div>
       </div>
       <button
         className="button-style"
@@ -84,7 +89,7 @@ export default function BuyBox({ withHolding, orderStock }) {
           buyQuantity <= 0 || buyQuantity > maxQuantity || totalOrderPrice <= 0
         }
       >
-        구매하기
+        매수하기
       </button>
     </div>
   );
