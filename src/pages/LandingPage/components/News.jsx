@@ -54,7 +54,7 @@ export default function News() {
 
           <div className="overflow-auto no-scrollbar">
             {/* 가로 스크롤 적용 */}
-            <div className="flex space-x-4 rounded-lg max-w-screen-xl">
+            <div className="flex space-x-4 rounded-lg max-w-xl">
               {newsData.slice(0, 10).map((article, index) => (
                 <a
                   key={index}

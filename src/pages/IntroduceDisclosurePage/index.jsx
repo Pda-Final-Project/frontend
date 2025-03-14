@@ -29,7 +29,7 @@ export default function IntroduceDisclosure() {
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       }`}
     >
-      <div className="w-full max-w-7xl">
+      <div className="w-full flex flex-col items-center justify-center">
         {/* 부모 요소의 넓이를 제한 */}
         <div className="text-center mb-6">
           <div className="flex justify-center items-center mb-1">
@@ -40,7 +40,7 @@ export default function IntroduceDisclosure() {
             투자에 필요한 중요한 공시 정보, 핵심만 쏙쏙 알려드립니다!
           </p>
         </div>
-        <div className="w-full">
+        <div className="w-full max-w-5xl">
           <Slider
             className="w-full"
             {...{
