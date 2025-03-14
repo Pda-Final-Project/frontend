@@ -3,7 +3,7 @@ import api from "./axiosInstance";
 
 //종목 조회
 const fetchStocks = (sortBy = "", searchParam = "") =>
-  api.get("stocks", {
+  api.get(`stocks`, {
     params: {
       sortBy,
       searchParam,
@@ -28,7 +28,7 @@ const fetchAvailQuantityByStock = (ticker) =>
 
 //차트 조회
 const fetchChart = (params) =>
-  api.get("http://localhost:19099/v1/api/chart", {
+  api.get("chart", {
     params: params, // 빈 값 필터링하여 전달
     isAuthRequired: false,
   });

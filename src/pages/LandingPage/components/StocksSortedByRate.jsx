@@ -27,10 +27,9 @@ export default function StocksSortedByRate() {
           Best 순위
         </h1>
         <span
-          className="text-blue-md text-center ml-2 font-semibold hover:underline"
+          className="text-blue-md text-center ml-2 font-semibold cursor-pointer hover:underline"
           onClick={() => navigate("/stocks")}
         >
-          {" "}
           더 많은 종목 보러가기
         </span>
       </div>
@@ -66,7 +65,9 @@ export default function StocksSortedByRate() {
                   <span className="ml-1">{stock.name}</span>
                 </td>
 
-                <td className="p-3">{stock.current_price} 원</td>
+                <td className="p-3">
+                  {parseInt(stock.current_price).toLocaleString()} 원
+                </td>
                 <td
                   className={`p-3 ${
                     parseFloat(stock.change_rate) >= 0
@@ -74,10 +75,12 @@ export default function StocksSortedByRate() {
                       : "text-blue-dark"
                   }`}
                 >
-                  {stock.change_rate}
+                  {stock.change_rate}%
                 </td>
 
-                <td className="p-3">{stock.volume}</td>
+                <td className="p-3">
+                  {parseInt(stock.volume).toLocaleString()}
+                </td>
               </tr>
             ))}
           </tbody>

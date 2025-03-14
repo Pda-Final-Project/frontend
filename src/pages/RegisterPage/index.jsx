@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { isRegisterInfoValid } from "./checkRegisterInfo";
 import { register } from "../../api/authApi";
@@ -59,7 +59,10 @@ export default function Register() {
       console.error(error.message);
     }
   };
-
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 100);
+  }, []);
   return (
     <div className="grid grid-cols-2 w-full h-screen">
       <div className="bg-white flex flex-col">
@@ -74,7 +77,11 @@ export default function Register() {
         />
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
-        <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
+        <div
+          className={`bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl transition-all duration-700 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+        >
           <h1 className="font-bold text-2xl">FinPago 함께하기</h1>
           <div className="flex flex-col space-y-4 w-full">
             <div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { validatePassword, validatePhoneNumber } from "../../utils/userValid";
 import { login } from "../../api/authApi";
@@ -66,6 +66,10 @@ export default function Index() {
       });
     }
   };
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 100);
+  }, []);
 
   return (
     <div className="grid grid-cols-2 w-full h-screen">
@@ -81,7 +85,11 @@ export default function Index() {
         />
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
-        <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
+        <div
+          className={`bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl transition-all duration-700 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+        >
           <h1 className="font-bold text-2xl mb-5">FinPago 시작하기</h1>
           <span className="text-blue-md text-sm mb-1 font-semibold">
             실시간 해외 공시 번역·요약부터 매매까지,
