@@ -21,7 +21,7 @@ export default function useSse(url, eventHandlers = {}, token = "") {
     const eventSourceOptions = token
       ? {
           headers: { Authorization: `Bearer ${token}` },
-          heartbeatTimeout: 600000,
+          heartbeatTimeout: 60000,
         }
       : {};
 
@@ -43,7 +43,7 @@ export default function useSse(url, eventHandlers = {}, token = "") {
       setTimeout(() => {
         console.log("🔄 SSE 재연결 중...");
         connectSSE();
-      }, 50000);
+      }, 5000);
     };
 
     Object.entries(eventHandlers).forEach(([eventName, callback]) => {
