@@ -71,7 +71,9 @@ export default function IntroduceDisclosure() {
             }}
           >
             {fil_introduce_data.map((item, index) => (
-              <div key={index} className="p-4">
+              <div key={index} className="p-4 w-full">
+                {" "}
+                {/* ✅ 여기에 w-full 추가 */}
                 <div className="w-full bg-white p-6 shadow-md rounded-lg flex flex-col justify-between h-80 transition-transform duration-300 ease-in-out hover:scale-105">
                   <div className="flex justify-between">
                     <div>

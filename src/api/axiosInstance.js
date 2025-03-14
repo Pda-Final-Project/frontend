@@ -33,7 +33,7 @@ api.interceptors.response.use(
     }
 
     if (error.response && error.response.status === 403) {
-      toast("😣 로그인 후 시도해주세요.", {
+      toast.error("😣 로그인 후 시도해주세요.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -41,7 +41,12 @@ api.interceptors.response.use(
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "colored",
+        style: {
+          color: "#eee", // 텍스트 색상
+          fontWeight: "bold", // 글자 굵기
+          fontSize: "14px", // 글자 크기
+        },
       });
     }
     return Promise.reject(error);

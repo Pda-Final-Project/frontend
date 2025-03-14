@@ -26,11 +26,11 @@ export default function SellBox({ maxQuantity, orderStock }) {
   return (
     <div className="bg-white p-4 flex flex-col rounded-lg text-xs">
       {/** 제목 */}
-      <div className="font-semibold text-[16px]">판매하기</div>
+      <div className="font-semibold text-[16px]">매도하기</div>
       {/** 판매 입력 */}
       <div className="flex flex-col space-y-2 py-2 border-b-1 border-gray-md">
         <div className="flex items-center">
-          <div className="font-semibold w-1/5">판매가격</div>
+          <div className="font-semibold w-1/5">매도가격</div>
           <input
             type="number"
             className="input-style text-sm"
@@ -39,7 +39,7 @@ export default function SellBox({ maxQuantity, orderStock }) {
           />
         </div>
         <div className="flex items-start">
-          <div className="font-semibold w-1/5 mt-3">판매수량</div>
+          <div className="font-semibold w-1/5 mt-3">매도수량</div>
           <div className="w-full flex flex-col space-y-2">
             <input
               type="number"
@@ -63,8 +63,10 @@ export default function SellBox({ maxQuantity, orderStock }) {
         </div>
       </div>
       <div className="flex items-center justify-between py-2">
-        <div className="font-semibold">총 판매 금액</div>
-        <div className="font-semibold">{totalOrderPrice}원</div>
+        <div className="font-semibold">총 매도 금액</div>
+        <div className="font-semibold">
+          {totalOrderPrice.toLocaleString()}원
+        </div>
       </div>
       <button
         className="button-style"
@@ -75,7 +77,7 @@ export default function SellBox({ maxQuantity, orderStock }) {
           totalOrderPrice <= 0
         }
       >
-        판매하기
+        매도하기
       </button>
     </div>
   );

@@ -1,4 +1,5 @@
 //로그인, 회원가입
+import { Weight } from "lucide-react";
 import api from "./axiosInstance";
 import { toast } from "react-toastify";
 
@@ -26,7 +27,9 @@ const logout = (setIsLogin) => {
     theme: "colored",
     style: {
       backgroundColor: "#54b0fe", // 원하는 배경색 (예: 초록색)
-      color: "#333d4b", // 텍스트 색상
+      color: "#eee", // 텍스트 색상
+      fontWeight: "bold", // 글자 굵기
+      fontSize: "14px", // 글자 크기
     },
   });
 };

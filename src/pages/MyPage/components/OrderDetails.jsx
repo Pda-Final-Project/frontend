@@ -78,7 +78,7 @@ export default function OrderDetails() {
                 <th className="p-2">주문일자</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="">
               {orders?.map((order, index) => (
                 <tr
                   key={index}
