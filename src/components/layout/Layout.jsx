@@ -9,7 +9,7 @@ import useSseAlarm from "../../hooks/useSseAlarm";
 
 export default function Layout() {
   const { fetchLikedStocks } = useLikedStocksStore();
-  // useSseAlarm();
+  useSseAlarm();
 
   useEffect(() => {
     fetchLikedStocks();

@@ -94,10 +94,10 @@ function TradingTab({ ticker, extend }) {
         // 확대(전체 화면) 상태: 상단은 좌측 차트 & 우측 매수/매도, 하단은 전체 실시간 시세 및 체결 내역
         <div className="w-full h-full flex flex-col space-y-4">
           <div className="flex gap-4">
-            <div className="w-2/3 h-[550px]">
-              <ChartTab ticker={ticker} height="500px" />
+            <div className="w-2/3">
+              <ChartTab ticker={ticker} />
             </div>
-            <div className="flex flex-col justify-between gap-4 w-1/3 h-[550px]">
+            <div className="flex flex-col justify-center gap-4 w-1/3">
               <BuyBox withHolding={availBalance} orderStock={orderStock} />
               <SellBox maxQuantity={availQuantity} orderStock={orderStock} />
             </div>
@@ -109,8 +109,8 @@ function TradingTab({ ticker, extend }) {
       ) : (
         // 기본 상태: 차례대로 세로 배치
         <div className="w-full h-full flex flex-col space-y-4">
-          <div className="w-full h-[310px]">
-            <ChartTab ticker={ticker} height="300px" />
+          <div className="w-full h-[520px]">
+            <ChartTab ticker={ticker} />
           </div>
           <div className="grid grid-cols-2 gap-4 w-full">
             <BuyBox withHolding={availBalance} orderStock={orderStock} />

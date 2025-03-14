@@ -48,7 +48,7 @@ export default function DisclosureDetail() {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full h-full">
+    <div className="w-full flex flex-col gap-4 text-sm font-semibold transition-all duration-700 ease-out">
       <div className="bg-white p-8 rounded-lg">
         {/* 공시 기본 정보 */}
         <div className="flex w-full justify-between items-center font-semibold rounded-lg bg-white">

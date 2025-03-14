@@ -138,7 +138,7 @@ export default function MainPage() {
       }
     `}
         >
-          <div className="h-full overflow-y-auto">
+          <div className="h-full overflow-y-auto custom-scrollbar bg-white rounded-lg">
             <DisclosureTab ticker={ticker} />
           </div>
         </div>
@@ -155,7 +155,7 @@ export default function MainPage() {
       }
     `}
         >
-          <div className="h-full overflow-y-auto">
+          <div className="h-full overflow-y-auto custom-scrollbar">
             <TradingTab ticker={ticker} extend={extend} />
           </div>
         </div>
