@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const api = axios.create({
-  baseURL: "/api", // Vite 프록시를 통해 백엔드로 요청 보냄
+  baseURL: "/api", // 빈 문자열로 설정, 프록시 설정 사용
   timeout: 5000,
   headers: { "Content-Type": "application/json" },
 });
