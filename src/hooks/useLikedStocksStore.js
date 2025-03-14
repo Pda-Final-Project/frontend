@@ -41,7 +41,6 @@ export const useLikedStocksStore = create((set, get) => ({
     set({ likedStocks: newLikedStocks });
 
     try {
-      console.log(ticker);
       if (isLiked) {
         await removeLikeStock(ticker);
       } else {
@@ -49,8 +48,7 @@ export const useLikedStocksStore = create((set, get) => ({
       }
     } catch (error) {
       console.error("좋아요 변경 실패:", error);
-      alert("좋아요 변경에 실패했습니다. 다시 시도해주세요.");
-      set({ likedStocks: currentLikedStocks }); // ✅ 롤백 처리
+      set({ likedStocks: currentLikedStocks });
     }
   },
 }));

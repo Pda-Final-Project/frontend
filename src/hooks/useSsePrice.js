@@ -4,7 +4,6 @@ export default function useSsePrice(setPrices, ticker) {
   // SSE 이벤트 핸들러 정의
   const eventHandlers = {
     tradeUpdate: (data) => {
-      console.log("📊 수신된 priceUpdate 데이터:", data);
       setPrices((prevPrices) => {
         const newPrices = [
           {

@@ -34,3 +34,17 @@
     scrollbar-width: none;
   }
 }
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px; /* 스크롤바 너비 */
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-200); /* 스크롤바 색상 */
+    border-radius: 10px;
+    border: 2px solid var(--color-gray-light); /* 트랙과의 경계 */
+    transition: background-color 0.3s ease, width 0.3s ease; /* hover 효과를 위한 트랜지션 */
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-blue-md); /* 마우스 오버 시 색상 */
+  }
+}

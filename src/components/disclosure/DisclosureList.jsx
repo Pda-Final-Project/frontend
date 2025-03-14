@@ -7,7 +7,7 @@ const fillingTypeData = [
   { id: "8-K", name: "수시 보고서 (8-K)" },
   { id: "S-1", name: `증권 거래 신고서 (Form S-1)` },
   { id: "4", name: "내부자 거래 보고서 (Form4)" },
-  { id: "SC 13G", name: "지분율 5% 이상 변동 보고서 (Schedule 13D/13G)" },
+  { id: "SC-13G", name: "지분율 5% 이상 변동 보고서 (Schedule 13D/13G)" },
 ];
 
 export default function DisclosureList({ ticker = "" }) {
@@ -68,7 +68,13 @@ export default function DisclosureList({ ticker = "" }) {
   };
 
   const resetSearch = () => {
-    setTickerParam("");
+    const currentPath = location.pathname;
+    if (currentPath.startsWith("/main") && currentPath.endsWith("/all")) {
+      setTickerParam(ticker);
+    } else {
+      setTickerParam("");
+    }
+
     setStartDate("");
     setEndDate("");
     setFillingType("");
@@ -170,45 +176,60 @@ export default function DisclosureList({ ticker = "" }) {
         <h2 className="text-lg font-semibold mb-2 text-center">
           공시 검색 결과
         </h2>
-        <table className="w-full text-left">
-          <thead>
-            <tr className="border-b-1 border-gray-md text-gray-md">
-              <th className="p-3 w-1/6">공시 유형</th>
-              <th className="p-3 w-1/6">종목</th>
-              <th className="p-3 w-1/2">보고서명</th>
-              <th className="p-3 w-1/6">발행 일시</th>
-            </tr>
-          </thead>
-          <tbody>
-            {fillings.map((report) => (
-              <tr
-                key={report.fillingId}
-                className="cursor-pointer hover:bg-blue-light duration-300 rounded-lg"
-                onClick={() => handleClick(report.fillingId)}
-              >
-                <td className="p-3">{report.fillingType}</td>
-                <td className="p-3">{report.fillingTicker}</td>
-                <td className="p-3">{report.fillingTitle}</td>
-                <td className="p-3">{report.submitTimestamp}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {/* 페이지네이션 */}
-        <div className="flex justify-center mt-8">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              className={`mx-1 px-3 py-1 rounded-md ${
-                currentPage === i ? "bg-blue-md text-white" : "bg-gray-light"
-              }`}
-              onClick={() => setCurrentPage(i)}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </div>
+        {fillings.length > 0 ? (
+          <div>
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b-1 border-gray-md text-gray-md">
+                  <th className="p-3 w-1/6">공시 유형</th>
+                  <th className="p-3 w-1/6">종목</th>
+                  <th className="p-3 w-1/2">보고서명</th>
+                  <th className="p-3 w-1/6">발행 일시</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fillings?.map((report) => (
+                  <tr
+                    key={report.fillingId}
+                    className="cursor-pointer hover:bg-blue-light duration-300 rounded-lg"
+                    onClick={() => handleClick(report.fillingId)}
+                  >
+                    <td className="p-3">{report.fillingType}</td>
+                    <td className="p-3">{report.fillingTicker}</td>
+                    <td className="p-3">{report.fillingTitle}</td>
+                    <td className="p-3">
+                      {
+                        new Date(report.submitTimestamp)
+                          .toISOString()
+                          .split("T")[0]
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {/* 페이지네이션 */}
+            <div className="flex justify-center mt-8">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  className={`mx-1 px-3 py-1 rounded-md ${
+                    currentPage === i
+                      ? "bg-blue-md text-white"
+                      : "bg-gray-light"
+                  }`}
+                  onClick={() => setCurrentPage(i)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="min-h-30 flex w-full justify-center items-center font-medium text-gray-md">
+            공시 검색 결과가 존재하지 않습니다.
+          </div>
+        )}
       </div>
     </div>
   );

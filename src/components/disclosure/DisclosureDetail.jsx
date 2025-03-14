@@ -7,6 +7,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { dummySummaryData } from "./dummySummaryData";
 import { MdGTranslate } from "react-icons/md";
 import { IoDocumentTextSharp } from "react-icons/io5";
+import { mapFilingType } from "../../utils/mappingFillingType";
 
 export default function DisclosureDetail() {
   const { filling_id } = useParams();
@@ -22,13 +23,9 @@ export default function DisclosureDetail() {
       const response = await fetchFillingInfo(filling_id);
       if (response.data.status == "FOUND") {
         setFilling(response.data.data);
-        console.log(response.data.data);
-      } else {
-        alert(response.data.message);
       }
     } catch (error) {
       console.error(error.message);
-      alert("서버 내부 오류가 발생했습니다..");
     }
   };
 
@@ -39,11 +36,11 @@ export default function DisclosureDetail() {
         return "10-Q (분기보고서)는 기업이 3개월마다 실적과 재무 상태를 보고하는 문서로, 투자자가 기업의 성과를 주기적으로 확인할 수 있어요. 연간 보고서인 10-K보다 간략하지만, 실적 흐름을 파악하는 데 중요한 자료예요.";
       case "8-K":
         return "8-K (수시 보고서)는 기업에 중요한 사건(예: CEO 교체, 합병, 파산 등)이 발생하면 즉시 투자자에게 알리는 보고서예요. 기업의 주요 변동 사항을 빠르게 파악할 수 있도록 제공돼요.";
-      case "FormS-1":
+      case "S-1":
         return "FormS-1(증권신고서)는 기업이 기업공개(IPO)를 통해 처음으로 주식을 발행할 때, 사업 개요와 재무 정보를 공개하는 보고서예요. 투자자는 이를 통해 기업의 성장 가능성과 리스크를 확인할 수 있어요.";
-      case "SC 13D":
+      case "SC-13G":
         return "Schedule 13D/13G (대량 보유 보고서)는 특정 투자자가 기업의 주식을 5% 이상 보유하게 되면 그 목적과 계획을 공개하는 보고서예요. 투자자의 의도를 파악하고 기업 지배 구조 변화를 예측하는 데 도움을 줘요.";
-      case "Form4":
+      case "4":
         return "Form 4 (내부자 거래 보고서)는 기업의 임원이나 주요 주주가 해당 기업의 주식을 매매할 경우, 이를 신고하는 문서예요. 내부자의 거래 동향을 확인하여 투자 판단에 활용할 수 있어요.";
       default:
         return "이 공시 유형에 대한 추가 설명이 없습니다.";
@@ -51,7 +48,7 @@ export default function DisclosureDetail() {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full h-full">
+    <div className="w-full flex flex-col gap-4 text-sm font-semibold transition-all duration-700 ease-out">
       <div className="bg-white p-8 rounded-lg">
         {/* 공시 기본 정보 */}
         <div className="flex w-full justify-between items-center font-semibold rounded-lg bg-white">
@@ -69,26 +66,31 @@ export default function DisclosureDetail() {
             <div>제출일자: {filling.submitTimestamp}</div>
           </div>
         </div>
-        
+
         {/* 공시 타입에 대한 팁 */}
-        <div className="flex w-full bg-gray-light p-4 rounded-lg text-[14px] text-gray-dark mt-8">
-          {getFillingTypeTip(filling.fillingType)}
+        <div className="flex w-full bg-blue-light p-4 rounded-lg text-[14px] mt-8">
+          {getFillingTypeTip(mapFilingType(filling.fillingType))}
         </div>
       </div>
 
       {/* 공시 추가 인사이트 */}
-      {filling.fillingType == "10-Q" || filling.fillingType == "8-K" ? (
+      {mapFilingType(filling.fillingType) == "10-Q" ? (
         <InsightBox
           ticker={filling.fillingTicker}
-          fillingType={filling.fillingType}
-          filling10qJsonUrl={filling.filling10qJsonUrl}
+          fillingType={mapFilingType(filling.fillingType)}
+          filling10qJsonUrl={`${
+            import.meta.env.VITE_FILL_10Q
+          }${filling_id}.json`}
         />
       ) : (
         ""
       )}
       {/* 공시 요약본 */}
       <div className="w-full h-full flex flex-col bg-white rounded-lg overflow-hidden">
-        <DisclosureSummary summaryData={dummySummaryData} />
+        <DisclosureSummary
+          summaryData={dummySummaryData}
+          fillingId={filling_id}
+        />
       </div>
 
       {/* 공시 원문 */}

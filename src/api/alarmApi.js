@@ -8,14 +8,4 @@ const fetchAlarm = () =>
     skipInterceptor: true,
   });
 
-//알림 켜고 끄기
-const changeAlarmStatus = (enabled) =>
-  api.patch(
-    `${
-      import.meta.env.VITE_API_USER_URL
-    }/notification/switch?enabled=${enabled}`,
-    null,
-    { isAuthRequired: true, skipInterceptor: true }
-  );
-
-export { fetchAlarm, changeAlarmStatus };
+export { fetchAlarm };

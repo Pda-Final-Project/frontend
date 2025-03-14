@@ -23,8 +23,6 @@ const Header = () => {
       const response = await fetchStocks("", searchParam);
       if (response.data.status === "OK") {
         setSearchResult(response.data.data);
-      } else {
-        alert(response.data.message);
       }
     } catch (error) {
       console.error(error.message);
@@ -70,7 +68,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="flex items-center justify-between px-4 py-2 bg-white relative">
+    <header className="flex items-center justify-between px-4 py-2 bg-white relative h-[62px]">
       {/* 로고 */}
       <div className="flex items-center space-x-2">
         <img
@@ -187,7 +185,7 @@ const Header = () => {
 
       {/* 알람 모달 */}
       {showAlarm && (
-        <div ref={alarmRef}>
+        <div ref={alarmRef} className="fixed right-4 top-0 z-50">
           <AlarmModal onClose={() => setShowAlarm(false)} />
         </div>
       )}

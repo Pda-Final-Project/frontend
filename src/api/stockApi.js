@@ -3,7 +3,7 @@ import api from "./axiosInstance";
 
 //종목 조회
 const fetchStocks = (sortBy = "", searchParam = "") =>
-  api.get("stocks", {
+  api.get(`stocks`, {
     params: {
       sortBy,
       searchParam,

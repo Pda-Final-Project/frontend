@@ -57,30 +57,38 @@ export default function MarketPriceList() {
         <div className="w-full text-right">거래량</div>
         <div className="w-full text-right">시간</div>
       </div>
-      <div className="overflow-y-auto  max-h-72">
-        {marketPrices.map((el, id) => (
-          <div
-            key={id}
-            className={`grid grid-cols-4 gap-4 px-2 py-2 rounded-lg hover:bg-blue-light ${
-              id % 2 == 0 ? "bg-white" : "bg-gray-light"
-            }`}
-          >
-            <div className="w-full text-left">
-              {parseInt(el.trade_price).toLocaleString()} 원
-            </div>
+      <div className="overflow-y-auto max-h-72 no-scrollbar">
+        {marketPrices.length > 0 ? (
+          marketPrices?.map((el, id) => (
             <div
-              className={`w-full text-right ${
-                el.trade_type == "BUY" ? "text-red-md" : "text-blue-dark"
+              key={id}
+              className={`grid grid-cols-4 gap-4 px-2 py-2 rounded-lg hover:bg-blue-light ${
+                id % 2 == 0 ? "bg-white" : "bg-gray-light"
               }`}
             >
-              {el.trade_quantity.toLocaleString()}
+              <div className="w-full text-left">
+                {parseInt(el.trade_price).toLocaleString()} 원
+              </div>
+              <div
+                className={`w-full text-right ${
+                  el.trade_type == "BUY" ? "text-red-md" : "text-blue-dark"
+                }`}
+              >
+                {el.trade_quantity.toLocaleString()}
+              </div>
+              <div className="w-full text-right">
+                {el.trade_volume.toLocaleString()}
+              </div>
+              <div className="w-full text-right">
+                {formatDate(el.trade_time)}
+              </div>
             </div>
-            <div className="w-full text-right">
-              {el.trade_volume.toLocaleString()}
-            </div>
-            <div className="w-full text-right">{formatDate(el.trade_time)}</div>
+          ))
+        ) : (
+          <div className="min-h-30 flex justify-center items-center text-gray-md">
+            실시간 체결가가 존재하지 않습니다.
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

@@ -1,12 +1,20 @@
 import useSse from "./useSse";
-
+import { toast } from "react-toastify";
 export default function useSseAlarm() {
   const token = sessionStorage.getItem("accessToken");
 
   const eventHandlers = {
     notification: (data) => {
-      console.log("🔔 수신된 알림 데이터:", data);
-      alert(data);
+      toast(data, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     },
   };
   if (token) {

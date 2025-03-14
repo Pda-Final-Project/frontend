@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import dummy_fillings from "./data/dummyDisclosures"; // 더미 데이터
 import { HiPlusCircle } from "react-icons/hi";
 import { fetchFillings } from "../../../api/disclosureApi";
 
 export default function Disclosures() {
   const navigate = useNavigate();
-  const [fillings, setFillings] = useState(dummy_fillings); // 초기값을 더미 데이터로 설정
+  const [fillings, setFillings] = useState(); // 초기값을 더미 데이터로 설정
 
   useEffect(() => {
     tryFetchFillings();
@@ -47,7 +46,7 @@ export default function Disclosures() {
           <div className="flex space-x-4 rounded-lg max-w-screen-xl whitespace-nowrap shadow-lg">
             {/* fillings 배열이 제대로 있는지 확인하고, 없다면 로딩 중 표시 */}
             {Array.isArray(fillings) && fillings.length > 0 ? (
-              fillings.map((item, index) => (
+              fillings?.map((item, index) => (
                 <div
                   key={index}
                   className="bg-gray-50 p-4 rounded-lg shadow-light transition-all flex flex-col cursor-pointer hover:bg-gray-200 duration-300 min-w-60"
