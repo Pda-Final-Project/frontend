@@ -55,7 +55,10 @@ export default function Summary({ summaryData, fillingId }) {
               key={key}
             >
               <h2 className="text-[16px] font-bold mb-2">{key}</h2>
-              <p dangerouslySetInnerHTML={{ __html: value }} />
+              <p
+                className="font-medium"
+                dangerouslySetInnerHTML={{ __html: value }}
+              />
             </section>
           ))}
         </div>
@@ -79,7 +82,7 @@ export default function Summary({ summaryData, fillingId }) {
             className={`py-3 px-6 ${
               activeTab === "총평"
                 ? "border-b-4 border-blue-md text-blue-md font-semibold"
-                : "text-gray-md"
+                : "text-gray-md font-medium"
             }`}
             onClick={() => setActiveTab("총평")}
           >
@@ -88,7 +91,7 @@ export default function Summary({ summaryData, fillingId }) {
         </div>
 
         {/* 탭 콘텐츠 렌더링 */}
-        <section className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+        <section className="bg-gray-50 rounded-lg p-6 border font-medium border-gray-200">
           {contentTabs.includes(activeTab) && (
             <div dangerouslySetInnerHTML={{ __html: content[activeTab] }} />
           )}
@@ -108,7 +111,10 @@ export default function Summary({ summaryData, fillingId }) {
                     <FiTrendingUp className="text-blue-600" />
                     <h4 className="font-semibold text-blue-500">시장 영향</h4>
                   </div>
-                  <p dangerouslySetInnerHTML={{ __html: marketImpact }} />
+                  <p
+                    className="font-medium"
+                    dangerouslySetInnerHTML={{ __html: marketImpact }}
+                  />
                 </div>
               )}
 
@@ -120,7 +126,10 @@ export default function Summary({ summaryData, fillingId }) {
                       주요 리스크 요인
                     </h4>
                   </div>
-                  <p dangerouslySetInnerHTML={{ __html: riskFactor }} />
+                  <p
+                    className="font-medium"
+                    dangerouslySetInnerHTML={{ __html: riskFactor }}
+                  />
                 </div>
               )}
 
@@ -132,7 +141,10 @@ export default function Summary({ summaryData, fillingId }) {
                       장단기 전망
                     </h4>
                   </div>
-                  <p dangerouslySetInnerHTML={{ __html: outlook }} />
+                  <p
+                    className="font-medium"
+                    dangerouslySetInnerHTML={{ __html: outlook }}
+                  />
                 </div>
               )}
             </div>

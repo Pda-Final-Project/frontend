@@ -95,15 +95,16 @@ export default function DisclosureList({ ticker = "" }) {
         </div>
 
         <div className="bg-gray-light p-5 rounded-lg flex flex-col justify-center items-center">
-          <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4 w-full">
+          <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-8 w-full">
             {/* 종목 검색 */}
             <div className="flex flex-col gap-3 w-full">
               <div className="flex items-center mt-6">
-                <h2 className="text-md font-semibold w-1/7">종목</h2>
+                <h2 className="text-md font-semibold w-1/8 mr-2">종목</h2>
+
                 <input
                   type="text"
                   placeholder="종목코드를 입력하세요"
-                  className="w-6/7 border bg-white border-gray-md px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md"
+                  className="w-7/8 border bg-white border-gray-md px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md"
                   value={tickerParam}
                   onChange={(e) => setTickerParam(e.target.value)}
                 />
@@ -111,18 +112,18 @@ export default function DisclosureList({ ticker = "" }) {
 
               {/* 기간 선택 */}
               <div className="flex items-center">
-                <h2 className="text-md font-semibold w-1/7">기간</h2>
-                <div className="w-6/7 flex items-center justify-between">
+                <h2 className="text-md font-semibold w-1/8 mr-2">기간</h2>
+                <div className="w-7/8 flex items-center justify-between">
                   <input
                     type="date"
-                    className="border bg-white border-gray-md px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full"
+                    className="border bg-white border-gray-md px-1 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                   />
                   <span className="px-1">-</span>
                   <input
                     type="date"
-                    className="border bg-white border-gray-md px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full"
+                    className="border bg-white border-gray-md px-1 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
                   />
@@ -133,8 +134,8 @@ export default function DisclosureList({ ticker = "" }) {
             {/* 공시유형 */}
             <div className="flex flex-col w-full">
               <h2 className="text-md font-semibold mb-2">공시유형</h2>
-              <div className="grid grid-cols-2 gap-2">
-                {fillingTypeData.map((type) => (
+              <div className="grid grid-cols-2 gap-2 mb-2">
+                {fillingTypeData.slice(0, 4).map((type) => (
                   <button
                     key={type.id}
                     className={`px-4 py-2 rounded-md font-semibold ${
@@ -150,6 +151,23 @@ export default function DisclosureList({ ticker = "" }) {
                   </button>
                 ))}
               </div>
+              <button
+                key={fillingTypeData[4].id}
+                className={`px-4 py-2 rounded-md font-semibold ${
+                  fillingType === fillingTypeData[4].id
+                    ? "bg-blue-md text-white"
+                    : "bg-white"
+                }`}
+                onClick={() =>
+                  setFillingType(
+                    fillingType === fillingTypeData[4].id
+                      ? ""
+                      : fillingTypeData[4].id
+                  )
+                }
+              >
+                {fillingTypeData[4].name}
+              </button>
             </div>
           </div>
 

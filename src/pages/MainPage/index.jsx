@@ -20,6 +20,12 @@ export default function MainPage() {
       change_rate: 0,
     },
   ]);
+  const currentStock = stockInfo[0]; // 배열에서 첫 번째 요소 사용
+
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 100);
+  }, []);
 
   const tryFetchStock = async () => {
     try {
@@ -52,10 +58,12 @@ export default function MainPage() {
     return <div className="text-center">로딩 중...</div>;
   }
 
-  const currentStock = stockInfo[0]; // 배열에서 첫 번째 요소 사용
-
   return (
-    <div className="flex flex-col w-full h-[calc(100vh-62px)] bg-gray-light p-8">
+    <div
+      className={`flex flex-col w-full h-[calc(100vh-62px)] bg-gray-light p-8 transition-all duration-700 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
       {/** 종목 기본 정보(로고, 종목명, 종목 코드, 현재가, 변동률) */}
       <div className="flex items-center gap-4 pb-4 font-semibold">
         <div>
