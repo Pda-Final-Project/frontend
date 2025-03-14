@@ -37,7 +37,7 @@ export default function PasswordModal({ isOpen, onClose, action }) {
     try {
       const response = await checkAccountPassword(password);
       if (response.data.status == "OK") {
-        toast("😀 계좌 인증에 성공했습니다!", {
+        toast.info("😀 계좌 인증에 성공했습니다!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -45,7 +45,13 @@ export default function PasswordModal({ isOpen, onClose, action }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "colored",
+          style: {
+            backgroundColor: "#54b0fe", // 원하는 배경색 (예: 초록색)
+            color: "#eee", // 텍스트 색상
+            fontWeight: "bold", // 글자 굵기
+            fontSize: "14px", // 글자 크기
+          },
         });
         return true;
       }

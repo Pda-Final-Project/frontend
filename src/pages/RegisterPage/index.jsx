@@ -33,7 +33,7 @@ export default function Register() {
     try {
       const response = await register(registerInfo);
       if (response.data.status === "CREATED") {
-        toast("😀 회원가입에 성공했습니다!", {
+        toast.info("😀 회원가입에 성공했습니다!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -41,12 +41,18 @@ export default function Register() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "colored",
+          style: {
+            backgroundColor: "#54b0fe", // 원하는 배경색 (예: 초록색)
+            color: "#eee", // 텍스트 색상
+            fontWeight: "bold", // 글자 굵기
+            fontSize: "14px", // 글자 크기
+          },
         });
         navigate("../login");
       }
     } catch (error) {
-      toast("😣 회원가입에 실패했습니다.", {
+      toast.error("😣 회원가입에 실패했습니다.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -54,7 +60,12 @@ export default function Register() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "colored",
+        style: {
+          color: "#eee", // 텍스트 색상
+          fontWeight: "bold", // 글자 굵기
+          fontSize: "14px", // 글자 크기
+        },
       });
       console.error(error.message);
     }

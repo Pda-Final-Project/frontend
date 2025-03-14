@@ -51,7 +51,7 @@ function TradingTab({ ticker, extend }) {
       if (response.data.status === "CREATED") {
         tryFetchAvailQuantity();
         tryFetchAvailBalance();
-        toast("😀 주문이 정상적으로 접수되었습니다!", {
+        toast.info("😀 주문이 정상적으로 접수되었습니다!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -59,10 +59,16 @@ function TradingTab({ ticker, extend }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "colored",
+          style: {
+            backgroundColor: "#54b0fe", // 원하는 배경색 (예: 초록색)
+            color: "#eee", // 텍스트 색상
+            fontWeight: "bold", // 글자 굵기
+            fontSize: "14px", // 글자 크기
+          },
         });
       } else {
-        toast("😣 주문 중 오류가 발생했습니다.", {
+        toast.error("😣 주문 중 오류가 발생했습니다.", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -70,12 +76,17 @@ function TradingTab({ ticker, extend }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "colored",
+          style: {
+            color: "#eee", // 텍스트 색상
+            fontWeight: "bold", // 글자 굵기
+            fontSize: "14px", // 글자 크기
+          },
         });
       }
     } catch (error) {
       console.error("주문 중 오류 발생: ", error.message);
-      toast("😣 주문 중 오류가 발생했습니다.", {
+      toast.error("😣 주문 중 오류가 발생했습니다.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -83,7 +94,12 @@ function TradingTab({ ticker, extend }) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "colored",
+        style: {
+          color: "#eee", // 텍스트 색상
+          fontWeight: "bold", // 글자 굵기
+          fontSize: "14px", // 글자 크기
+        },
       });
     }
   };
