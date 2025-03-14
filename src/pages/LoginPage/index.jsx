@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { validatePassword, validatePhoneNumber } from "../../utils/userValid";
 import { login } from "../../api/authApi";
+import { toast } from "react-toastify";
 
 export default function Index() {
   const [loginData, setLoginData] = useState({
@@ -40,13 +41,35 @@ export default function Index() {
       const response = await login(loginData);
       if (response.data.status === "OK") {
         sessionStorage.setItem("accessToken", response.data.data);
-        alert(response.data.message);
+        toast("😀 로그인에 성공했습니다!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         navigate("../");
       }
     } catch (error) {
-      alert("로그인에 실패했습니다...");
+      toast("😣 로그인에 실패했습니다.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 100);
+  }, []);
 
   return (
     <div className="grid grid-cols-2 w-full h-screen">
@@ -57,12 +80,16 @@ export default function Index() {
           onClick={() => navigate("../")}
         />
         <img
-          src="../../../public/images/login.jpg"
+          src="/images/login.jpg"
           className="h-auto w-lg absolute left-0 bottom-0"
         />
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
-        <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
+        <div
+          className={`bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl transition-all duration-700 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+        >
           <h1 className="font-bold text-2xl mb-5">FinPago 시작하기</h1>
           <span className="text-blue-md text-sm mb-1 font-semibold">
             실시간 해외 공시 번역·요약부터 매매까지,

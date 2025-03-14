@@ -3,7 +3,7 @@ import { timeAgo } from "../../../utils/timeAgo";
 import { news } from "../../../api/othersApi";
 import { HiPlusCircle } from "react-icons/hi";
 
-const NEWS_SITE_URL = "https://www.investing.com";
+const NEWS_SITE_URL = "https://finance.daum.net/global/news";
 
 export default function News() {
   const [newsData, setNewsData] = useState([]);
@@ -33,12 +33,14 @@ export default function News() {
     <div className="w-full">
       {/* 제목 */}
       <div className="flex items-end mb-4">
-        <h1 className="text-[18px] font-bold mr-2">글로벌 경제 뉴스</h1>
+        <h1 className="text-[18px] font-bold mr-2">해외 증시 속보</h1>
         <a
           className="font-semibold text-blue-md text-center cursor-pointer hover:underline"
           href={NEWS_SITE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          Investing.com 바로가기
+          해외 증시 속보 보러가기
         </a>
       </div>
       {/* 데이터가 로딩되지 않았을 경우 표시 */}

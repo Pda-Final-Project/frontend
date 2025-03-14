@@ -19,6 +19,7 @@ const LABEL_MAP = {
   Revenue: "매출",
   OperatingIncome: "영업이익",
   NetIncome: "순이익",
+  BasicEarningsPerShare: "주당 기본 순이익(EPS)",
 };
 
 const CustomizedLegend = ({ payload, onClick = () => {} }) => {
@@ -41,8 +42,8 @@ const CustomizedLegend = ({ payload, onClick = () => {} }) => {
 };
 
 export default function WeatherGraph10Q({
-  filling10qJsonUrl,
   setSelectedFilling,
+  filling10qJsonUrl,
 }) {
   const [chartData, setChartData] = useState([]);
 
@@ -51,33 +52,60 @@ export default function WeatherGraph10Q({
     const quarter = Math.floor((date.getMonth() + 3) / 3);
     return `${date.getFullYear()}-Q${quarter}`;
   };
-
   const fetchFilling10q = async () => {
     try {
-      const response = await axios(filling10qJsonUrl);
+      const response = await axios.get(filling10qJsonUrl);
       if (response.status === 200) {
         const rawData = response.data;
-        const formattedData = Object.keys(rawData)
-          .filter((key) => key in LABEL_MAP)
-          .map((key) => {
-            return {
-              name: LABEL_MAP[key],
-              ...rawData[key].reduce((acc, item) => {
-                acc[getQuarter(item.period.endDate)] = Number(item.value) / 1e9; // 단위를 10억(억 단위)으로 변환
-                return acc;
-              }, {}),
-            };
+        const parsedData =
+          typeof rawData === "string" ? JSON.parse(rawData) : rawData;
+
+        console.log("Raw Data:", parsedData);
+
+        // 모든 분기를 추출 (데이터에 포함된 모든 endDate를 기준으로)
+        const allQuarters = new Set();
+        Object.values(parsedData).forEach((data) =>
+          data.forEach((item) =>
+            allQuarters.add(getQuarter(item.period.endDate))
+          )
+        );
+
+        // 모든 데이터 키에 대해 데이터를 0으로 초기화한 후, 값이 있는 경우 채우기
+        const formattedData = Object.keys(LABEL_MAP).map((key) => {
+          const dataMap =
+            parsedData[key]?.reduce((acc, item) => {
+              const quarterLabel = getQuarter(item.period.endDate);
+              acc[quarterLabel] =
+                key === "BasicEarningsPerShare"
+                  ? Number(item.value)
+                  : Number(item.value) / 1e9;
+              return acc;
+            }, {}) ?? {}; // 데이터가 없으면 빈 객체 반환
+
+          // 모든 분기를 확인하면서 값이 없는 경우 0으로 채움
+          allQuarters.forEach((quarter) => {
+            if (!dataMap[quarter]) {
+              dataMap[quarter] = 0;
+            }
           });
+
+          return {
+            name: LABEL_MAP[key],
+            ...dataMap,
+          };
+        });
+
+        console.log("Processed Data:", formattedData);
         setChartData(formattedData);
       }
     } catch (error) {
-      console.error(error.message);
+      console.error("Error fetching data:", error.message);
     }
   };
 
   useEffect(() => {
     fetchFilling10q();
-  }, [filling10qJsonUrl]);
+  }, []);
 
   return (
     <div className="relative w-full h-full">
@@ -97,7 +125,7 @@ export default function WeatherGraph10Q({
                 )
               ) * 1.4,
             ]}
-            tickFormatter={(value) => `${value.toFixed(1)}억`}
+            tickFormatter={(value) => `${value.toFixed()}억 $`}
           />
           <Tooltip />
           <Legend
@@ -172,8 +200,8 @@ export default function WeatherGraph10Q({
             key={index}
             className="absolute"
             style={{
-              left: `${index * 30 + 21}%`,
-              top: "10%",
+              left: `${index * 23.3 + 15.5}%`,
+              top: "5%",
             }}
           >
             {isIncrease ? (

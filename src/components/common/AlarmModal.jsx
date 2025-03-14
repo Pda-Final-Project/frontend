@@ -1,21 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { timeAgo } from "../../utils/timeAgo";
-import { changeAlarmStatus, fetchAlarm } from "../../api/alarmApi";
+import { fetchAlarm } from "../../api/alarmApi";
 
 const AlarmModal = ({ onClose }) => {
   const [alarms, setAlarms] = useState([]);
-  const [isAlarmOn, setIsAlarmOn] = useState(true);
-
-  const tryChangeAlarmStatus = async () => {
-    try {
-      const response = await changeAlarmStatus(!isAlarmOn);
-      if (response.data.status === "OK") {
-        setIsAlarmOn(!isAlarmOn);
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
 
   const tryFetchAlarm = async () => {
     try {
@@ -39,19 +26,6 @@ const AlarmModal = ({ onClose }) => {
       <div className="flex justify-between items-center pb-2 mb-2">
         <div className="flex items-center">
           <h2 className="text-lg font-semibold p-3">알림</h2>
-          {/* 알림 상태 toggle 버튼 */}
-          <div
-            onClick={tryChangeAlarmStatus}
-            className={`relative w-12 h-6 flex items-center px-1 rounded-full cursor-pointer transition-all duration-300 ${
-              isAlarmOn ? "bg-blue-md" : "bg-gray-md"
-            }`}
-          >
-            <div
-              className={`w-4 h-4 bg-white rounded-full shadow-md transition-transform duration-300 ${
-                isAlarmOn ? "translate-x-6" : "translate-x-0"
-              }`}
-            ></div>
-          </div>
         </div>
         <button
           onClick={onClose}

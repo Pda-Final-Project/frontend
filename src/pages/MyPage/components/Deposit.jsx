@@ -18,7 +18,6 @@ const Deposit = ({ isOpen, onClose }) => {
       const response = await fetchBalanceDetail(); // 실제 API 엔드포인트로 변경
       if (response.data.status === "OK") {
         setDepositData(response.data.data);
-        console.log(response.data.data);
       }
     } catch (error) {
       console.error("예수금 조회 실패:", error);

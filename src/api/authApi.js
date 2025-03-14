@@ -1,5 +1,6 @@
 //로그인, 회원가입
 import api from "./axiosInstance";
+import { toast } from "react-toastify";
 
 const login = (userData) =>
   api.post(`auth/login`, userData, {
@@ -14,18 +15,16 @@ const register = (userData) =>
 const logout = (setIsLogin) => {
   sessionStorage.removeItem("accessToken");
   setIsLogin(false);
-  // toast("😀 로그아웃에 성공했습니다!", {
-  //   position: "top-right",
-  //   autoClose: 5000,
-  //   hideProgressBar: false,
-  //   closeOnClick: false,
-  //   pauseOnHover: true,
-  //   draggable: true,
-  //   progress: undefined,
-  //   theme: "light",
-  //   transition: Bounce,
-  // });
-  alert("로그아웃 완료!");
+  toast("😀 로그아웃에 성공했습니다!", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
 };
 
 const checkAccountPassword = (pin) =>

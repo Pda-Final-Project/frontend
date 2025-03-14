@@ -24,7 +24,7 @@ import {
   MouseCoordinateY,
 } from "react-financial-charts";
 
-const CandleChart = ({ chartData, height = 350, width = 900 }) => {
+const CandleChart = ({ chartData, height = 450, width = 900 }) => {
   const ScaleProvider =
     discontinuousTimeScaleProviderBuilder().inputDateAccessor(
       (d) => new Date(d.date)

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { isRegisterInfoValid } from "./checkRegisterInfo";
 import { register } from "../../api/authApi";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -32,30 +33,55 @@ export default function Register() {
     try {
       const response = await register(registerInfo);
       if (response.data.status === "CREATED") {
-        alert(response.data.data);
+        toast("😀 회원가입에 성공했습니다!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         navigate("../login");
       }
     } catch (error) {
-      alert("회원가입에 실패했습니다...");
-      console.log(error);
+      toast("😣 회원가입에 실패했습니다.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.error(error.message);
     }
   };
-
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 100);
+  }, []);
   return (
     <div className="grid grid-cols-2 w-full h-screen">
       <div className="bg-white flex flex-col">
         <img
           src="/images/logo.png"
-          className="w-48 cursor-pointer"
+          className="w-40 cursor-pointer"
           onClick={() => navigate("../")}
         />
         <img
-          src="/public/images/login.jpg"
-          className="h-auto w-2xl absolute left-0 bottom-0"
+          src="/images/login.jpg"
+          className="h-auto w-lg absolute left-0 bottom-0"
         />
       </div>
       <div className="bg-blue-md h-screen flex items-center justify-center">
-        <div className="bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl">
+        <div
+          className={`bg-white rounded-lg flex flex-col items-center p-24 w-full max-w-md space-y-12 shadow-xl transition-all duration-700 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+        >
           <h1 className="font-bold text-2xl">FinPago 함께하기</h1>
           <div className="flex flex-col space-y-4 w-full">
             <div>
