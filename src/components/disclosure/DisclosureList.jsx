@@ -95,15 +95,15 @@ export default function DisclosureList({ ticker = "" }) {
         </div>
 
         <div className="bg-gray-light p-5 rounded-lg flex flex-col justify-center items-center">
-          <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-12 w-full">
+          <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4 w-full">
             {/* 종목 검색 */}
             <div className="flex flex-col gap-3 w-full">
               <div className="flex items-center mt-6">
-                <h2 className="text-md font-semibold w-1/6">종목</h2>
+                <h2 className="text-md font-semibold w-1/7">종목</h2>
                 <input
                   type="text"
                   placeholder="종목코드를 입력하세요"
-                  className="input-style w-5/6"
+                  className="w-6/7 border bg-white border-gray-md px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md"
                   value={tickerParam}
                   onChange={(e) => setTickerParam(e.target.value)}
                 />
@@ -111,18 +111,18 @@ export default function DisclosureList({ ticker = "" }) {
 
               {/* 기간 선택 */}
               <div className="flex items-center">
-                <h2 className="text-md font-semibold w-1/6">기간</h2>
-                <div className="w-5/6 flex items-center">
+                <h2 className="text-md font-semibold w-1/7">기간</h2>
+                <div className="w-6/7 flex items-center justify-between">
                   <input
                     type="date"
-                    className="input-style"
+                    className="border bg-white border-gray-md px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                   />
                   <span className="px-1">-</span>
                   <input
                     type="date"
-                    className="input-style"
+                    className="border bg-white border-gray-md px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-md w-full"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
                   />
