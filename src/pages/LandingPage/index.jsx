@@ -30,7 +30,7 @@ export default function Index() {
     <div className="flex flex-col w-full px-32 py-20 space-y-20">
       {/* 실시간 공시 정보 */}
       <div
-        className={`transition-all duration-700 ${
+        className={`transition-all duration-700 overflow-hidden ${
           visibleSections.disclosures
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4"
