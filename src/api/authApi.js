@@ -3,12 +3,12 @@ import api from "./axiosInstance";
 import { toast } from "react-toastify";
 
 const login = (userData) =>
-  api.post(`auth/login`, userData, {
+  api.post(`${import.meta.env.VITE_API_USER_URL}/auth/login`, userData, {
     isAuthRequired: false,
   });
 
 const register = (userData) =>
-  api.post(`auth/join`, userData, {
+  api.post(`${import.meta.env.VITE_API_USER_URL}/auth/join`, userData, {
     isAuthRequired: false,
   });
 

@@ -68,7 +68,13 @@ export default function DisclosureList({ ticker = "" }) {
   };
 
   const resetSearch = () => {
-    setTickerParam("");
+    const currentPath = location.pathname;
+    if (currentPath.startsWith("/main") && currentPath.endsWith("/all")) {
+      setTickerParam(ticker);
+    } else {
+      setTickerParam("");
+    }
+
     setStartDate("");
     setEndDate("");
     setFillingType("");
@@ -191,7 +197,13 @@ export default function DisclosureList({ ticker = "" }) {
                     <td className="p-3">{report.fillingType}</td>
                     <td className="p-3">{report.fillingTicker}</td>
                     <td className="p-3">{report.fillingTitle}</td>
-                    <td className="p-3">{report.submitTimestamp}</td>
+                    <td className="p-3">
+                      {
+                        new Date(report.submitTimestamp)
+                          .toISOString()
+                          .split("T")[0]
+                      }
+                    </td>
                   </tr>
                 ))}
               </tbody>
