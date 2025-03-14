@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { fetchAlarm } from "../../api/alarmApi";
 
 const AlarmModal = ({ onClose }) => {
-  const [alarms, setAlarms] = useState([]);
+  const [alarms, setAlarms] = useState();
 
   const tryFetchAlarm = async () => {
     try {
       const response = await fetchAlarm();
+
       const parsedAlarms = response.data.map((alarm) => ({
         ...JSON.parse(alarm.data),
       }));
@@ -20,6 +21,9 @@ const AlarmModal = ({ onClose }) => {
     tryFetchAlarm();
   }, []);
 
+  useEffect(() => {
+    console.log(alarms);
+  }, [alarms]);
   return (
     <div className="absolute top-12 right-0 m-4 w-96 bg-white shadow-lg rounded-lg p-3 z-100">
       {/* 알람 모달 헤더 */}
@@ -37,8 +41,8 @@ const AlarmModal = ({ onClose }) => {
 
       {/* 알람 모달 바디 */}
       <div className="space-y-4 h-full max-h-[300px] overflow-auto no-scrollbar text-[14px]">
-        {alarms.length > 0 ? (
-          alarms.map((alarm, index) => (
+        {alarms !== null ? (
+          alarms?.map((alarm, index) => (
             <div
               key={index}
               className="bg-blue-50 p-4 rounded-lg flex flex-col"
@@ -63,7 +67,7 @@ const AlarmModal = ({ onClose }) => {
                 <p>
                   체결 가격:{" "}
                   <span className="font-semibold">
-                    {alarm.tradePrice.toFixed()}원
+                    {alarm.tradePrice?.toFixed()}원
                   </span>
                 </p>
               </div>

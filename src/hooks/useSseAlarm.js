@@ -19,7 +19,7 @@ export default function useSseAlarm() {
   };
   if (token) {
     const { isConnected, error } = useSse(
-      `${import.meta.env.VITE_API_BASE_URL}/sse/subscribe`,
+      `/api/sse/subscribe`,
       eventHandlers,
       token
     );

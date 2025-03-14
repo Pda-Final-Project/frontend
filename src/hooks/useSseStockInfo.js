@@ -22,9 +22,6 @@ export function useStockSse(setStocks) {
     },
   };
 
-  const { isConnected, error } = useSse(
-    `${import.meta.env.VITE_API_BASE_URL}/stocks/stream`,
-    eventHandlers
-  );
+  const { isConnected, error } = useSse(`/api/stocks/stream`, eventHandlers);
   return { isConnected, error };
 }

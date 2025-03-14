@@ -15,7 +15,7 @@ const register = (userData) =>
 const logout = (setIsLogin) => {
   sessionStorage.removeItem("accessToken");
   setIsLogin(false);
-  toast("😀 로그아웃에 성공했습니다!", {
+  toast.info("😀 로그아웃에 성공했습니다!", {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -23,7 +23,11 @@ const logout = (setIsLogin) => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "light",
+    theme: "colored",
+    style: {
+      backgroundColor: "#54b0fe", // 원하는 배경색 (예: 초록색)
+      color: "#333d4b", // 텍스트 색상
+    },
   });
 };
 

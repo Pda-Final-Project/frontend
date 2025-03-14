@@ -24,7 +24,7 @@ export default function useSsePrice(setPrices, ticker) {
   };
 
   const { isConnected, error } = useSse(
-    `${import.meta.env.VITE_API_BASE_URL}/trades/stream?symbol=${ticker}`,
+    `/api/trades/stream?symbol=${ticker}`,
     eventHandlers
   );
 
