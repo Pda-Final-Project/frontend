@@ -76,7 +76,7 @@ export default function Index() {
           onClick={() => navigate("../")}
         />
         <img
-          src="../../../public/images/login.jpg"
+          src="/images/login.jpg"
           className="h-auto w-lg absolute left-0 bottom-0"
         />
       </div>
