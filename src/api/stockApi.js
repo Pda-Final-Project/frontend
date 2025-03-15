@@ -21,7 +21,7 @@ const fetchHoldingStocks = (ticker) =>
 
 //특정 종목에 대한 사용가능 주수 조회
 const fetchAvailQuantityByStock = (ticker) =>
-  api.get(`/holdingStocks/available-stocks/${ticker}`, {
+  api.get(`holdingStocks/available-stocks/${ticker}`, {
     isAuthRequired: true,
     skipInterceptor: true,
   });

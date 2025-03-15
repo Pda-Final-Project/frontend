@@ -40,12 +40,19 @@ export default function DisclosureList({ ticker = "" }) {
     );
     try {
       const response = await fetchFillings(filteredParams);
+      if (response.status == 404) {
+        setFillings([]);
+        setTotalPages(1);
+        return;
+      }
       if (response.data.status === "FOUND") {
         setFillings(response.data.data.content);
         setTotalPages(response.data.data.totalPages);
       }
     } catch (error) {
       console.error(error);
+      setFillings([]);
+      setTotalPages(1);
     }
   };
 
