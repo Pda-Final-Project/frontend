@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchStocks } from "../../../api/stockApi";
+import { useStockSse } from "../../../hooks/useSseStockInfo";
 
 export default function StocksSortedByRate() {
   const navigate = useNavigate();
   const [stocks, setStocks] = useState([]);
+  const { isConnected, error } = useStockSse(setStocks);
 
   useEffect(() => {
     const tryFetchStocks = async () => {

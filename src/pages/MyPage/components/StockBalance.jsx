@@ -97,8 +97,13 @@ export default function StockBalance() {
               {parseInt(balanceData.evaluationAmount).toLocaleString()}
               {currency == "KRW" ? " 원" : " $"}
             </p>
-            <p className={`text-sm ${getColorClass(balanceData.profitChange)}`}>
-              ▲ {parseInt(balanceData.profitChange).toLocaleString()}
+            <p
+              className={`text-sm ${getColorClass(
+                parseInt(balanceData.profitChange)
+              )}`}
+            >
+              {parseInt(balanceData.profitChange) >= 0 ? "▲" : "▼"}
+              {parseInt(balanceData.profitChange).toLocaleString()}
               {currency == "KRW" ? "원" : "$"} (
               {balanceData.returnRate.toFixed(2)}%)
             </p>

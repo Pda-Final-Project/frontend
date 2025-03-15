@@ -85,11 +85,9 @@ export default function MainPage() {
             <div className="text-sm">
               <span
                 className={
-                  currentStock.change_rate?.toString().startsWith("+")
-                    ? "text-red-md"
-                    : currentStock.change_rate?.toString().startsWith("-")
+                  currentStock.change_rate?.toString().startsWith("-")
                     ? "text-blue-dark"
-                    : ""
+                    : "text-red-md"
                 }
               >
                 {currentStock.change_rate}%
