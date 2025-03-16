@@ -60,8 +60,6 @@ export default function WeatherGraph10Q({
         const parsedData =
           typeof rawData === "string" ? JSON.parse(rawData) : rawData;
 
-        console.log("Raw Data:", parsedData);
-
         // 모든 분기를 추출 (데이터에 포함된 모든 endDate를 기준으로)
         const allQuarters = new Set();
         Object.values(parsedData).forEach((data) =>
@@ -106,6 +104,24 @@ export default function WeatherGraph10Q({
   useEffect(() => {
     fetchFilling10q();
   }, []);
+
+  useEffect(() => {
+    if (chartData.length > 0) {
+      // 모든 데이터에서 'name'을 제외한 분기 키 추출
+      const allQuarters = new Set(
+        chartData.flatMap((item) =>
+          Object.keys(item).filter((key) => key !== "name")
+        )
+      );
+
+      // 가장 최신(최근) 분기 찾기 (예: "2025-Q1")
+      const latestQuarter = [...allQuarters].sort().reverse()[0];
+
+      if (latestQuarter) {
+        setSelectedFilling(latestQuarter);
+      }
+    }
+  }, [chartData]);
 
   return (
     <div className="relative w-full h-full">

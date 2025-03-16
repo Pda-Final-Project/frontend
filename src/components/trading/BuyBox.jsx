@@ -10,7 +10,7 @@ const percents = [
 
 export default function BuyBox({ withHolding, orderStock }) {
   const [buyQuantity, setBuyQuantity] = useState();
-  const [buyPrice, setBuyPrice] = useState(0);
+  const [buyPrice, setBuyPrice] = useState();
   const [maxQuantity, setMaxQuantity] = useState(0);
 
   //지정가에 대해 구매 가능한 최대 주수

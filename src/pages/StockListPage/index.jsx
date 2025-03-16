@@ -150,7 +150,7 @@ export default function StockListPage() {
         </div>
         {/* 페이지네이션 */}
         <div className="flex justify-center mt-4">
-          {[1, 2, 3].map((page) => (
+          {[1, 2].map((page) => (
             <button
               key={page}
               className={`mx-1 px-3 py-1 rounded-[150px] ${
