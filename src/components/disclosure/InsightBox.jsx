@@ -62,14 +62,15 @@ export default function InsightBox({ filling10qJsonUrl, ticker }) {
         해당 분기 실적을 전년 동기와 비교하고, 분기를 클릭하여 해당 분기의 주가
         차트를 확인하세요
       </div>
-      <div className="flex ">
-        <div className={`${selectedFilling ? "w-3/5" : ""} w-full h-[300px]`}>
+      <div className="flex flex-col">
+        <div className={`w-full h-[300px]`}>
           <WeatherGraph10Q
             setSelectedFilling={setSelectedFilling}
             filling10qJsonUrl={filling10qJsonUrl}
           />
         </div>
-        <div className={`${selectedFilling ? "w-2/5" : ""} w-0 h-[300px]`}>
+        <div className={`w-full h-full`}>
+          <div className="text-[16px]">{selectedFilling} 주가 차트</div>
           <ChartMini chartData={chartData} />
         </div>
       </div>

@@ -16,10 +16,14 @@ function formatDate(dateStr) {
     const s = dateStr.slice(4, 6);
     return `${h}:${m}:${s}`;
   }
-  if (dateStr.includes(" ")) {
-    // "YYYY-MM-DD HH:MM:SS" 형식 (예: "2025-03-15 15:08:02") → "15:08:02"
-    const parts = dateStr.split(" ");
-    if (parts.length === 2) return parts[1]; // 시간 부분만 반환
+  if (dateStr && dateStr.length === 14) {
+    const year = dateStr.slice(0, 4);
+    const month = dateStr.slice(4, 6);
+    const day = dateStr.slice(6, 8);
+    const h = dateStr.slice(8, 10);
+    const m = dateStr.slice(10, 12);
+    const s = dateStr.slice(12, 14);
+    return `${year}-${month}-${day} ${h}:${m}:${s}`;
   }
   return dateStr;
 }
