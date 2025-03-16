@@ -143,7 +143,7 @@ const Header = () => {
                             : "text-blue-dark"
                         }`}
                       >
-                        {stock.change_rate}
+                        {stock.change_rate}%
                       </span>
                     </div>
                   </div>
