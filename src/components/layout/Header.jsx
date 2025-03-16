@@ -176,7 +176,7 @@ const Header = () => {
           <button
             className="button-style"
             onClick={() => {
-              logout(setIsLogin, navigate);
+              logout(setIsLogin);
             }}
           >
             로그아웃

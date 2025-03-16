@@ -4,7 +4,6 @@ import News from "./components/News";
 import Stocks from "./components/Stocks";
 
 export default function Index() {
-  const [showModal, setShowModal] = useState(false);
   const [visibleSections, setVisibleSections] = useState({
     disclosures: false,
     news: false,

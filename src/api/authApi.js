@@ -12,7 +12,7 @@ const register = (userData) =>
     isAuthRequired: false,
   });
 
-const logout = (setIsLogin, navigate) => {
+const logout = (setIsLogin) => {
   sessionStorage.removeItem("accessToken");
   setIsLogin(false);
 
@@ -32,7 +32,7 @@ const logout = (setIsLogin, navigate) => {
       fontSize: "14px", // 글자 크기
     },
   });
-  navigate("/");
+  window.location.href = "/";
 };
 
 const checkAccountPassword = (pin) =>
