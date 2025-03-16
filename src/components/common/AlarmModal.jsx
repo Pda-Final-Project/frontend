@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { fetchAlarm } from "../../api/alarmApi";
+import { timeAgo } from "../../utils/timeAgo";
 
 const AlarmModal = ({ onClose }) => {
-  const [alarms, setAlarms] = useState();
+  const [alarms, setAlarms] = useState([]);
 
   const tryFetchAlarm = async () => {
     try {
       const response = await fetchAlarm();
-
       const parsedAlarms = response.data.map((alarm) => ({
-        ...JSON.parse(alarm.data),
+        title: alarm.data.event.title,
+        stockTicker: alarm.data.event.stockTicker,
+        orderQuantity: alarm.data.event.orderQuantity,
+        tradeQuantity: alarm.data.event.tradeQuantity,
+        tradePrice: alarm.data.event.tradePrice,
+        timestamp: alarm.data.timestamp, // 밀리초 단위의 시간 정보 유지
       }));
+      //최신 순 정렬
+      parsedAlarms.sort((a, b) => b.timestamp - a.timestamp);
       setAlarms(parsedAlarms);
     } catch (error) {
       console.error(error.message);
@@ -20,10 +27,6 @@ const AlarmModal = ({ onClose }) => {
   useEffect(() => {
     tryFetchAlarm();
   }, []);
-
-  useEffect(() => {
-    console.log(alarms);
-  }, [alarms]);
   return (
     <div className="absolute top-12 right-0 m-4 w-96 bg-white shadow-lg rounded-lg p-3 z-100">
       {/* 알람 모달 헤더 */}
@@ -47,7 +50,10 @@ const AlarmModal = ({ onClose }) => {
               key={index}
               className="bg-blue-50 p-4 rounded-lg flex flex-col"
             >
-              <p className="font-bold mb-2">{alarm.title}</p>
+              <div className="flex justify-between">
+                <p className="font-bold mb-2">{alarm.title}</p>
+                <div className="text-gray-dark">{timeAgo(alarm.timestamp)}</div>
+              </div>
 
               <div className="grid grid-cols-2">
                 <p>

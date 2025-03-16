@@ -6,9 +6,9 @@ import { useParams } from "react-router-dom";
 function DisclosureTab({ ticker }) {
   const { filling_id } = useParams();
   return (
-    <div className="bg-white p-4 h-full">
+    <div className="bg-white h-full">
       {filling_id == "all" ? (
-        <div className="mt-4">
+        <div className="mt-4 p-4">
           <DisclosureList ticker={ticker} />
         </div>
       ) : (

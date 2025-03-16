@@ -173,7 +173,12 @@ const Header = () => {
           <FaRegBell className="text-blue-md text-2xl mx-3 cursor-pointer hover:text-blue-light duration-300" />
         </button>
         {isLogin ? (
-          <button className="button-style" onClick={() => logout(setIsLogin)}>
+          <button
+            className="button-style"
+            onClick={() => {
+              logout(setIsLogin, navigate);
+            }}
+          >
             로그아웃
           </button>
         ) : (

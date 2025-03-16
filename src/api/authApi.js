@@ -1,5 +1,4 @@
 //로그인, 회원가입
-import { Weight } from "lucide-react";
 import api from "./axiosInstance";
 import { toast } from "react-toastify";
 
@@ -13,9 +12,10 @@ const register = (userData) =>
     isAuthRequired: false,
   });
 
-const logout = (setIsLogin) => {
+const logout = (setIsLogin, navigate) => {
   sessionStorage.removeItem("accessToken");
   setIsLogin(false);
+
   toast.info("😀 로그아웃에 성공했습니다!", {
     position: "top-right",
     autoClose: 5000,
@@ -32,6 +32,7 @@ const logout = (setIsLogin) => {
       fontSize: "14px", // 글자 크기
     },
   });
+  navigate("/");
 };
 
 const checkAccountPassword = (pin) =>

@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 function TradingTab({ ticker, extend }) {
   const [availBalance, setAvailBalance] = useState(0);
-  const [availQuantity, setAvailQuantity] = useState(50);
+  const [availQuantity, setAvailQuantity] = useState(0);
 
   useEffect(() => {
     tryFetchAvailBalance();

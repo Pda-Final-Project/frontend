@@ -12,7 +12,7 @@ const ChartMini = ({ chartData }) => {
       <div className="container">
         <IgrFinancialChart
           width="100%"
-          height="260px"
+          height="300px"
           isToolbarVisible={false}
           chartType="Candle" // 캔들 차트
           zoomSliderType="None"

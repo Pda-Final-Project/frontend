@@ -94,12 +94,10 @@ export default function InterestStockTab() {
                   <div
                     className={`${
                       stock.change_rate
-                        ? stock.change_rate.startsWith("+")
-                          ? "text-red-md"
-                          : stock.change_rate.startsWith("-")
+                        ? String(stock.change_rate).startsWith("-")
                           ? "text-blue-dark"
-                          : "text-black"
-                        : ""
+                          : "text-red-md"
+                        : "text-black"
                     }`}
                   >
                     {stock.change_rate}
