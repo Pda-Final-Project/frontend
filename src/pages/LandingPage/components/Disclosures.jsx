@@ -1,58 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiPlusCircle } from "react-icons/hi";
 import { fetchFillings } from "../../../api/disclosureApi";
 
 export default function Disclosures() {
   const navigate = useNavigate();
-  const [fillings, setFillings] = useState([]); // 초기값을 더미 데이터로 설정
+  const [fillings, setFillings] = useState([]);
 
   useEffect(() => {
     tryFetchFillings();
-  }, []); // 컴포넌트가 마운트될 때 한 번만 실행
+  }, []);
 
   const tryFetchFillings = async () => {
     try {
       const response = await fetchFillings();
-
-      if (response.data.status === "FOUND") {
-        const fetchedData = response.data.data.content;
-        setFillings(fetchedData);
+      if (
+        response.data.status === "FOUND" &&
+        Array.isArray(response.data.data.content)
+      ) {
+        setFillings(response.data.data.content);
+      } else {
+        setFillings([]);
       }
     } catch (error) {
       console.error(error.message);
+      setFillings([]);
     }
   };
+
+  // 🔹 `useMemo`로 항상 배열을 유지하여 undefined 방지
+  const safeFillings = useMemo(
+    () => (Array.isArray(fillings) ? fillings : []),
+    [fillings]
+  );
 
   return (
     <div className="w-full">
       {/* 제목 클릭 시 disclosures 페이지 이동 */}
       <div className="flex mb-4 items-end">
-        <h1 className="text-[18px] font-bold mr-2 ">
+        <h1 className="text-[18px] font-bold mr-2">
           실시간 <span className="text-blue-md">NEW</span> 해외 공시
         </h1>
         <span
           className="text-blue-md text-center font-semibold hover:underline cursor-pointer"
           onClick={() => navigate("/disclosures")}
         >
-          {" "}
           더 많은 공시 보러가기
         </span>
       </div>
+
       <div className="w-full relative">
         {/* 오른쪽 끝에 고정된 그림자 추가 */}
         <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-[rgba(255,255,255,0.8)] to-transparent pointer-events-none z-10"></div>
+
         <div className="w-full overflow-x-scroll relative no-scrollbar">
           <div className="flex space-x-4 rounded-lg max-w-xl whitespace-nowrap shadow-lg">
-            {/* fillings 배열이 제대로 있는지 확인하고, 없다면 로딩 중 표시 */}
-            {Array.isArray(fillings) && fillings.length > 0 ? (
-              fillings?.map((item, index) => (
+            {/* fillings 배열이 정상적으로 로딩되었는지 확인 후 렌더링 */}
+            {safeFillings.length > 0 ? (
+              safeFillings.map((item, index) => (
                 <div
                   key={index}
                   className="bg-gray-50 p-4 rounded-lg shadow-light transition-all flex flex-col cursor-pointer hover:bg-gray-200 duration-300 min-w-60"
                   onClick={() =>
                     navigate(`/main/${item.fillingTicker}/${item.fillingId}`)
-                  } // 종목코드(티커) 클릭 시 이동
+                  }
                 >
                   {/* 제목 */}
                   <p className="font-bold text-lg sm:text-[16px]">

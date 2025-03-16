@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { timeAgo } from "../../../utils/timeAgo";
 import { news } from "../../../api/othersApi";
 import { HiPlusCircle } from "react-icons/hi";
@@ -13,21 +13,29 @@ export default function News() {
       try {
         const response = await news(); // API 호출
 
-        // 응답이 정상적인지 확인 후 상태 업데이트
-        if (response && response.data && Array.isArray(response.data.data)) {
-          setNewsData(response.data.data); // API 응답에서 'data' 배열을 저장
+        if (response?.data?.data && Array.isArray(response.data.data)) {
+          setNewsData(response.data.data);
         } else {
           console.error("잘못된 응답 구조:", response);
-          setNewsData([]); // 에러 방지를 위해 빈 배열로 설정
+          setNewsData([]); // 빈 배열로 초기화하여 에러 방지
         }
       } catch (error) {
         console.error("뉴스 데이터를 가져오는 중 오류 발생:", error);
-        setNewsData([]);
+        setNewsData([]); // 네트워크 오류 시 빈 배열 유지
       }
     };
 
     fetchNews();
   }, []);
+
+  // 🔹 `useMemo`로 안전한 데이터 변환 (undefined 방지)
+  const safeNewsData = useMemo(
+    () => (Array.isArray(newsData) ? newsData : []),
+    [newsData]
+  );
+
+  // 🔹 `useMemo`로 상위 10개 뉴스만 필터링
+  const topNews = useMemo(() => safeNewsData.slice(0, 10), [safeNewsData]);
 
   return (
     <div className="w-full">
@@ -43,8 +51,9 @@ export default function News() {
           해외 증시 속보 보러가기
         </a>
       </div>
-      {/* 데이터가 로딩되지 않았을 경우 표시 */}
-      {Array.isArray(newsData) && newsData.length === 0 ? (
+
+      {/* 데이터 로딩 또는 없는 경우 */}
+      {safeNewsData.length === 0 ? (
         <p className="text-gray-500 text-center">
           뉴스 데이터를 불러오는 중...
         </p>
@@ -55,14 +64,14 @@ export default function News() {
           <div className="overflow-auto no-scrollbar">
             {/* 가로 스크롤 적용 */}
             <div className="flex space-x-4 rounded-lg max-w-xl">
-              {newsData.slice(0, 10).map((article, index) => (
+              {topNews.map((article, index) => (
                 <a
                   key={index}
                   href={article.news_url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="overflow-x-hidden rounded-lg  w-72 flex flex-col duration-300 h-60">
+                  <div className="overflow-x-hidden rounded-lg w-72 flex flex-col duration-300 h-60">
                     {/* 뉴스 이미지 */}
                     <img
                       src={article.news_img.replace(/S\.jpg$/, "L.jpg")}
@@ -72,10 +81,11 @@ export default function News() {
 
                     {/* 뉴스 제목 */}
                     <h2 className="mt-2 font-semibold text-sm px-2">
-                      {article?.news_title && article.news_title.length > 53
-                        ? article.news_title.slice(0, 53) + "..."
+                      {article?.news_title?.length > 53
+                        ? `${article.news_title.slice(0, 53)}...`
                         : article.news_title}
                     </h2>
+
                     {/* 출처 및 시간 ("00분 전" 표시) */}
                     <p className="text-md text-gray-600 px-2 py-1">
                       {article.news_company} • {timeAgo(article.news_date)}

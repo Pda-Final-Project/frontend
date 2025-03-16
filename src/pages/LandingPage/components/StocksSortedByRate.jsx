@@ -14,9 +14,12 @@ export default function StocksSortedByRate() {
         const response = await fetchStocks("rate");
         if (response.data.status == "OK") {
           setStocks(response.data.data);
+        } else {
+          setStocks([]);
         }
       } catch (error) {
         console.error("주식 리스트 조회 중 오류 발생:", error);
+        setStocks([]);
       }
     };
     tryFetchStocks();
