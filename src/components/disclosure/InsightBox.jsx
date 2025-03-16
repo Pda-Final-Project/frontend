@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import WeatherGraph10Q from "./WeatherGraph10Q";
 import ChartMini from "./ChartMini";
-import WeatherGraph8K from "./WeatherGraph8K";
 import { fetchChart } from "../../api/stockApi";
 
 export default function InsightBox({ filling10qJsonUrl, ticker }) {
   // useState는 배열 비구조화로 받아야 합니다.
   const [selectedFilling, setSelectedFilling] = useState();
   const [chartData, setChartData] = useState();
+  const [hasData, setHasData] = useState(true);
 
   const getQuarterDateRange = (quarterLabel) => {
     const [year, quarter] = quarterLabel.split("-Q");
@@ -56,6 +56,9 @@ export default function InsightBox({ filling10qJsonUrl, ticker }) {
     }
   }, [selectedFilling]); // selectedFilling이 변경될 때 실행
 
+  if (!hasData) {
+    return null;
+  }
   return (
     <div className="w-full flex flex-col bg-white p-8 rounded-lg min-h-[400px]">
       <div className="font-semibold text-[18px] mb-8 w-full ">
