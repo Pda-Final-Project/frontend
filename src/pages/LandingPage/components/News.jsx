@@ -44,7 +44,7 @@ export default function News() {
         </a>
       </div>
       {/* 데이터가 로딩되지 않았을 경우 표시 */}
-      {newsData.length === 0 ? (
+      {newsData?.length === 0 ? (
         <p className="text-gray-500 text-center">
           뉴스 데이터를 불러오는 중...
         </p>
@@ -72,7 +72,7 @@ export default function News() {
 
                     {/* 뉴스 제목 */}
                     <h2 className="mt-2 font-semibold text-sm px-2">
-                      {article.news_title && article.news_title.length > 53
+                      {article.news_title && article.news_title?.length > 53
                         ? article.news_title.slice(0, 53) + "..."
                         : article.news_title}
                     </h2>

@@ -45,7 +45,7 @@ export default function Disclosures() {
         <div className="w-full overflow-x-scroll relative no-scrollbar">
           <div className="flex space-x-4 rounded-lg max-w-xl whitespace-nowrap shadow-lg">
             {/* fillings 배열이 제대로 있는지 확인하고, 없다면 로딩 중 표시 */}
-            {Array.isArray(fillings) && fillings.length > 0 ? (
+            {Array.isArray(fillings) && fillings?.length > 0 ? (
               fillings?.map((item, index) => (
                 <div
                   key={index}
