@@ -89,11 +89,7 @@ export default function TradeDetails() {
                 </div>
                 <div className="flex justify-between">
                   <p className="font-semibold">매도 금액</p>
-                  <p
-                    className={`text-right ${getColorClass(
-                      tradeProfitInfo?.sellAmount
-                    )}`}
-                  >
+                  <p className={`text-right text-black`}>
                     {formatCurrency(tradeProfitInfo?.sellAmount.toFixed())}
                     <span>원</span>
                   </p>

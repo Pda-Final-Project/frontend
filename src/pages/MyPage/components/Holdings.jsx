@@ -86,8 +86,12 @@ export default function Holdings() {
                   </p>
                 </div>
                 <div className="text-right flex flex-col gap-1">
-                  <p className="font-bold text-[16px]">
-                    {formatCurrency(stock.buyAmount)} 원
+                  <p
+                    className={`font-bold text-[16px]  ${
+                      stock.returnRate < 0 ? "text-blue-dark" : "text-red-md"
+                    }`}
+                  >
+                    <span>{formatCurrency(stock.profitChange)}원</span>
                   </p>
                   <div
                     className={`text-sm flex gap-1 ${
@@ -95,8 +99,7 @@ export default function Holdings() {
                     }`}
                   >
                     <span>{stock.returnRate >= 0 ? "▲" : "▼"}</span>
-                    <span>{formatCurrency(stock.profitChange)}원</span>
-                    <span>({stock.returnRate.toFixed(2)}%)</span>
+                    <span>{stock.returnRate.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>
