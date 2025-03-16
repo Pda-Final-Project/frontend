@@ -43,7 +43,7 @@ export default function useSse(url, eventHandlers = {}, token = "") {
       setTimeout(() => {
         console.log("🔄 SSE 재연결 중...");
         connectSSE();
-      }, 500);
+      }, 5000);
     };
 
     Object.entries(eventHandlers).forEach(([eventName, callback]) => {

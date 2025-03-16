@@ -1,4 +1,5 @@
 import useSse from "./useSse";
+import api from "../api/axiosInstance";
 
 export default function useSsePrice(setPrices, ticker) {
   // SSE 이벤트 핸들러 정의
@@ -24,7 +25,7 @@ export default function useSsePrice(setPrices, ticker) {
   };
 
   const { isConnected, error } = useSse(
-    `/api/trades/stream?symbol=${ticker}`,
+    import.meta.env.VITE_API_BASE_URL + `trades/stream?symbol=${ticker}`,
     eventHandlers
   );
 

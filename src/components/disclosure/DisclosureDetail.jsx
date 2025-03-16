@@ -98,7 +98,7 @@ export default function DisclosureDetail() {
         <div
           className="flex gap-2 duration-300 items-center bg-blue-md text-white py-2 px-4 rounded-lg hover:bg-blue-light hover:text-black cursor-pointer"
           onClick={() => {
-            window.open(filling.fillingTranslatedContentUrl, "_self");
+            window.open(`${import.meta.env.VITE_FILL_TRANSLATE}${filling_id}.html`, "_self");
           }}
         >
           <MdGTranslate />
