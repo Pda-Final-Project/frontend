@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, // 빈 문자열로 설정, 프록시 설정 사용
-  timeout: 5000,
+  timeout: 10000,
   headers: { "Content-Type": "application/json" },
 });
 

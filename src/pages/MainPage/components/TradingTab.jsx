@@ -15,7 +15,6 @@ function TradingTab({ ticker, extend }) {
   useEffect(() => {
     tryFetchAvailBalance();
     tryFetchAvailQuantity();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const tryFetchAvailBalance = async () => {
