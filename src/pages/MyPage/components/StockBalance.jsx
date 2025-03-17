@@ -89,11 +89,7 @@ export default function StockBalance() {
         <div className="bg-gray-light p-4 rounded-lg flex justify-between h-[112px]">
           <div>
             <p className="text-lg font-bold">평가금액</p>
-            <p
-              className={`text-2xl font-bold ${getColorClass(
-                balanceData.evaluationAmount
-              )}`}
-            >
+            <p className={`text-2xl font-bold text-black`}>
               {parseInt(balanceData.evaluationAmount).toLocaleString()}
               {currency == "KRW" ? " 원" : " $"}
             </p>
