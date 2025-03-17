@@ -67,9 +67,9 @@ export default function Disclosures() {
                 >
                   {/* 제목 */}
                   <p className="font-bold text-lg sm:text-[16px]">
-                    {item.fillingTitle.trim() === ""
+                    {item?.fillingTitle?.trim() === ""
                       ? "예비 증권 거래 신고서"
-                      : item.fillingTitle}
+                      : item?.fillingTitle || "예비 증권 거래 신고서"}
                   </p>
 
                   {/* 공시 ID */}
