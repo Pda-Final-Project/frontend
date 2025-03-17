@@ -62,14 +62,15 @@ export default function WeatherGraph10Q({
           typeof rawData === "string" ? JSON.parse(rawData) : rawData;
 
         // 모든 데이터가 빈 배열이면 렌더링하지 않음
-        const hasValidData = Object.values(parsedData).some(
-          (data) => Array.isArray(data) && data.length > 0
-        );
-        setHasData(hasValidData); // 상위 컴포넌트에 데이터 존재 여부 전달
+        const hasValidData =
+          Object.keys(parsedData).length > 0 && // 빈 객체인지 확인
+          Object.values(parsedData).some(
+            (data) => Array.isArray(data) && data.length > 0
+          );
 
+        setHasData(hasValidData); // 데이터 유무를 상위 컴포넌트에 전달
         if (!hasValidData) return; // 데이터가 없으면 실행 중단
 
-        // 모든 분기를 추출 (데이터에 포함된 모든 endDate를 기준으로)
         const allQuarters = new Set();
         Object.values(parsedData).forEach((data) =>
           data.forEach((item) =>
@@ -77,7 +78,6 @@ export default function WeatherGraph10Q({
           )
         );
 
-        // 모든 데이터 키에 대해 데이터를 0으로 초기화한 후, 값이 있는 경우 채우기
         const formattedData = Object.keys(LABEL_MAP).map((key) => {
           const dataMap =
             parsedData[key]?.reduce((acc, item) => {

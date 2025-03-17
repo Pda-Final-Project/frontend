@@ -70,6 +70,7 @@ export default function InsightBox({ filling10qJsonUrl, ticker }) {
           <WeatherGraph10Q
             setSelectedFilling={setSelectedFilling}
             filling10qJsonUrl={filling10qJsonUrl}
+            setHasData={setHasData}
           />
         </div>
         <div className={`w-full h-full`}>
