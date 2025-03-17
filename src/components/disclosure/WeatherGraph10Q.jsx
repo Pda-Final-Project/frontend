@@ -178,8 +178,8 @@ export default function WeatherGraph10Q({
               .filter((key) => key !== "name")
               .sort();
             if (keys.length < 2) return null;
-            const prevQuarter = keys[0];
-            const currQuarter = keys[1];
+            const prevQuarter = keys[keys.length - 2];
+            const currQuarter = keys[keys.length - 1];
             const prevValue = Number(d[prevQuarter]);
             const currValue = Number(d[currQuarter]);
             const isIncrease = currValue > prevValue;
@@ -213,8 +213,8 @@ export default function WeatherGraph10Q({
           .filter((key) => key !== "name")
           .sort();
         if (keys.length < 2) return null;
-        const prevQuarter = keys[0];
-        const currQuarter = keys[1];
+        const prevQuarter = keys[keys.length - 2];
+        const currQuarter = keys[keys.length - 1];
         const prevValue = Number(d[prevQuarter]);
         const currValue = Number(d[currQuarter]);
         const isIncrease = currValue > prevValue;
