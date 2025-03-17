@@ -59,7 +59,9 @@ export default function DisclosureDetail() {
                 navigate(-1);
               }}
             />
-            {filling.fillingTitle}
+            {filling.fillingTitle.trim() === ""
+              ? "예비 증권 거래 신고서"
+              : filling.fillingTitle}
           </div>
           <div className="flex items-center gap-8 text-sm">
             <div>공시 분류: {filling.fillingType}</div>

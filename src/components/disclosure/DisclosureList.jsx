@@ -221,7 +221,11 @@ export default function DisclosureList({ ticker = "" }) {
                   >
                     <td className="p-3">{report.fillingType}</td>
                     <td className="p-3">{report.fillingTicker}</td>
-                    <td className="p-3">{report.fillingTitle}</td>
+                    <td className="p-3">
+                      {report.fillingTitle.trim() === ""
+                        ? "예비 증권 거래 신고서"
+                        : report.fillingTitle}
+                    </td>
                     <td className="p-3">
                       {
                         new Date(report.submitTimestamp)
