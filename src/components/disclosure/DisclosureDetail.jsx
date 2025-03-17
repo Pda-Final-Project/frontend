@@ -59,7 +59,7 @@ export default function DisclosureDetail() {
                 navigate(-1);
               }}
             />
-            {filling.fillingTitle.trim() === ""
+            {filling?.fillingTitle?.trim() === ""
               ? "예비 증권 거래 신고서"
               : filling.fillingTitle}
           </div>
